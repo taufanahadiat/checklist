@@ -1,0 +1,149 @@
+    header{
+        border-bottom: 2px solid whitesmoke;
+    }
+
+    h1{
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 50px;
+        font-weight: 700;
+        -webkit-text-stroke-width: 1px;
+        -webkit-text-stroke-color: white;
+        color: #0a223f;
+        text-align: center;
+    }
+    h2{
+        text-align: center;
+    }
+    body{
+        background-color: #a1bdd8;
+    }
+    table{
+        display: inline-table;
+        outline: 2px solid grey;
+        border-radius: 5px;
+        margin-top: 15px;
+    }
+    table, th, td {
+        border-collapse:collapse;
+        border: 1px solid black;
+        padding: 5px;
+        /*width: 70%;*/
+    }
+
+ 
+    .measure {
+        background-color: #446494;
+        width: 200px;
+    }
+
+    .parameter{
+        background-color: #314765;
+    }
+
+   
+    tbody tr:nth-child(even) {
+        background-color: #ffffff;
+    }
+    tbody tr:nth-child(odd) {
+        background-color: #ffffffb5;
+    }
+
+
+    tbody th {
+        background-color: #3e5a76;
+        color: #fff;
+        height: 20px;
+      }
+
+    
+    thead{
+        background-color: #333;
+        color: white;
+        height: 40px;
+    }
+    td {
+        width: 50px;
+    }
+
+    .custom-label {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-weight:500 ;
+        display: block;
+        text-align: center;
+        font-size: 1.2em;
+    }   
+
+    .selection {
+        appearance: none;
+        display: inline-block;
+        text-align: center;
+        -webkit-appearance: none;
+        min-width: 120px;
+        max-width: 170px;
+        font-size: 1em;
+        padding: 2px 5px;
+        background-color: #fff;
+        border: 1px solid #caced1;
+        border-radius: 0.25rem;
+        color: #000;
+        cursor: pointer;
+      }
+      
+      .btn{
+        background-color: #314765;
+        color:white;
+        text-align: center;
+        text-decoration: none;
+        display: block;
+        font-size: 13px;
+        font-weight:500;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 5px;
+        cursor: pointer;
+        padding: 8px 10px;
+        border-radius: 2px;
+    }
+
+    .back {
+        background-color: #2b78e3;
+        color:white;
+        text-align: center;
+        text-decoration: none;
+        display: inline;
+        font-size: 13px;
+        font-weight:500;
+        cursor: pointer;
+        padding: 8px 10px;
+        border-radius: 2px;
+        float:top;
+        margin-bottom: 5px;
+    }
+    
+        .input-container {
+        border: none;
+        box-sizing: border-box;
+        outline: 0;
+        position: relative;
+        font-size: 1em;
+        padding: 2px 5px;
+        min-width: 120px;
+        max-width: 170px;
+        height: 29px;
+        border: 1px solid #caced1;
+        border-radius: 0.25rem;
+        }
+        
+        input[type="date"]::-webkit-calendar-picker-indicator {
+        background:transparent;
+        bottom: 0;
+        color: transparent;
+        cursor: pointer;
+        height: auto;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: auto;
+        }
+
