@@ -35,8 +35,15 @@ $result_tanggal = $conn->query("SELECT tanggal FROM genset_wartsila_01")
 <body>
 
 <header>
-    <h1>ONLINE CHECKLIST</h1>
-    <button class="back" type="button">BACK</button>
+    <img id="logo" src="css/logo.png" alt="Logo Argha"><br>
+    <img id="exit" src="css/exit.png" alt="Exit"><br>
+    <h1 style="text-align: center";>ONLINE CHECKLIST</h1>
+
+    <script>
+        document.getElementById("exit").onclick=function (){
+            location.href = 'selection.php'
+        }
+    </script>
 </header>
 
     <?php if($unit=="genset_wartsila_01"):

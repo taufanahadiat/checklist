@@ -1,0 +1,4209 @@
+<!DOCTYPE html>
+<!-- saved from url=(0075)https://forums.digitalpoint.com/threads/conditional-form-action-how.222457/ -->
+<html id="XenForo" lang="en-US" dir="LTR" class="Public LoggedOut NoSidebar  Responsive hasJs NoTouch HasDragDrop" xmlns:fb="http://www.facebook.com/2008/fbml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	
+		<!--<base href="https://forums.digitalpoint.com/">--><base href=".">
+		<script src="./Conditional form action...how__files/f.txt"></script><script type="text/javascript" async="" src="./Conditional form action...how__files/js"></script><script src="./Conditional form action...how__files/f(1).txt"></script><script src="./Conditional form action...how__files/sdk.js.download" async="" crossorigin="anonymous"></script><script async="" src="./Conditional form action...how__files/analytics.js.download"></script><script>
+			var _b = document.getElementsByTagName('base')[0], _bH = "https://forums.digitalpoint.com/";
+			if (_b && _b.href != _bH) _b.href = _bH;
+		</script>
+	
+
+	<title>Conditional form action...how?</title>
+	
+	
+	<link rel="stylesheet" href="./Conditional form action...how__files/css.php">
+	<link rel="stylesheet" href="./Conditional form action...how__files/css(1).php">
+	
+	
+
+		<script src="./Conditional form action...how__files/jquery-1.11.0.min.js.download"></script>	
+		
+	
+<script src="./Conditional form action...how__files/xenforo.js.download"></script>
+
+<script>XenForo.node_name='PHP (37)';</script>
+	<script src="./Conditional form action...how__files/post_quality.js.download"></script>
+	<script src="./Conditional form action...how__files/prism.js.download"></script>
+
+
+	
+	<link rel="apple-touch-icon" href="https://x.dpstatic.com/misc/dps_logo2.png">
+	<link rel="alternate" type="application/rss+xml" title="RSS feed for Digital Point" href="https://forums.digitalpoint.com/forums/-/index.rss">
+	
+	
+	<link rel="canonical" href="https://forums.digitalpoint.com/threads/conditional-form-action-how.222457/">
+	<meta name="description" content="Hi to all,
+If I have a form such as:
+&lt;form id=&quot;form_items&quot; action=&quot;&quot; method=&quot;post&quot; enctype=&quot;multipart/form-data&quot;&gt;
+&lt;input type=&quot;submit&quot;...">
+	<meta property="og:site_name" content="Digital Point">
+	<meta property="og:image" name="twitter:image" content="https://forums.digitalpoint.com/styles/default/xenforo/avatars/avatar_m.png">
+	<meta property="og:image" content="https://x.dpstatic.com/misc/dps_logo2.png">
+	<meta property="og:type" content="article">
+	<meta property="og:url" content="https://forums.digitalpoint.com/threads/conditional-form-action-how.222457/">
+	<meta property="og:title" name="twitter:title" content="Conditional form action...how?">
+	<meta property="og:description" name="twitter:description" content="Hi to all,
+If I have a form such as:
+&lt;form id=&quot;form_items&quot; action=&quot;&quot; method=&quot;post&quot; enctype=&quot;multipart/form-data&quot;&gt;
+&lt;input type=&quot;submit&quot;...">
+	<meta property="article:author" content="https://www.digitalpoint.com/members/dwest.51893/"><meta property="article:section" content="PHP">
+	<meta property="fb:app_id" content="107355682633601">
+	
+<meta name="twitter:card" content="summary"><meta name="twitter:site" content="@digitalpoint"><link href="https://plus.google.com/104840899893903190792" rel="publisher">
+
+<script src="./Conditional form action...how__files/sdk(1).js.download" async=""></script><meta http-equiv="origin-trial" content="AlK2UR5SkAlj8jjdEc9p3F3xuFYlF6LYjAML3EOqw1g26eCwWPjdmecULvBH5MVPoqKYrOfPhYVL71xAXI1IBQoAAAB8eyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3NTgwNjcxOTksImlzU3ViZG9tYWluIjp0cnVlfQ=="><meta http-equiv="origin-trial" content="Amm8/NmvvQfhwCib6I7ZsmUxiSCfOxWxHayJwyU1r3gRIItzr7bNQid6O8ZYaE1GSQTa69WwhPC9flq/oYkRBwsAAACCeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3NTgwNjcxOTksImlzU3ViZG9tYWluIjp0cnVlfQ=="><meta http-equiv="origin-trial" content="A/ERL66fN363FkXxgDc6F1+ucRUkAhjEca9W3la6xaLnD2Y1lABsqmdaJmPNaUKPKVBRpyMKEhXYl7rSvrQw+AkAAACNeyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiRmxlZGdlQmlkZGluZ0FuZEF1Y3Rpb25TZXJ2ZXIiLCJleHBpcnkiOjE3MTkzNTk5OTksImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"><meta http-equiv="origin-trial" content="A6OdGH3fVf4eKRDbXb4thXA4InNqDJDRhZ8U533U/roYjp4Yau0T3YSuc63vmAs/8ga1cD0E3A7LEq6AXk1uXgsAAACTeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiRmxlZGdlQmlkZGluZ0FuZEF1Y3Rpb25TZXJ2ZXIiLCJleHBpcnkiOjE3MTkzNTk5OTksImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"><style type="text/css" data-fbcssmodules="css:fb.css.base css:fb.css.dialog css:fb.css.iframewidget css:fb.css.customer_chat_plugin_iframe">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_reposition{overflow:hidden;position:relative}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:'lucida grande', tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}@keyframes fb_transform{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}.fb_animate{animation:fb_transform .3s forwards}
+.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_reposition{overflow:hidden;position:relative}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:'lucida grande', tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}@keyframes fb_transform{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}.fb_animate{animation:fb_transform .3s forwards}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_dialog_advanced{border-radius:8px;padding:10px}.fb_dialog_content{background:#fff;color:#373737}.fb_dialog_close_icon{background:url(https://z-p3-static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{left:5px;right:auto;top:5px}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(https://z-p3-static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent}.fb_dialog_close_icon:active{background:url(https://z-p3-static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #365899;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(https://z-p3-static.xx.fbcdn.net/rsrc.php/v3/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{height:100%;left:0;margin:0;overflow:visible;position:absolute;top:-10000px;transform:none;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(https://z-p3-static.xx.fbcdn.net/rsrc.php/v3/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{background:none;height:auto;min-height:initial;min-width:initial;width:auto}.fb_dialog.fb_dialog_mobile.loading.centered #fb_dialog_loader_spinner{width:100%}.fb_dialog.fb_dialog_mobile.loading.centered .fb_dialog_content{background:none}.loading.centered #fb_dialog_loader_close{clear:both;color:#fff;display:block;font-size:18px;padding-top:20px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .4);bottom:0;left:0;min-height:100%;position:absolute;right:0;top:0;width:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_mobile .fb_dialog_iframe{position:sticky;top:0}.fb_dialog_content .dialog_header{background:linear-gradient(from(#738aba), to(#2c4987));border-bottom:1px solid;border-color:#043b87;box-shadow:white 0 1px 1px -1px inset;color:#fff;font:bold 14px Helvetica, sans-serif;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:linear-gradient(from(#4267B2), to(#2a4887));background-clip:padding-box;border:1px solid #29487d;border-radius:3px;display:inline-block;line-height:18px;margin-top:3px;max-width:85px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{background:none;border:none;color:#fff;font:bold 12px Helvetica, sans-serif;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(https://z-p3-static.xx.fbcdn.net/rsrc.php/v3/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #4a4a4a;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f5f6f7;border:1px solid #4a4a4a;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}#fb_dialog_loader_spinner{animation:rotateSpinner 1.2s linear infinite;background-color:transparent;background-image:url(https://z-p3-static.xx.fbcdn.net/rsrc.php/v3/yD/r/t-wz8gw1xG1.png);background-position:50% 50%;background-repeat:no-repeat;height:24px;width:24px}@keyframes rotateSpinner{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_fluid_desktop,.fb_iframe_widget_fluid_desktop span,.fb_iframe_widget_fluid_desktop iframe{max-width:100%}.fb_iframe_widget_fluid_desktop iframe{min-width:220px;position:relative}.fb_iframe_widget_lift{z-index:1}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}
+.fb_mpn_mobile_landing_page_slide_out{animation-duration:200ms;animation-name:fb_mpn_landing_page_slide_out;transition-timing-function:ease-in}.fb_mpn_mobile_landing_page_slide_out_from_left{animation-duration:200ms;animation-name:fb_mpn_landing_page_slide_out_from_left;transition-timing-function:ease-in}.fb_mpn_mobile_landing_page_slide_up{animation-duration:500ms;animation-name:fb_mpn_landing_page_slide_up;transition-timing-function:ease-in}.fb_mpn_mobile_bounce_in{animation-duration:300ms;animation-name:fb_mpn_bounce_in;transition-timing-function:ease-in}.fb_mpn_mobile_bounce_out{animation-duration:300ms;animation-name:fb_mpn_bounce_out;transition-timing-function:ease-in}.fb_mpn_mobile_bounce_out_v2{animation-duration:300ms;animation-name:fb_mpn_fade_out;transition-timing-function:ease-in}.fb_customer_chat_bounce_in_v2{animation-duration:300ms;animation-name:fb_bounce_in_v2;transition-timing-function:ease-in}.fb_customer_chat_bounce_in_from_left{animation-duration:300ms;animation-name:fb_bounce_in_from_left;transition-timing-function:ease-in}.fb_customer_chat_bounce_out_v2{animation-duration:300ms;animation-name:fb_bounce_out_v2;transition-timing-function:ease-in}.fb_customer_chat_bounce_out_from_left{animation-duration:300ms;animation-name:fb_bounce_out_from_left;transition-timing-function:ease-in}.fb_invisible_flow{display:inherit;height:0;overflow-x:hidden;width:0}@keyframes fb_mpn_landing_page_slide_out{0%{margin:0 12px;width:100% - 24px}60%{border-radius:18px}100%{border-radius:50%;margin:0 24px;width:60px}}@keyframes fb_mpn_landing_page_slide_out_from_left{0%{left:12px;width:100% - 24px}60%{border-radius:18px}100%{border-radius:50%;left:12px;width:60px}}@keyframes fb_mpn_landing_page_slide_up{0%{bottom:0;opacity:0}100%{bottom:24px;opacity:1}}@keyframes fb_mpn_bounce_in{0%{opacity:.5;top:100%}100%{opacity:1;top:0}}@keyframes fb_mpn_fade_out{0%{bottom:30px;opacity:1}100%{bottom:0;opacity:0}}@keyframes fb_mpn_bounce_out{0%{opacity:1;top:0}100%{opacity:.5;top:100%}}@keyframes fb_bounce_in_v2{0%{opacity:0;transform:scale(0, 0);transform-origin:bottom right}50%{transform:scale(1.03, 1.03);transform-origin:bottom right}100%{opacity:1;transform:scale(1, 1);transform-origin:bottom right}}@keyframes fb_bounce_in_from_left{0%{opacity:0;transform:scale(0, 0);transform-origin:bottom left}50%{transform:scale(1.03, 1.03);transform-origin:bottom left}100%{opacity:1;transform:scale(1, 1);transform-origin:bottom left}}@keyframes fb_bounce_out_v2{0%{opacity:1;transform:scale(1, 1);transform-origin:bottom right}100%{opacity:0;transform:scale(0, 0);transform-origin:bottom right}}@keyframes fb_bounce_out_from_left{0%{opacity:1;transform:scale(1, 1);transform-origin:bottom left}100%{opacity:0;transform:scale(0, 0);transform-origin:bottom left}}@keyframes slideInFromBottom{0%{opacity:.1;transform:translateY(100%)}100%{opacity:1;transform:translateY(0)}}@keyframes slideInFromBottomDelay{0%{opacity:0;transform:translateY(100%)}97%{opacity:0;transform:translateY(100%)}100%{opacity:1;transform:translateY(0)}}</style></head>
+
+<body class="node37 node9 node17 SelectQuotable" style="padding: 0px 0px 154px;">
+
+
+
+	
+
+<div id="loginBar">
+	<div class="pageWidth">
+		<div class="pageContent">	
+			<h3 id="loginBarHandle">
+				<label for="LoginControl"><a href="https://www.digitalpoint.com/login/" class="concealed noOutline">Log in or Sign up</a></label>
+			</h3>
+			
+			<span class="helper"></span>
+
+			
+		<form action="https://www.digitalpoint.com/login/login" method="post" class="xenForm eAuth" id="login" style="display:none">
+
+	
+		<ul id="eAuthUnit">
+			
+				
+				
+					
+					<li><a href="https://www.digitalpoint.com/register/facebook?reg=1" class="fbLogin" tabindex="110"><span>Log in with Facebook</span></a></li>
+				
+				
+				
+				
+				
+				
+			
+		</ul>
+	
+
+	<div class="ctrlWrapper">
+		<dl class="ctrlUnit">
+			<dt><label for="LoginControl">Your name or email address:</label></dt>
+			<dd><input type="text" name="login" id="LoginControl" class="textCtrl" tabindex="101"></dd>
+		</dl>
+	
+	
+		<dl class="ctrlUnit">
+			<dt>
+				<label for="ctrl_password">Do you already have an account?</label>
+			</dt>
+			<dd>
+				<ul>
+					<li><label for="ctrl_not_registered"><input type="radio" name="register" value="1" id="ctrl_not_registered" tabindex="105">
+						No, create an account now.</label></li>
+					<li><label for="ctrl_registered"><input type="radio" name="register" value="0" id="ctrl_registered" tabindex="105" checked="checked" class="Disabler">
+						Yes, my password is:</label></li>
+					<li id="ctrl_registered_Disabler">
+						<input type="password" name="password" class="textCtrl" id="ctrl_password" tabindex="102">
+						<div class="lostPassword"><a href="https://www.digitalpoint.com/lost-password/" class="OverlayTrigger OverlayCloser" tabindex="106">Forgot your password?</a></div>
+<input type="text" name="code" class="textCtrl" id="ctrl_code" placeholder="Two-factor code (optional)" tabindex="106">
+					</li>
+				</ul>
+			</dd>
+		</dl>
+	
+		
+		<dl class="ctrlUnit submitUnit">
+			<dt></dt>
+			<dd>
+				<input type="submit" class="button primary" value="Log in" tabindex="104" data-loginphrase="Log in" data-signupphrase="Sign up">
+				<label for="ctrl_remember" class="rememberPassword"><input type="checkbox" name="remember" value="1" id="ctrl_remember" tabindex="103"> Stay logged in</label>
+			</dd>
+		</dl>
+	</div>
+
+	<input type="hidden" name="cookie_check" value="1">
+	<input type="hidden" name="redirect" value="/threads/conditional-form-action-how.222457/">
+	<input type="hidden" name="_xfToken" value="">
+
+</form></div>
+	</div>
+</div>
+
+
+<div id="headerMover">
+	<div id="headerProxy"></div>
+
+<div id="content" class="thread_view">
+	<div class="pageWidth">
+		<div class="pageContent">
+			<!-- main content area -->
+			
+			
+			
+			
+						
+						
+						
+						
+						<div class="breadBoxTop ">
+							
+							
+
+<nav>
+	
+		
+			
+				
+			
+		
+			
+				
+			
+		
+			
+				
+			
+		
+	
+
+	<fieldset class="breadcrumb" style="">
+		
+			
+		<div class="boardTitle"><strong>Digital Point</strong></div>
+		
+		<span class="crumbs">
+			
+				<span class="crust homeCrumb" itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb">
+					<a href="https://www.digitalpoint.com/" class="crumb" rel="up" itemprop="url"><span itemprop="title">Home</span></a>
+					<span class="arrow"><span></span></span>
+				</span>
+			
+			
+			
+				<span class="crust selectedTabCrumb" itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb">
+					<a href="https://forums.digitalpoint.com/" class="crumb" rel="up" itemprop="url"><span itemprop="title">Forums</span></a>
+					<span class="arrow"><span>&gt;</span></span>
+				</span>
+			
+			
+			
+				
+					<span class="crust" itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb">
+						<a href="https://forums.digitalpoint.com/#development.9" class="crumb" rel="up" itemprop="url"><span itemprop="title">Development</span></a>
+						<span class="arrow"><span>&gt;</span></span>
+					</span>
+				
+					<span class="crust" itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb">
+						<a href="https://forums.digitalpoint.com/forums/programming.17/" class="crumb" rel="up" itemprop="url"><span itemprop="title">Programming</span></a>
+						<span class="arrow"><span>&gt;</span></span>
+					</span>
+				
+					<span class="crust" itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb">
+						<a href="https://forums.digitalpoint.com/forums/php.37/" class="crumb" rel="up" itemprop="url"><span itemprop="title">PHP</span></a>
+						<span class="arrow"><span>&gt;</span></span>
+					</span>
+				
+			
+		</span>
+	</fieldset>
+</nav>
+						</div>
+						
+						
+						
+					
+						<!--[if lt IE 8]>
+							<p class="importantMessage">You are using an out of date browser. It  may not display this or other websites correctly.<br />You should upgrade or use an <a href="https://www.google.com/chrome/browser/" target="_blank">alternative browser</a>.</p>
+						<![endif]-->
+
+						
+						
+
+
+
+
+<div class="PanelScroller" id="Notices" data-vertical="0" data-speed="400" data-interval="10000" style="display: block;">
+	<div class="scrollContainer">
+		<div class="PanelContainer">
+			<ol class="Panels" style="position: static;">
+				
+					<li class="panel Notice DismissParent notice_4">
+	<div class="baseHtml noticeContent"><a href="https://advertising.digitalpoint.com/digitalpoint-com.1/site-detail"><div class="meme"><div class="name">Advertising</div><div class="image"><img src="./Conditional form action...how__files/yuno.svgz"></div><div class="text">y u no do it?</div></div></a>
+
+<h2>Advertising (<a href="https://advertising.digitalpoint.com/digitalpoint-com.1/site-detail">learn more</a>)</h2>
+
+Advertise virtually anything here, with CPM banner ads, CPM email ads and CPC contextual links.  You can target relevant areas of the site and show ads based on geographical location of the user if you wish.<br><br>
+
+<span style="font-weight:bold">Starts at just $1 per CPM or $0.10 per CPC.</span><div class="clear"></div></div>
+	
+	
+</li>
+				
+			</ol>
+		</div>
+	</div>
+	
+	
+</div>
+
+						
+						
+						
+						
+												
+							<!-- h1 title, description -->
+							<div class="titleBar">
+								
+								<h1>Conditional form action...how?</h1>
+								
+								<p id="pageDescription" class="muted ">
+	Discussion in '<a href="https://forums.digitalpoint.com/forums/php.37/">PHP</a>' started by <a href="https://www.digitalpoint.com/members/dwest.51893/" class="username" dir="auto">dwest</a>, <a href="https://forums.digitalpoint.com/threads/conditional-form-action-how.222457/"><span class="DateTime" title="Jan 18, 2007 at 7:57 AM">Jan 18, 2007</span></a>.
+</p>
+							</div>
+						
+						
+						
+						
+						
+						<!-- main template -->
+						
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+<div class="pageNavLinkGroup">
+	<div class="linkGroup SelectionCountContainer">
+<div class="post_quality_wrap Tooltip"><input id="post_quality" type="range" min="0" max="80" value="0"><div><span>0</span></div></div>
+		
+		
+	</div>
+
+	
+</div>
+
+
+
+
+
+<form action="https://forums.digitalpoint.com/inline-mod/post/switch" method="post" class="InlineModForm section" data-cookiename="posts" data-controls="#InlineModControls" data-imodoptions="#ModerationSelect option">
+
+	<ol class="messageList" id="messageList">
+		
+			
+				
+
+
+<li id="post-2140075" class="message   " data-qs="0" data-author="dwest">
+
+	
+
+<div class="messageUserInfo" itemprop="author" itemscope="itemscope" itemtype="http://data-vocabulary.org/Person">	
+<div class="messageUserBlock ">
+	
+		<div class="avatarHolder">
+			<span class="helper"></span>
+			<a href="https://www.digitalpoint.com/members/dwest.51893/" class="avatar Av51893m" data-avatarhtml="true"><img src="./Conditional form action...how__files/avatar_m.png" width="192" height="192" alt="dwest"></a>
+			
+			<!-- slot: message_user_info_avatar -->
+		</div>
+
+	
+
+
+	
+		<h3 class="userText">
+			<a href="https://www.digitalpoint.com/members/dwest.51893/" class="username" dir="auto" itemprop="name" rel="author"><span class="style2">dwest</span></a>
+			<em class="userTitle" itemprop="title">Peon</em>
+			
+
+			<!-- slot: message_user_info_text -->
+		</h3>
+	
+		
+	
+		<div class="extraUserInfo">
+			
+			
+				
+				
+				
+					<dl class="pairsJustified">
+						<dt>Messages:</dt>
+						<dd><a href="https://www.digitalpoint.com/search/member?user_id=51893" class="concealed" rel="nofollow">38</a></dd>
+					</dl>
+				
+				
+				
+					<dl class="pairsJustified">
+						<dt>Likes Received:</dt>
+						<dd>0</dd>
+					</dl>
+				
+				
+				<dl class="pairsJustified">
+	<dt>Best Answers:</dt>
+	
+		<dd>0</dd>
+	
+</dl>
+
+					<dl class="pairsJustified">
+						<dt>Trophy Points:</dt>
+						<dd><a href="https://www.digitalpoint.com/members/dwest.51893/trophies" class="OverlayTrigger concealed">0</a></dd>
+					</dl>
+				
+			
+				
+
+
+				
+				
+				
+				
+			
+				
+							
+			
+						
+			
+			
+		</div>
+	
+		
+
+
+	<span class="arrow"><span></span></span>
+</div>
+</div>
+
+	<div class="messageInfo primaryContent">
+		
+		
+		
+		
+		
+		<a title="Permalink" class="item muted postNumber hashPermalink OverlayTrigger" data-href="posts/2140075/permalink">#1</a>
+<div class="messageContent">		
+			<article>
+				<blockquote itemprop="text" class="messageText SelectQuoteContainer ugc baseHtml">
+					
+					Hi to all,<br>
+If I have a form such as:<br>
+
+
+
+
+
+<div class="bbCodeBlock bbCodeCode">
+	<pre class="line-numbers language-markup"><code class=" language-markup" data-start="1"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>form_items<span class="token punctuation">"</span></span> <span class="token attr-name">action</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span><span class="token punctuation">"</span></span> <span class="token attr-name">method</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>post<span class="token punctuation">"</span></span> <span class="token attr-name">enctype</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>multipart/form-data<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>submit<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>btn_add_items<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Add Items<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>submit<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>btn_del_items<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Delete Selected Items<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>submit<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>btn_add_custom<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Add Custom Items<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">&gt;</span></span><span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+	<div class="type">Code (markup):</div>
+</div>I want the following conditions to be possible:<br>
+If "btn_add_items" is selected then post to add_items.php<br>
+If "btn_del_items" is selected then post to del_items.php<br>
+If "btn_add_custom" is selected then post to add_custom_items.php<br>
+<br>
+How do I code that into the form action?<br>
+<br>
+Thanks!<br><a href="https://semrush.sjv.io/c/3835401/1438253/13053" target="_blank" id="1438253" rel="nofollow"><img src="./Conditional form action...how__files/13053-1438253" border="0" alt="" width="468" height="60"></a><img height="0" width="0" src="./Conditional form action...how__files/13053" style="position:absolute;visibility:hidden;" border="0">
+					<div class="messageTextEndMarker">&nbsp;</div>
+				</blockquote>
+			</article>
+			
+			
+		</div>
+		
+		
+		
+
+	
+
+
+		
+		
+		
+		
+				
+		<div class="messageMeta ToggleTriggerAnchor">
+			
+			<div class="privateControls">
+				
+				<span class="item muted">
+					<span class="authorEnd"><a href="https://www.digitalpoint.com/members/dwest.51893/" class="username author" dir="auto">dwest</a>,</span>
+					<span class="DateTime" title="Jan 18, 2007 at 7:57 AM">Jan 18, 2007</span>
+				</span>
+				
+				
+
+
+
+				
+				
+				
+				<a href="https://forums.digitalpoint.com/posts/2140075/ip" class="item control ip OverlayTrigger"><span></span>IP</a>
+				
+				
+				
+				
+				
+			</div>
+			
+			<div class="publicControls">
+				
+				
+				
+				
+				
+			</div>
+		</div>
+	
+		
+		<div id="likes-post-2140075"></div>
+	</div>
+
+	
+	
+	
+<div class="underPost" style="padding-top:30px;text-align:center"><a href="https://semrush.sjv.io/c/3835401/1438297/13053" target="_blank" id="1438297" rel="nofollow"><img src="./Conditional form action...how__files/13053-1438297" border="0" alt="" width="728" height="90"></a><img height="0" width="0" src="./Conditional form action...how__files/13053(1)" style="position:absolute;visibility:hidden;" border="0"></div>
+	
+</li>
+			
+		
+			
+				
+
+
+<li id="post-2140192" class="message   " data-qs="71.808" data-author="jestep">
+
+	
+
+<div class="messageUserInfo" itemscope="itemscope" itemtype="http://data-vocabulary.org/Person">	
+<div class="messageUserBlock ">
+	
+		<div class="avatarHolder">
+			<span class="helper"></span>
+			<a href="https://www.digitalpoint.com/members/jestep.2612/" class="avatar Av2612m" data-avatarhtml="true"><img src="./Conditional form action...how__files/2612.jpg" width="192" height="192" alt="jestep"></a>
+			
+			<!-- slot: message_user_info_avatar -->
+		</div>
+
+	
+
+
+	
+		<h3 class="userText">
+			<a href="https://www.digitalpoint.com/members/jestep.2612/" class="username" dir="auto" itemprop="name"><span class="style5">jestep</span></a>
+			<em class="userTitle" itemprop="title">Prominent Member</em>
+			
+
+			<!-- slot: message_user_info_text -->
+		</h3>
+	
+		
+	
+		<div class="extraUserInfo">
+			
+			
+				
+				
+				
+					<dl class="pairsJustified">
+						<dt>Messages:</dt>
+						<dd><a href="https://www.digitalpoint.com/search/member?user_id=2612" class="concealed" rel="nofollow">3,659</a></dd>
+					</dl>
+				
+				
+				
+					<dl class="pairsJustified">
+						<dt>Likes Received:</dt>
+						<dd>215</dd>
+					</dl>
+				
+				
+				<dl class="pairsJustified">
+	<dt>Best Answers:</dt>
+	
+		<dd>19</dd>
+	
+</dl>
+
+					<dl class="pairsJustified">
+						<dt>Trophy Points:</dt>
+						<dd><a href="https://www.digitalpoint.com/members/jestep.2612/trophies" class="OverlayTrigger concealed">330</a></dd>
+					</dl>
+				
+			
+				
+
+
+				
+				
+				
+				
+			
+				
+							
+			
+						
+			
+			
+		</div>
+	
+		
+
+
+	<span class="arrow"><span></span></span>
+</div>
+</div>
+
+	<div class="messageInfo primaryContent">
+		
+		
+		
+		
+		
+		<a title="Permalink" class="item muted postNumber hashPermalink OverlayTrigger" data-href="posts/2140192/permalink">#2</a>
+<div class="messageContent">		
+			<article>
+				<blockquote class="messageText SelectQuoteContainer ugc baseHtml">
+					
+					You can do it on the processing page with php, or you can use javascript to do it on the same page.<br>
+<br>
+Doing it on a form processing page is probably going to be the easiest way to do it.
+					<div class="messageTextEndMarker">&nbsp;</div>
+				</blockquote>
+			</article>
+			
+			
+		</div>
+		
+		
+		
+
+
+		
+		
+		
+		
+				
+		<div class="messageMeta ToggleTriggerAnchor">
+			
+			<div class="privateControls">
+				
+				<span class="item muted">
+					<span class="authorEnd"><a href="https://www.digitalpoint.com/members/jestep.2612/" class="username author" dir="auto">jestep</a>,</span>
+					<span class="DateTime" title="Jan 18, 2007 at 8:19 AM">Jan 18, 2007</span>
+				</span>
+				
+				
+
+
+
+				
+				
+				
+				<a href="https://forums.digitalpoint.com/posts/2140192/ip" class="item control ip OverlayTrigger"><span></span>IP</a>
+				
+				
+				
+				
+				
+			</div>
+			
+			<div class="publicControls">
+				
+				
+				
+				
+				
+			</div>
+		</div>
+	
+		
+		<div id="likes-post-2140192"></div>
+	</div>
+
+	
+	
+	
+
+	
+</li>
+			
+		
+			
+				
+
+
+<li id="post-2140307" class="message   " style="transition:all 0 ease 0" data-author="dwest">
+
+	
+
+<div class="messageUserInfo" itemscope="itemscope" itemtype="http://data-vocabulary.org/Person">	
+<div class="messageUserBlock ">
+	
+		<div class="avatarHolder">
+			<span class="helper"></span>
+			<a href="https://www.digitalpoint.com/members/dwest.51893/" class="avatar Av51893m" data-avatarhtml="true"><img src="./Conditional form action...how__files/avatar_m.png" width="192" height="192" alt="dwest"></a>
+			
+			<!-- slot: message_user_info_avatar -->
+		</div>
+
+	
+
+
+	
+		<h3 class="userText">
+			<a href="https://www.digitalpoint.com/members/dwest.51893/" class="username" dir="auto" itemprop="name"><span class="style2">dwest</span></a>
+			<em class="userTitle" itemprop="title">Peon</em>
+			
+
+			<!-- slot: message_user_info_text -->
+		</h3>
+	
+		
+	
+		<div class="extraUserInfo">
+			
+			
+				
+				
+				
+					<dl class="pairsJustified">
+						<dt>Messages:</dt>
+						<dd><a href="https://www.digitalpoint.com/search/member?user_id=51893" class="concealed" rel="nofollow">38</a></dd>
+					</dl>
+				
+				
+				
+					<dl class="pairsJustified">
+						<dt>Likes Received:</dt>
+						<dd>0</dd>
+					</dl>
+				
+				
+				<dl class="pairsJustified">
+	<dt>Best Answers:</dt>
+	
+		<dd>0</dd>
+	
+</dl>
+
+					<dl class="pairsJustified">
+						<dt>Trophy Points:</dt>
+						<dd><a href="https://www.digitalpoint.com/members/dwest.51893/trophies" class="OverlayTrigger concealed">0</a></dd>
+					</dl>
+				
+			
+				
+
+
+				
+				
+				
+				
+			
+				
+							
+			
+						
+			
+			
+		</div>
+	
+		
+
+
+	<span class="arrow"><span></span></span>
+</div>
+</div>
+
+	<div class="messageInfo primaryContent">
+		
+		
+		
+		
+		
+		<a title="Permalink" class="item muted postNumber hashPermalink OverlayTrigger" data-href="posts/2140307/permalink">#3</a>
+<div class="messageContent">		
+			<article>
+				<blockquote class="messageText SelectQuoteContainer ugc baseHtml">
+					
+					I understand that.  My question is how. <span class="smileWrapper"><img src="./Conditional form action...how__files/clear.png" class="mceSmilieSprite mceSmilie1" alt=":)" title="Smile    :)"></span>
+					<div class="messageTextEndMarker">&nbsp;</div>
+				</blockquote>
+			</article>
+			
+			
+		</div>
+		
+		
+		
+
+
+		
+		
+		
+		
+				
+		<div class="messageMeta ToggleTriggerAnchor">
+			
+			<div class="privateControls">
+				
+				<span class="item muted">
+					<span class="authorEnd"><a href="https://www.digitalpoint.com/members/dwest.51893/" class="username author" dir="auto">dwest</a>,</span>
+					<span class="DateTime" title="Jan 18, 2007 at 8:39 AM">Jan 18, 2007</span>
+				</span>
+				
+				
+
+
+
+				
+				
+				
+				<a href="https://forums.digitalpoint.com/posts/2140307/ip" class="item control ip OverlayTrigger"><span></span>IP</a>
+				
+				
+				
+				
+				
+			</div>
+			
+			<div class="publicControls">
+				
+				
+				
+				
+				
+			</div>
+		</div>
+	
+		
+		<div id="likes-post-2140307"></div>
+	</div>
+
+	
+	
+	
+
+	
+</li>
+			
+		
+			
+				
+
+
+<li id="post-2140316" class="message   " data-qs="75.284" data-author="noppid">
+
+	
+
+<div class="messageUserInfo" itemscope="itemscope" itemtype="http://data-vocabulary.org/Person">	
+<div class="messageUserBlock ">
+	
+		<div class="avatarHolder">
+			<span class="helper"></span>
+			<a href="https://www.digitalpoint.com/members/noppid.4148/" class="avatar Av4148m" data-avatarhtml="true"><img src="./Conditional form action...how__files/4148.jpg" width="192" height="192" alt="noppid"></a>
+			
+			<!-- slot: message_user_info_avatar -->
+		</div>
+
+	
+
+
+	
+		<h3 class="userText">
+			<a href="https://www.digitalpoint.com/members/noppid.4148/" class="username" dir="auto" itemprop="name"><span class="style5">noppid</span></a>
+			<em class="userTitle" itemprop="title">gunnin' for the quota</em>
+			
+
+			<!-- slot: message_user_info_text -->
+		</h3>
+	
+		
+	
+		<div class="extraUserInfo">
+			
+			
+				
+				
+				
+					<dl class="pairsJustified">
+						<dt>Messages:</dt>
+						<dd><a href="https://www.digitalpoint.com/search/member?user_id=4148" class="concealed" rel="nofollow">4,246</a></dd>
+					</dl>
+				
+				
+				
+					<dl class="pairsJustified">
+						<dt>Likes Received:</dt>
+						<dd>232</dd>
+					</dl>
+				
+				
+				<dl class="pairsJustified">
+	<dt>Best Answers:</dt>
+	
+		<dd>0</dd>
+	
+</dl>
+
+					<dl class="pairsJustified">
+						<dt>Trophy Points:</dt>
+						<dd><a href="https://www.digitalpoint.com/members/noppid.4148/trophies" class="OverlayTrigger concealed">135</a></dd>
+					</dl>
+				
+			
+				
+
+
+				
+				
+				
+				
+			
+				
+							
+			
+						
+			
+			
+		</div>
+	
+		
+
+
+	<span class="arrow"><span></span></span>
+</div>
+</div>
+
+	<div class="messageInfo primaryContent">
+		
+		
+		
+		
+		
+		<a title="Permalink" class="item muted postNumber hashPermalink OverlayTrigger" data-href="posts/2140316/permalink">#4</a>
+<div class="messageContent">		
+			<article>
+				<blockquote class="messageText SelectQuoteContainer ugc baseHtml">
+					
+					On the PHP side you can test which $_POST variable for the checkboxes is set and act accordingly.
+					<div class="messageTextEndMarker">&nbsp;</div>
+				</blockquote>
+			</article>
+			
+			
+		</div>
+		
+		
+		
+
+
+		
+		
+		
+		
+				
+		<div class="messageMeta ToggleTriggerAnchor">
+			
+			<div class="privateControls">
+				
+				<span class="item muted">
+					<span class="authorEnd"><a href="https://www.digitalpoint.com/members/noppid.4148/" class="username author" dir="auto">noppid</a>,</span>
+					<span class="DateTime" title="Jan 18, 2007 at 8:41 AM">Jan 18, 2007</span>
+				</span>
+				
+				
+
+
+
+				
+				
+				
+				<a href="https://forums.digitalpoint.com/posts/2140316/ip" class="item control ip OverlayTrigger"><span></span>IP</a>
+				
+				
+				
+				
+				
+			</div>
+			
+			<div class="publicControls">
+				
+				
+				
+				
+				
+			</div>
+		</div>
+	
+		
+		<div id="likes-post-2140316"></div>
+	</div>
+
+	
+	
+	
+
+	
+</li>
+			
+		
+			
+				
+
+
+<li id="post-2140344" class="message   " style="transition:all 0 ease 0" data-author="dwest">
+
+	
+
+<div class="messageUserInfo" itemscope="itemscope" itemtype="http://data-vocabulary.org/Person">	
+<div class="messageUserBlock ">
+	
+		<div class="avatarHolder">
+			<span class="helper"></span>
+			<a href="https://www.digitalpoint.com/members/dwest.51893/" class="avatar Av51893m" data-avatarhtml="true"><img src="./Conditional form action...how__files/avatar_m.png" width="192" height="192" alt="dwest"></a>
+			
+			<!-- slot: message_user_info_avatar -->
+		</div>
+
+	
+
+
+	
+		<h3 class="userText">
+			<a href="https://www.digitalpoint.com/members/dwest.51893/" class="username" dir="auto" itemprop="name"><span class="style2">dwest</span></a>
+			<em class="userTitle" itemprop="title">Peon</em>
+			
+
+			<!-- slot: message_user_info_text -->
+		</h3>
+	
+		
+	
+		<div class="extraUserInfo">
+			
+			
+				
+				
+				
+					<dl class="pairsJustified">
+						<dt>Messages:</dt>
+						<dd><a href="https://www.digitalpoint.com/search/member?user_id=51893" class="concealed" rel="nofollow">38</a></dd>
+					</dl>
+				
+				
+				
+					<dl class="pairsJustified">
+						<dt>Likes Received:</dt>
+						<dd>0</dd>
+					</dl>
+				
+				
+				<dl class="pairsJustified">
+	<dt>Best Answers:</dt>
+	
+		<dd>0</dd>
+	
+</dl>
+
+					<dl class="pairsJustified">
+						<dt>Trophy Points:</dt>
+						<dd><a href="https://www.digitalpoint.com/members/dwest.51893/trophies" class="OverlayTrigger concealed">0</a></dd>
+					</dl>
+				
+			
+				
+
+
+				
+				
+				
+				
+			
+				
+							
+			
+						
+			
+			
+		</div>
+	
+		
+
+
+	<span class="arrow"><span></span></span>
+</div>
+</div>
+
+	<div class="messageInfo primaryContent">
+		
+		
+		
+		
+		
+		<a title="Permalink" class="item muted postNumber hashPermalink OverlayTrigger" data-href="posts/2140344/permalink">#5</a>
+<div class="messageContent">		
+			<article>
+				<blockquote class="messageText SelectQuoteContainer ugc baseHtml">
+					
+					Hmmmm....sorry, I'm confused.  There are no check boxes.
+					<div class="messageTextEndMarker">&nbsp;</div>
+				</blockquote>
+			</article>
+			
+			
+		</div>
+		
+		
+		
+
+
+		
+		
+		
+		
+				
+		<div class="messageMeta ToggleTriggerAnchor">
+			
+			<div class="privateControls">
+				
+				<span class="item muted">
+					<span class="authorEnd"><a href="https://www.digitalpoint.com/members/dwest.51893/" class="username author" dir="auto">dwest</a>,</span>
+					<span class="DateTime" title="Jan 18, 2007 at 8:44 AM">Jan 18, 2007</span>
+				</span>
+				
+				
+
+
+
+				
+				
+				
+				<a href="https://forums.digitalpoint.com/posts/2140344/ip" class="item control ip OverlayTrigger"><span></span>IP</a>
+				
+				
+				
+				
+				
+			</div>
+			
+			<div class="publicControls">
+				
+				
+				
+				
+				
+			</div>
+		</div>
+	
+		
+		<div id="likes-post-2140344"></div>
+	</div>
+
+	
+	
+	
+
+	
+</li>
+			
+		
+			
+				
+
+
+<li id="post-2140374" class="message   " data-qs="75.284" data-author="noppid">
+
+	
+
+<div class="messageUserInfo" itemscope="itemscope" itemtype="http://data-vocabulary.org/Person">	
+<div class="messageUserBlock ">
+	
+		<div class="avatarHolder">
+			<span class="helper"></span>
+			<a href="https://www.digitalpoint.com/members/noppid.4148/" class="avatar Av4148m" data-avatarhtml="true"><img src="./Conditional form action...how__files/4148.jpg" width="192" height="192" alt="noppid"></a>
+			
+			<!-- slot: message_user_info_avatar -->
+		</div>
+
+	
+
+
+	
+		<h3 class="userText">
+			<a href="https://www.digitalpoint.com/members/noppid.4148/" class="username" dir="auto" itemprop="name"><span class="style5">noppid</span></a>
+			<em class="userTitle" itemprop="title">gunnin' for the quota</em>
+			
+
+			<!-- slot: message_user_info_text -->
+		</h3>
+	
+		
+	
+		<div class="extraUserInfo">
+			
+			
+				
+				
+				
+					<dl class="pairsJustified">
+						<dt>Messages:</dt>
+						<dd><a href="https://www.digitalpoint.com/search/member?user_id=4148" class="concealed" rel="nofollow">4,246</a></dd>
+					</dl>
+				
+				
+				
+					<dl class="pairsJustified">
+						<dt>Likes Received:</dt>
+						<dd>232</dd>
+					</dl>
+				
+				
+				<dl class="pairsJustified">
+	<dt>Best Answers:</dt>
+	
+		<dd>0</dd>
+	
+</dl>
+
+					<dl class="pairsJustified">
+						<dt>Trophy Points:</dt>
+						<dd><a href="https://www.digitalpoint.com/members/noppid.4148/trophies" class="OverlayTrigger concealed">135</a></dd>
+					</dl>
+				
+			
+				
+
+
+				
+				
+				
+				
+			
+				
+							
+			
+						
+			
+			
+		</div>
+	
+		
+
+
+	<span class="arrow"><span></span></span>
+</div>
+</div>
+
+	<div class="messageInfo primaryContent">
+		
+		
+		
+		
+		
+		<a title="Permalink" class="item muted postNumber hashPermalink OverlayTrigger" data-href="posts/2140374/permalink">#6</a>
+<div class="messageContent">		
+			<article>
+				<blockquote class="messageText SelectQuoteContainer ugc baseHtml">
+					
+					Opps, the submit button values can be used the same way.
+					<div class="messageTextEndMarker">&nbsp;</div>
+				</blockquote>
+			</article>
+			
+			
+		</div>
+		
+		
+		
+
+
+		
+		
+		
+		
+				
+		<div class="messageMeta ToggleTriggerAnchor">
+			
+			<div class="privateControls">
+				
+				<span class="item muted">
+					<span class="authorEnd"><a href="https://www.digitalpoint.com/members/noppid.4148/" class="username author" dir="auto">noppid</a>,</span>
+					<span class="DateTime" title="Jan 18, 2007 at 8:48 AM">Jan 18, 2007</span>
+				</span>
+				
+				
+
+
+
+				
+				
+				
+				<a href="https://forums.digitalpoint.com/posts/2140374/ip" class="item control ip OverlayTrigger"><span></span>IP</a>
+				
+				
+				
+				
+				
+			</div>
+			
+			<div class="publicControls">
+				
+				
+				
+				
+				
+			</div>
+		</div>
+	
+		
+		<div id="likes-post-2140374"></div>
+	</div>
+
+	
+	
+	
+
+	
+</li>
+			
+		
+			
+				
+
+
+<li id="post-2140379" class="message   " style="transition:all 0 ease 0" data-author="West">
+
+	
+
+<div class="messageUserInfo" itemscope="itemscope" itemtype="http://data-vocabulary.org/Person">	
+<div class="messageUserBlock ">
+	
+		<div class="avatarHolder">
+			<span class="helper"></span>
+			<a href="https://www.digitalpoint.com/members/west.54357/" class="avatar Av54357m" data-avatarhtml="true"><img src="./Conditional form action...how__files/54357.jpg" width="192" height="192" alt="West"></a>
+			
+			<!-- slot: message_user_info_avatar -->
+		</div>
+
+	
+
+
+	
+		<h3 class="userText">
+			<a href="https://www.digitalpoint.com/members/west.54357/" class="username" dir="auto" itemprop="name"><span class="style2">West</span></a>
+			<em class="userTitle" itemprop="title">Peon</em>
+			
+
+			<!-- slot: message_user_info_text -->
+		</h3>
+	
+		
+	
+		<div class="extraUserInfo">
+			
+			
+				
+				
+				
+					<dl class="pairsJustified">
+						<dt>Messages:</dt>
+						<dd><a href="https://www.digitalpoint.com/search/member?user_id=54357" class="concealed" rel="nofollow">79</a></dd>
+					</dl>
+				
+				
+				
+					<dl class="pairsJustified">
+						<dt>Likes Received:</dt>
+						<dd>3</dd>
+					</dl>
+				
+				
+				<dl class="pairsJustified">
+	<dt>Best Answers:</dt>
+	
+		<dd>0</dd>
+	
+</dl>
+
+					<dl class="pairsJustified">
+						<dt>Trophy Points:</dt>
+						<dd><a href="https://www.digitalpoint.com/members/west.54357/trophies" class="OverlayTrigger concealed">0</a></dd>
+					</dl>
+				
+			
+				
+
+
+				
+				
+				
+				
+			
+				
+							
+			
+						
+			
+			
+		</div>
+	
+		
+
+
+	<span class="arrow"><span></span></span>
+</div>
+</div>
+
+	<div class="messageInfo primaryContent">
+		
+		
+		
+		
+		
+		<a title="Permalink" class="item muted postNumber hashPermalink OverlayTrigger" data-href="posts/2140379/permalink">#7</a>
+<div class="messageContent">		
+			<article>
+				<blockquote class="messageText SelectQuoteContainer ugc baseHtml">
+					
+					Simple.<br>
+<br>
+
+
+
+
+
+<div class="bbCodeBlock bbCodePHP">
+	<pre class="line-numbers language-php"><code class=" language-php" data-start="1"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isset<span class="token punctuation">(</span></span><span class="token global">$_POST</span><span class="token punctuation">[</span><span class="token string">'btn_add_items'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+   <span class="token comment" spellcheck="true"> // do this block of codin
+</span><span class="token punctuation">}</span> <span class="token keyword">elseif</span> <span class="token punctuation">(</span><span class="token function">isset<span class="token punctuation">(</span></span><span class="token global">$_POST</span><span class="token punctuation">[</span><span class="token string">'btn_del_items'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true"> // do this block of coding
+</span><span class="token punctuation">}</span> <span class="token keyword">elseif</span> <span class="token punctuation">(</span><span class="token function">isset<span class="token punctuation">(</span></span><span class="token global">$_POST</span><span class="token punctuation">[</span><span class="token string">'btn_add_custom'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+ <span class="token comment" spellcheck="true"> // do this block of coding
+</span><span class="token punctuation">}</span>
+<span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+	<div class="type">PHP:</div>
+</div>Hope this helps.
+					<div class="messageTextEndMarker">&nbsp;</div>
+				</blockquote>
+			</article>
+			
+			
+		</div>
+		
+		
+		
+
+
+		
+		
+		
+		
+				
+		<div class="messageMeta ToggleTriggerAnchor">
+			
+			<div class="privateControls">
+				
+				<span class="item muted">
+					<span class="authorEnd"><a href="https://www.digitalpoint.com/members/west.54357/" class="username author" dir="auto">West</a>,</span>
+					<span class="DateTime" title="Jan 18, 2007 at 8:49 AM">Jan 18, 2007</span>
+				</span>
+				
+				
+
+
+
+				
+				
+				
+				<a href="https://forums.digitalpoint.com/posts/2140379/ip" class="item control ip OverlayTrigger"><span></span>IP</a>
+				
+				
+				
+				
+				
+			</div>
+			
+			<div class="publicControls">
+				
+				
+				
+				
+				
+			</div>
+		</div>
+	
+		
+		<div id="likes-post-2140379"></div>
+	</div>
+
+	
+	
+	
+
+	
+</li>
+			
+		
+			
+				
+
+
+<li id="post-2140411" class="message   " data-qs="90.476" data-author="dwest">
+
+	
+
+<div class="messageUserInfo" itemscope="itemscope" itemtype="http://data-vocabulary.org/Person">	
+<div class="messageUserBlock ">
+	
+		<div class="avatarHolder">
+			<span class="helper"></span>
+			<a href="https://www.digitalpoint.com/members/dwest.51893/" class="avatar Av51893m" data-avatarhtml="true"><img src="./Conditional form action...how__files/avatar_m.png" width="192" height="192" alt="dwest"></a>
+			
+			<!-- slot: message_user_info_avatar -->
+		</div>
+
+	
+
+
+	
+		<h3 class="userText">
+			<a href="https://www.digitalpoint.com/members/dwest.51893/" class="username" dir="auto" itemprop="name"><span class="style2">dwest</span></a>
+			<em class="userTitle" itemprop="title">Peon</em>
+			
+
+			<!-- slot: message_user_info_text -->
+		</h3>
+	
+		
+	
+		<div class="extraUserInfo">
+			
+			
+				
+				
+				
+					<dl class="pairsJustified">
+						<dt>Messages:</dt>
+						<dd><a href="https://www.digitalpoint.com/search/member?user_id=51893" class="concealed" rel="nofollow">38</a></dd>
+					</dl>
+				
+				
+				
+					<dl class="pairsJustified">
+						<dt>Likes Received:</dt>
+						<dd>0</dd>
+					</dl>
+				
+				
+				<dl class="pairsJustified">
+	<dt>Best Answers:</dt>
+	
+		<dd>0</dd>
+	
+</dl>
+
+					<dl class="pairsJustified">
+						<dt>Trophy Points:</dt>
+						<dd><a href="https://www.digitalpoint.com/members/dwest.51893/trophies" class="OverlayTrigger concealed">0</a></dd>
+					</dl>
+				
+			
+				
+
+
+				
+				
+				
+				
+			
+				
+							
+			
+						
+			
+			
+		</div>
+	
+		
+
+
+	<span class="arrow"><span></span></span>
+</div>
+</div>
+
+	<div class="messageInfo primaryContent">
+		
+		
+		
+		
+		
+		<a title="Permalink" class="item muted postNumber hashPermalink OverlayTrigger" data-href="posts/2140411/permalink">#8</a>
+<div class="messageContent">		
+			<article>
+				<blockquote class="messageText SelectQuoteContainer ugc baseHtml">
+					
+					Thanks West,<br>
+I understand the php part of this.  Perhaps I should have been more clear.<br>
+<br>
+I need to know how to apply the conditional code to the form action.  How do I put the code in the &lt;form action=""&gt;?<br>
+<br>
+Make sense?<br>
+Thanks!
+					<div class="messageTextEndMarker">&nbsp;</div>
+				</blockquote>
+			</article>
+			
+			
+		</div>
+		
+		
+		
+
+
+		
+		
+		
+		
+				
+		<div class="messageMeta ToggleTriggerAnchor">
+			
+			<div class="privateControls">
+				
+				<span class="item muted">
+					<span class="authorEnd"><a href="https://www.digitalpoint.com/members/dwest.51893/" class="username author" dir="auto">dwest</a>,</span>
+					<span class="DateTime" title="Jan 18, 2007 at 8:56 AM">Jan 18, 2007</span>
+				</span>
+				
+				
+
+
+
+				
+				
+				
+				<a href="https://forums.digitalpoint.com/posts/2140411/ip" class="item control ip OverlayTrigger"><span></span>IP</a>
+				
+				
+				
+				
+				
+			</div>
+			
+			<div class="publicControls">
+				
+				
+				
+				
+				
+			</div>
+		</div>
+	
+		
+		<div id="likes-post-2140411"></div>
+	</div>
+
+	
+	
+	
+
+	
+</li>
+			
+		
+			
+				
+
+
+<li id="post-2140426" class="message   " data-qs="75.284" data-author="noppid">
+
+	
+
+<div class="messageUserInfo" itemscope="itemscope" itemtype="http://data-vocabulary.org/Person">	
+<div class="messageUserBlock ">
+	
+		<div class="avatarHolder">
+			<span class="helper"></span>
+			<a href="https://www.digitalpoint.com/members/noppid.4148/" class="avatar Av4148m" data-avatarhtml="true"><img src="./Conditional form action...how__files/4148.jpg" width="192" height="192" alt="noppid"></a>
+			
+			<!-- slot: message_user_info_avatar -->
+		</div>
+
+	
+
+
+	
+		<h3 class="userText">
+			<a href="https://www.digitalpoint.com/members/noppid.4148/" class="username" dir="auto" itemprop="name"><span class="style5">noppid</span></a>
+			<em class="userTitle" itemprop="title">gunnin' for the quota</em>
+			
+
+			<!-- slot: message_user_info_text -->
+		</h3>
+	
+		
+	
+		<div class="extraUserInfo">
+			
+			
+				
+				
+				
+					<dl class="pairsJustified">
+						<dt>Messages:</dt>
+						<dd><a href="https://www.digitalpoint.com/search/member?user_id=4148" class="concealed" rel="nofollow">4,246</a></dd>
+					</dl>
+				
+				
+				
+					<dl class="pairsJustified">
+						<dt>Likes Received:</dt>
+						<dd>232</dd>
+					</dl>
+				
+				
+				<dl class="pairsJustified">
+	<dt>Best Answers:</dt>
+	
+		<dd>0</dd>
+	
+</dl>
+
+					<dl class="pairsJustified">
+						<dt>Trophy Points:</dt>
+						<dd><a href="https://www.digitalpoint.com/members/noppid.4148/trophies" class="OverlayTrigger concealed">135</a></dd>
+					</dl>
+				
+			
+				
+
+
+				
+				
+				
+				
+			
+				
+							
+			
+						
+			
+			
+		</div>
+	
+		
+
+
+	<span class="arrow"><span></span></span>
+</div>
+</div>
+
+	<div class="messageInfo primaryContent">
+		
+		
+		
+		
+		
+		<a title="Permalink" class="item muted postNumber hashPermalink OverlayTrigger" data-href="posts/2140426/permalink">#9</a>
+<div class="messageContent">		
+			<article>
+				<blockquote class="messageText SelectQuoteContainer ugc baseHtml">
+					
+					Usually the page can do more then one job. &lt;form action="filename.php"&gt;<br>
+<br>
+
+
+
+
+
+<div class="bbCodeBlock bbCodePHP">
+	<pre class="line-numbers language-php"><code class=" language-php" data-start="1"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isset<span class="token punctuation">(</span></span><span class="token global">$_POST</span><span class="token punctuation">[</span><span class="token string">'btn_add_items'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+   <span class="token comment" spellcheck="true"> // do this block of codin
+</span><span class="token punctuation">}</span> <span class="token keyword">elseif</span> <span class="token punctuation">(</span><span class="token function">isset<span class="token punctuation">(</span></span><span class="token global">$_POST</span><span class="token punctuation">[</span><span class="token string">'btn_del_items'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true"> // do this block of coding
+</span><span class="token punctuation">}</span> <span class="token keyword">elseif</span> <span class="token punctuation">(</span><span class="token function">isset<span class="token punctuation">(</span></span><span class="token global">$_POST</span><span class="token punctuation">[</span><span class="token string">'btn_add_custom'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+ <span class="token comment" spellcheck="true"> // do this block of coding
+</span><span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">
+//if we fall through, display the form.
+</span><span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+	<div class="type">PHP:</div>
+</div>this is a simplistic example.
+					<div class="messageTextEndMarker">&nbsp;</div>
+				</blockquote>
+			</article>
+			
+			
+		</div>
+		
+		
+		
+
+
+		
+		
+		
+		
+				
+		<div class="messageMeta ToggleTriggerAnchor">
+			
+			<div class="privateControls">
+				
+				<span class="item muted">
+					<span class="authorEnd"><a href="https://www.digitalpoint.com/members/noppid.4148/" class="username author" dir="auto">noppid</a>,</span>
+					<span class="DateTime" title="Jan 18, 2007 at 9:00 AM">Jan 18, 2007</span>
+				</span>
+				
+				
+
+
+
+				
+				
+				
+				<a href="https://forums.digitalpoint.com/posts/2140426/ip" class="item control ip OverlayTrigger"><span></span>IP</a>
+				
+				
+				
+				
+				
+			</div>
+			
+			<div class="publicControls">
+				
+				
+				
+				
+				
+			</div>
+		</div>
+	
+		
+		<div id="likes-post-2140426"></div>
+	</div>
+
+	
+	
+	
+
+	
+</li>
+			
+		
+			
+				
+
+
+<li id="post-2140445" class="message   " data-qs="72.935" data-author="mad4">
+
+	
+
+<div class="messageUserInfo" itemscope="itemscope" itemtype="http://data-vocabulary.org/Person">	
+<div class="messageUserBlock ">
+	
+		<div class="avatarHolder">
+			<span class="helper"></span>
+			<a href="https://www.digitalpoint.com/members/mad4.15141/" class="avatar Av15141m" data-avatarhtml="true"><img src="./Conditional form action...how__files/15141.jpg" width="192" height="192" alt="mad4"></a>
+			
+			<!-- slot: message_user_info_avatar -->
+		</div>
+
+	
+
+
+	
+		<h3 class="userText">
+			<a href="https://www.digitalpoint.com/members/mad4.15141/" class="username" dir="auto" itemprop="name"><span class="style2">mad4</span></a>
+			<em class="userTitle" itemprop="title">Peon</em>
+			
+
+			<!-- slot: message_user_info_text -->
+		</h3>
+	
+		
+	
+		<div class="extraUserInfo">
+			
+			
+				
+				
+				
+					<dl class="pairsJustified">
+						<dt>Messages:</dt>
+						<dd><a href="https://www.digitalpoint.com/search/member?user_id=15141" class="concealed" rel="nofollow">6,986</a></dd>
+					</dl>
+				
+				
+				
+					<dl class="pairsJustified">
+						<dt>Likes Received:</dt>
+						<dd>493</dd>
+					</dl>
+				
+				
+				<dl class="pairsJustified">
+	<dt>Best Answers:</dt>
+	
+		<dd>0</dd>
+	
+</dl>
+
+					<dl class="pairsJustified">
+						<dt>Trophy Points:</dt>
+						<dd><a href="https://www.digitalpoint.com/members/mad4.15141/trophies" class="OverlayTrigger concealed">0</a></dd>
+					</dl>
+				
+			
+				
+
+
+				
+				
+				
+				
+			
+				
+							
+			
+						
+			
+			
+		</div>
+	
+		
+
+
+	<span class="arrow"><span></span></span>
+</div>
+</div>
+
+	<div class="messageInfo primaryContent">
+		
+		
+		
+		
+		
+		<a title="Permalink" class="item muted postNumber hashPermalink OverlayTrigger" data-href="posts/2140445/permalink">#10</a>
+<div class="messageContent">		
+			<article>
+				<blockquote class="messageText SelectQuoteContainer ugc baseHtml">
+					
+					<a href="http://tom.me.uk/scripting/submit.html" target="_blank" class="externalLink" rel="nofollow">http://tom.me.uk/scripting/submit.html</a><br>
+<br>
+Just use a different function for each button.
+					<div class="messageTextEndMarker">&nbsp;</div>
+				</blockquote>
+			</article>
+			
+			
+		</div>
+		
+		
+		
+
+
+		
+		
+		
+		
+				
+		<div class="messageMeta ToggleTriggerAnchor">
+			
+			<div class="privateControls">
+				
+				<span class="item muted">
+					<span class="authorEnd"><a href="https://www.digitalpoint.com/members/mad4.15141/" class="username author" dir="auto">mad4</a>,</span>
+					<span class="DateTime" title="Jan 18, 2007 at 9:04 AM">Jan 18, 2007</span>
+				</span>
+				
+				
+
+
+
+				
+				
+				
+				<a href="https://forums.digitalpoint.com/posts/2140445/ip" class="item control ip OverlayTrigger"><span></span>IP</a>
+				
+				
+				
+				
+				
+			</div>
+			
+			<div class="publicControls">
+				
+				
+				
+				
+				
+			</div>
+		</div>
+	
+		
+		<div id="likes-post-2140445"></div>
+	</div>
+
+	
+	
+	
+
+	
+</li>
+			
+		
+			
+				
+
+
+<li id="post-2140492" class="message   " style="transition:all 0 ease 0" data-author="West">
+
+	
+
+<div class="messageUserInfo" itemscope="itemscope" itemtype="http://data-vocabulary.org/Person">	
+<div class="messageUserBlock ">
+	
+		<div class="avatarHolder">
+			<span class="helper"></span>
+			<a href="https://www.digitalpoint.com/members/west.54357/" class="avatar Av54357m" data-avatarhtml="true"><img src="./Conditional form action...how__files/54357.jpg" width="192" height="192" alt="West"></a>
+			
+			<!-- slot: message_user_info_avatar -->
+		</div>
+
+	
+
+
+	
+		<h3 class="userText">
+			<a href="https://www.digitalpoint.com/members/west.54357/" class="username" dir="auto" itemprop="name"><span class="style2">West</span></a>
+			<em class="userTitle" itemprop="title">Peon</em>
+			
+
+			<!-- slot: message_user_info_text -->
+		</h3>
+	
+		
+	
+		<div class="extraUserInfo">
+			
+			
+				
+				
+				
+					<dl class="pairsJustified">
+						<dt>Messages:</dt>
+						<dd><a href="https://www.digitalpoint.com/search/member?user_id=54357" class="concealed" rel="nofollow">79</a></dd>
+					</dl>
+				
+				
+				
+					<dl class="pairsJustified">
+						<dt>Likes Received:</dt>
+						<dd>3</dd>
+					</dl>
+				
+				
+				<dl class="pairsJustified">
+	<dt>Best Answers:</dt>
+	
+		<dd>0</dd>
+	
+</dl>
+
+					<dl class="pairsJustified">
+						<dt>Trophy Points:</dt>
+						<dd><a href="https://www.digitalpoint.com/members/west.54357/trophies" class="OverlayTrigger concealed">0</a></dd>
+					</dl>
+				
+			
+				
+
+
+				
+				
+				
+				
+			
+				
+							
+			
+						
+			
+			
+		</div>
+	
+		
+
+
+	<span class="arrow"><span></span></span>
+</div>
+</div>
+
+	<div class="messageInfo primaryContent">
+		
+		
+		
+		
+		
+		<a title="Permalink" class="item muted postNumber hashPermalink OverlayTrigger" data-href="posts/2140492/permalink">#11</a>
+<div class="messageContent">		
+			<article>
+				<blockquote class="messageText SelectQuoteContainer ugc baseHtml">
+					
+					<div class="bbCodeBlock bbCodeQuote" data-author="noppid">
+	<aside>
+		
+			<div class="attribution type">noppid said:
+				
+					<a href="https://forums.digitalpoint.com/goto/post?id=2140426#post-2140426" class="AttributionLink">↑</a>
+				
+			</div>
+		
+		<blockquote class="quoteContainer"><div class="quote">Usually the page can do more then one job. &lt;form action="filename.php"&gt;<br>
+<br>
+
+
+
+
+
+<div class="bbCodeBlock bbCodePHP">
+	<pre class="line-numbers language-php"><code class=" language-php" data-start="1"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isset<span class="token punctuation">(</span></span><span class="token global">$_POST</span><span class="token punctuation">[</span><span class="token string">'btn_add_items'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+   <span class="token comment" spellcheck="true"> // do this block of codin
+</span><span class="token punctuation">}</span> <span class="token keyword">elseif</span> <span class="token punctuation">(</span><span class="token function">isset<span class="token punctuation">(</span></span><span class="token global">$_POST</span><span class="token punctuation">[</span><span class="token string">'btn_del_items'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true"> // do this block of coding
+</span><span class="token punctuation">}</span> <span class="token keyword">elseif</span> <span class="token punctuation">(</span><span class="token function">isset<span class="token punctuation">(</span></span><span class="token global">$_POST</span><span class="token punctuation">[</span><span class="token string">'btn_add_custom'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+ <span class="token comment" spellcheck="true"> // do this block of coding
+</span><span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">
+//if we fall through, display the form.
+</span><span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+	<div class="type">PHP:</div>
+</div>this is a simplistic example.</div><div class="quoteExpand quoteCut">Click to expand...</div></blockquote>
+	</aside>
+</div>Did anyone ask for an advanced one, or did I get lost somewhere?
+					<div class="messageTextEndMarker">&nbsp;</div>
+				</blockquote>
+			</article>
+			
+			
+		</div>
+		
+		
+		
+
+
+		
+		
+		
+		
+				
+		<div class="messageMeta ToggleTriggerAnchor">
+			
+			<div class="privateControls">
+				
+				<span class="item muted">
+					<span class="authorEnd"><a href="https://www.digitalpoint.com/members/west.54357/" class="username author" dir="auto">West</a>,</span>
+					<span class="DateTime" title="Jan 18, 2007 at 9:10 AM">Jan 18, 2007</span>
+				</span>
+				
+				
+
+
+
+				
+				
+				
+				<a href="https://forums.digitalpoint.com/posts/2140492/ip" class="item control ip OverlayTrigger"><span></span>IP</a>
+				
+				
+				
+				
+				
+			</div>
+			
+			<div class="publicControls">
+				
+				
+				
+				
+				
+			</div>
+		</div>
+	
+		
+		<div id="likes-post-2140492">
+	
+	<div class="likesSummary secondaryContent">
+		<span class="LikeText">
+			<a href="https://www.digitalpoint.com/members/dwest.51893/" class="username" dir="auto">dwest</a> likes this.
+		</span>
+	</div>
+</div>
+	</div>
+
+	
+	
+	
+
+	
+</li>
+			
+		
+			
+				
+
+
+<li id="post-2140532" class="message   " data-qs="62.500" data-author="dwest">
+
+	
+
+<div class="messageUserInfo" itemscope="itemscope" itemtype="http://data-vocabulary.org/Person">	
+<div class="messageUserBlock ">
+	
+		<div class="avatarHolder">
+			<span class="helper"></span>
+			<a href="https://www.digitalpoint.com/members/dwest.51893/" class="avatar Av51893m" data-avatarhtml="true"><img src="./Conditional form action...how__files/avatar_m.png" width="192" height="192" alt="dwest"></a>
+			
+			<!-- slot: message_user_info_avatar -->
+		</div>
+
+	
+
+
+	
+		<h3 class="userText">
+			<a href="https://www.digitalpoint.com/members/dwest.51893/" class="username" dir="auto" itemprop="name"><span class="style2">dwest</span></a>
+			<em class="userTitle" itemprop="title">Peon</em>
+			
+
+			<!-- slot: message_user_info_text -->
+		</h3>
+	
+		
+	
+		<div class="extraUserInfo">
+			
+			
+				
+				
+				
+					<dl class="pairsJustified">
+						<dt>Messages:</dt>
+						<dd><a href="https://www.digitalpoint.com/search/member?user_id=51893" class="concealed" rel="nofollow">38</a></dd>
+					</dl>
+				
+				
+				
+					<dl class="pairsJustified">
+						<dt>Likes Received:</dt>
+						<dd>0</dd>
+					</dl>
+				
+				
+				<dl class="pairsJustified">
+	<dt>Best Answers:</dt>
+	
+		<dd>0</dd>
+	
+</dl>
+
+					<dl class="pairsJustified">
+						<dt>Trophy Points:</dt>
+						<dd><a href="https://www.digitalpoint.com/members/dwest.51893/trophies" class="OverlayTrigger concealed">0</a></dd>
+					</dl>
+				
+			
+				
+
+
+				
+				
+				
+				
+			
+				
+							
+			
+						
+			
+			
+		</div>
+	
+		
+
+
+	<span class="arrow"><span></span></span>
+</div>
+</div>
+
+	<div class="messageInfo primaryContent">
+		
+		
+		
+		
+		
+		<a title="Permalink" class="item muted postNumber hashPermalink OverlayTrigger" data-href="posts/2140532/permalink">#12</a>
+<div class="messageContent">		
+			<article>
+				<blockquote class="messageText SelectQuoteContainer ugc baseHtml">
+					
+					Somehow my question isn't being understood...<br>
+I want to know how to make the form's ACTION be conditional.<br>
+<br>
+&lt;form action=""&gt;  What goes in between the "" to accomplish the conditional submittal depending on the button selected??<br>
+<br>
+Can it be a php function perhaps?
+					<div class="messageTextEndMarker">&nbsp;</div>
+				</blockquote>
+			</article>
+			
+			
+		</div>
+		
+		
+		
+
+
+		
+		
+		
+		
+				
+		<div class="messageMeta ToggleTriggerAnchor">
+			
+			<div class="privateControls">
+				
+				<span class="item muted">
+					<span class="authorEnd"><a href="https://www.digitalpoint.com/members/dwest.51893/" class="username author" dir="auto">dwest</a>,</span>
+					<span class="DateTime" title="Jan 18, 2007 at 9:16 AM">Jan 18, 2007</span>
+				</span>
+				
+				
+
+
+
+				
+				
+				
+				<a href="https://forums.digitalpoint.com/posts/2140532/ip" class="item control ip OverlayTrigger"><span></span>IP</a>
+				
+				
+				
+				
+				
+			</div>
+			
+			<div class="publicControls">
+				
+				
+				
+				
+				
+			</div>
+		</div>
+	
+		
+		<div id="likes-post-2140532"></div>
+	</div>
+
+	
+	
+	
+
+	
+</li>
+			
+		
+			
+				
+
+
+<li id="post-2140552" class="message   " data-qs="75.284" data-author="noppid">
+
+	
+
+<div class="messageUserInfo" itemscope="itemscope" itemtype="http://data-vocabulary.org/Person">	
+<div class="messageUserBlock ">
+	
+		<div class="avatarHolder">
+			<span class="helper"></span>
+			<a href="https://www.digitalpoint.com/members/noppid.4148/" class="avatar Av4148m" data-avatarhtml="true"><img src="./Conditional form action...how__files/4148.jpg" width="192" height="192" alt="noppid"></a>
+			
+			<!-- slot: message_user_info_avatar -->
+		</div>
+
+	
+
+
+	
+		<h3 class="userText">
+			<a href="https://www.digitalpoint.com/members/noppid.4148/" class="username" dir="auto" itemprop="name"><span class="style5">noppid</span></a>
+			<em class="userTitle" itemprop="title">gunnin' for the quota</em>
+			
+
+			<!-- slot: message_user_info_text -->
+		</h3>
+	
+		
+	
+		<div class="extraUserInfo">
+			
+			
+				
+				
+				
+					<dl class="pairsJustified">
+						<dt>Messages:</dt>
+						<dd><a href="https://www.digitalpoint.com/search/member?user_id=4148" class="concealed" rel="nofollow">4,246</a></dd>
+					</dl>
+				
+				
+				
+					<dl class="pairsJustified">
+						<dt>Likes Received:</dt>
+						<dd>232</dd>
+					</dl>
+				
+				
+				<dl class="pairsJustified">
+	<dt>Best Answers:</dt>
+	
+		<dd>0</dd>
+	
+</dl>
+
+					<dl class="pairsJustified">
+						<dt>Trophy Points:</dt>
+						<dd><a href="https://www.digitalpoint.com/members/noppid.4148/trophies" class="OverlayTrigger concealed">135</a></dd>
+					</dl>
+				
+			
+				
+
+
+				
+				
+				
+				
+			
+				
+							
+			
+						
+			
+			
+		</div>
+	
+		
+
+
+	<span class="arrow"><span></span></span>
+</div>
+</div>
+
+	<div class="messageInfo primaryContent">
+		
+		
+		
+		
+		
+		<a title="Permalink" class="item muted postNumber hashPermalink OverlayTrigger" data-href="posts/2140552/permalink">#13</a>
+<div class="messageContent">		
+			<article>
+				<blockquote class="messageText SelectQuoteContainer ugc baseHtml">
+					
+					Oh, then you need javascript perhaps. I'm no JS expert.<br>
+<br>
+West, The example I posted in whole was simplistic to what I referred to. Your code was fine.
+					<div class="messageTextEndMarker">&nbsp;</div>
+				</blockquote>
+			</article>
+			
+			
+		</div>
+		
+		
+		
+
+
+		
+		
+		
+		
+				
+		<div class="messageMeta ToggleTriggerAnchor">
+			
+			<div class="privateControls">
+				
+				<span class="item muted">
+					<span class="authorEnd"><a href="https://www.digitalpoint.com/members/noppid.4148/" class="username author" dir="auto">noppid</a>,</span>
+					<span class="DateTime" title="Jan 18, 2007 at 9:21 AM">Jan 18, 2007</span>
+				</span>
+				
+				
+
+
+
+				
+				
+				
+				<a href="https://forums.digitalpoint.com/posts/2140552/ip" class="item control ip OverlayTrigger"><span></span>IP</a>
+				
+				
+				
+				
+				
+			</div>
+			
+			<div class="publicControls">
+				
+				
+				
+				
+				
+			</div>
+		</div>
+	
+		
+		<div id="likes-post-2140552"></div>
+	</div>
+
+	
+	
+	
+
+	
+</li>
+			
+		
+			
+				
+
+
+<li id="post-2140567" class="message   " data-qs="82.222" data-author="West">
+
+	
+
+<div class="messageUserInfo" itemscope="itemscope" itemtype="http://data-vocabulary.org/Person">	
+<div class="messageUserBlock ">
+	
+		<div class="avatarHolder">
+			<span class="helper"></span>
+			<a href="https://www.digitalpoint.com/members/west.54357/" class="avatar Av54357m" data-avatarhtml="true"><img src="./Conditional form action...how__files/54357.jpg" width="192" height="192" alt="West"></a>
+			
+			<!-- slot: message_user_info_avatar -->
+		</div>
+
+	
+
+
+	
+		<h3 class="userText">
+			<a href="https://www.digitalpoint.com/members/west.54357/" class="username" dir="auto" itemprop="name"><span class="style2">West</span></a>
+			<em class="userTitle" itemprop="title">Peon</em>
+			
+
+			<!-- slot: message_user_info_text -->
+		</h3>
+	
+		
+	
+		<div class="extraUserInfo">
+			
+			
+				
+				
+				
+					<dl class="pairsJustified">
+						<dt>Messages:</dt>
+						<dd><a href="https://www.digitalpoint.com/search/member?user_id=54357" class="concealed" rel="nofollow">79</a></dd>
+					</dl>
+				
+				
+				
+					<dl class="pairsJustified">
+						<dt>Likes Received:</dt>
+						<dd>3</dd>
+					</dl>
+				
+				
+				<dl class="pairsJustified">
+	<dt>Best Answers:</dt>
+	
+		<dd>0</dd>
+	
+</dl>
+
+					<dl class="pairsJustified">
+						<dt>Trophy Points:</dt>
+						<dd><a href="https://www.digitalpoint.com/members/west.54357/trophies" class="OverlayTrigger concealed">0</a></dd>
+					</dl>
+				
+			
+				
+
+
+				
+				
+				
+				
+			
+				
+							
+			
+						
+			
+			
+		</div>
+	
+		
+
+
+	<span class="arrow"><span></span></span>
+</div>
+</div>
+
+	<div class="messageInfo primaryContent">
+		
+		
+		
+		
+		
+		<a title="Permalink" class="item muted postNumber hashPermalink OverlayTrigger" data-href="posts/2140567/permalink">#14</a>
+<div class="messageContent">		
+			<article>
+				<blockquote class="messageText SelectQuoteContainer ugc baseHtml">
+					
+					Noppid, I got you. I read it wrong. Apologies. <span class="smileWrapper"><img src="./Conditional form action...how__files/clear.png" class="mceSmilieSprite mceSmilie1" alt=":)" title="Smile    :)"></span><br>
+<br>
+Also, I agree with you. This is definitely not a PHP job. Sounds more like a javascript job. This needs to happen before post, but after load and that's not PHP.
+					<div class="messageTextEndMarker">&nbsp;</div>
+				</blockquote>
+			</article>
+			
+			
+		</div>
+		
+		
+		
+
+
+		
+		
+		
+		
+				
+		<div class="messageMeta ToggleTriggerAnchor">
+			
+			<div class="privateControls">
+				
+				<span class="item muted">
+					<span class="authorEnd"><a href="https://www.digitalpoint.com/members/west.54357/" class="username author" dir="auto">West</a>,</span>
+					<span class="DateTime" title="Jan 18, 2007 at 9:25 AM">Jan 18, 2007</span>
+				</span>
+				
+				
+
+
+
+				
+				
+				
+				<a href="https://forums.digitalpoint.com/posts/2140567/ip" class="item control ip OverlayTrigger"><span></span>IP</a>
+				
+				
+				
+				
+				
+			</div>
+			
+			<div class="publicControls">
+				
+				
+				
+				
+				
+			</div>
+		</div>
+	
+		
+		<div id="likes-post-2140567">
+	
+	<div class="likesSummary secondaryContent">
+		<span class="LikeText">
+			<a href="https://www.digitalpoint.com/members/noppid.4148/" class="username" dir="auto">noppid</a> likes this.
+		</span>
+	</div>
+</div>
+	</div>
+
+	
+	
+	
+
+	
+</li>
+			
+		
+			
+				
+
+
+<li id="post-2140621" class="message   " data-qs="68.964" data-author="krakjoe">
+
+	
+
+<div class="messageUserInfo" itemscope="itemscope" itemtype="http://data-vocabulary.org/Person">	
+<div class="messageUserBlock ">
+	
+		<div class="avatarHolder">
+			<span class="helper"></span>
+			<a href="https://www.digitalpoint.com/members/krakjoe.49785/" class="avatar Av49785m" data-avatarhtml="true"><img src="./Conditional form action...how__files/avatar_m.png" width="192" height="192" alt="krakjoe"></a>
+			
+			<!-- slot: message_user_info_avatar -->
+		</div>
+
+	
+
+
+	
+		<h3 class="userText">
+			<a href="https://www.digitalpoint.com/members/krakjoe.49785/" class="username" dir="auto" itemprop="name"><span class="style5">krakjoe</span></a>
+			<em class="userTitle" itemprop="title">Well-Known Member</em>
+			
+
+			<!-- slot: message_user_info_text -->
+		</h3>
+	
+		
+	
+		<div class="extraUserInfo">
+			
+			
+				
+				
+				
+					<dl class="pairsJustified">
+						<dt>Messages:</dt>
+						<dd><a href="https://www.digitalpoint.com/search/member?user_id=49785" class="concealed" rel="nofollow">1,795</a></dd>
+					</dl>
+				
+				
+				
+					<dl class="pairsJustified">
+						<dt>Likes Received:</dt>
+						<dd>141</dd>
+					</dl>
+				
+				
+				<dl class="pairsJustified">
+	<dt>Best Answers:</dt>
+	
+		<dd>0</dd>
+	
+</dl>
+
+					<dl class="pairsJustified">
+						<dt>Trophy Points:</dt>
+						<dd><a href="https://www.digitalpoint.com/members/krakjoe.49785/trophies" class="OverlayTrigger concealed">135</a></dd>
+					</dl>
+				
+			
+				
+
+
+				
+				
+				
+				
+			
+				
+							
+			
+						
+			
+			
+		</div>
+	
+		
+
+
+	<span class="arrow"><span></span></span>
+</div>
+</div>
+
+	<div class="messageInfo primaryContent">
+		
+		
+		
+		
+		
+		<a title="Permalink" class="item muted postNumber hashPermalink OverlayTrigger" data-href="posts/2140621/permalink">#15</a>
+<div class="messageContent">		
+			<article>
+				<blockquote class="messageText SelectQuoteContainer ugc baseHtml">
+					
+					<div class="bbCodeBlock bbCodeHtml">
+	<pre class="line-numbers language-markup"><code class=" language-markup" data-start="1"><span class="token script language-javascript"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">language</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>javascript<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+<span class="token keyword">function</span> <span class="token function">formaction</span><span class="token punctuation">(</span> str <span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+	<span class="token keyword">switch</span><span class="token punctuation">(</span> str <span class="token punctuation">)</span>
+	<span class="token punctuation">{</span>	
+		<span class="token keyword">case</span> <span class="token string">"add"</span><span class="token punctuation">:</span>
+		document<span class="token punctuation">.</span>form_items<span class="token punctuation">.</span>action <span class="token operator">=</span> <span class="token string">'add_items.php'</span><span class="token punctuation">;</span>
+		document<span class="token punctuation">.</span>form_items<span class="token punctuation">.</span><span class="token function">submit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">break</span><span class="token punctuation">;</span>
+		
+		<span class="token keyword">case</span> <span class="token string">"del"</span><span class="token punctuation">:</span>
+		document<span class="token punctuation">.</span>form_items<span class="token punctuation">.</span>action <span class="token operator">=</span> <span class="token string">'del_items.php'</span><span class="token punctuation">;</span>
+		document<span class="token punctuation">.</span>form_items<span class="token punctuation">.</span><span class="token function">submit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">break</span><span class="token punctuation">;</span>
+		
+		<span class="token keyword">case</span> <span class="token string">"cus"</span><span class="token punctuation">:</span>
+		document<span class="token punctuation">.</span>form_items<span class="token punctuation">.</span>action <span class="token operator">=</span> <span class="token string">'add_custom_items.php'</span><span class="token punctuation">;</span>
+		document<span class="token punctuation">.</span>form_items<span class="token punctuation">.</span><span class="token function">submit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">break</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>form_items<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>form_items<span class="token punctuation">"</span></span> <span class="token attr-name">action</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span><span class="token punctuation">"</span></span> <span class="token attr-name">method</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>post<span class="token punctuation">"</span></span> <span class="token attr-name">enctype</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>multipart/form-data<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>button<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Add Items<span class="token punctuation">"</span></span> <span class="token attr-name">onClick</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>formaction('add')<span class="token punctuation">"</span></span><span class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>button<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Delete Items<span class="token punctuation">"</span></span> <span class="token attr-name">onClick</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>formaction('del')<span class="token punctuation">"</span></span><span class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>button<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Add Custom Items<span class="token punctuation">"</span></span> <span class="token attr-name">onClick</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>formaction('cus')<span class="token punctuation">"</span></span><span class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">&gt;</span></span>
+<span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+	<div class="type">HTML:</div>
+</div>
+					<div class="messageTextEndMarker">&nbsp;</div>
+				</blockquote>
+			</article>
+			
+			
+		</div>
+		
+		
+		
+
+
+		
+		
+		
+		
+				
+		<div class="messageMeta ToggleTriggerAnchor">
+			
+			<div class="privateControls">
+				
+				<span class="item muted">
+					<span class="authorEnd"><a href="https://www.digitalpoint.com/members/krakjoe.49785/" class="username author" dir="auto">krakjoe</a>,</span>
+					<span class="DateTime" title="Jan 18, 2007 at 9:36 AM">Jan 18, 2007</span>
+				</span>
+				
+				
+
+
+
+				
+				
+				
+				<a href="https://forums.digitalpoint.com/posts/2140621/ip" class="item control ip OverlayTrigger"><span></span>IP</a>
+				
+				
+				
+				
+				
+			</div>
+			
+			<div class="publicControls">
+				
+				
+				
+				
+				
+			</div>
+		</div>
+	
+		
+		<div id="likes-post-2140621">
+	
+	<div class="likesSummary secondaryContent">
+		<span class="LikeText">
+			<a href="https://www.digitalpoint.com/members/west.54357/" class="username" dir="auto">West</a> and <a href="https://www.digitalpoint.com/members/noppid.4148/" class="username" dir="auto">noppid</a> like this.
+		</span>
+	</div>
+</div>
+	</div>
+
+	
+	
+	
+
+	
+</li>
+			
+		
+			
+				
+
+
+<li id="post-2140659" class="message   " style="transition:all 0 ease 0" data-author="West">
+
+	
+
+<div class="messageUserInfo" itemscope="itemscope" itemtype="http://data-vocabulary.org/Person">	
+<div class="messageUserBlock ">
+	
+		<div class="avatarHolder">
+			<span class="helper"></span>
+			<a href="https://www.digitalpoint.com/members/west.54357/" class="avatar Av54357m" data-avatarhtml="true"><img src="./Conditional form action...how__files/54357.jpg" width="192" height="192" alt="West"></a>
+			
+			<!-- slot: message_user_info_avatar -->
+		</div>
+
+	
+
+
+	
+		<h3 class="userText">
+			<a href="https://www.digitalpoint.com/members/west.54357/" class="username" dir="auto" itemprop="name"><span class="style2">West</span></a>
+			<em class="userTitle" itemprop="title">Peon</em>
+			
+
+			<!-- slot: message_user_info_text -->
+		</h3>
+	
+		
+	
+		<div class="extraUserInfo">
+			
+			
+				
+				
+				
+					<dl class="pairsJustified">
+						<dt>Messages:</dt>
+						<dd><a href="https://www.digitalpoint.com/search/member?user_id=54357" class="concealed" rel="nofollow">79</a></dd>
+					</dl>
+				
+				
+				
+					<dl class="pairsJustified">
+						<dt>Likes Received:</dt>
+						<dd>3</dd>
+					</dl>
+				
+				
+				<dl class="pairsJustified">
+	<dt>Best Answers:</dt>
+	
+		<dd>0</dd>
+	
+</dl>
+
+					<dl class="pairsJustified">
+						<dt>Trophy Points:</dt>
+						<dd><a href="https://www.digitalpoint.com/members/west.54357/trophies" class="OverlayTrigger concealed">0</a></dd>
+					</dl>
+				
+			
+				
+
+
+				
+				
+				
+				
+			
+				
+							
+			
+						
+			
+			
+		</div>
+	
+		
+
+
+	<span class="arrow"><span></span></span>
+</div>
+</div>
+
+	<div class="messageInfo primaryContent">
+		
+		
+		
+		
+		
+		<a title="Permalink" class="item muted postNumber hashPermalink OverlayTrigger" data-href="posts/2140659/permalink">#16</a>
+<div class="messageContent">		
+			<article>
+				<blockquote class="messageText SelectQuoteContainer ugc baseHtml">
+					
+					Thanks for that. <span class="smileWrapper"><img src="./Conditional form action...how__files/clear.png" class="mceSmilieSprite mceSmilie1" alt=":)" title="Smile    :)"></span> Looks like it should work let's hope it does. <span class="smileWrapper"><img src="./Conditional form action...how__files/clear.png" class="mceSmilieSprite mceSmilie1" alt=":)" title="Smile    :)"></span>
+					<div class="messageTextEndMarker">&nbsp;</div>
+				</blockquote>
+			</article>
+			
+			
+		</div>
+		
+		
+		
+
+
+		
+		
+		
+		
+				
+		<div class="messageMeta ToggleTriggerAnchor">
+			
+			<div class="privateControls">
+				
+				<span class="item muted">
+					<span class="authorEnd"><a href="https://www.digitalpoint.com/members/west.54357/" class="username author" dir="auto">West</a>,</span>
+					<span class="DateTime" title="Jan 18, 2007 at 9:43 AM">Jan 18, 2007</span>
+				</span>
+				
+				
+
+
+
+				
+				
+				
+				<a href="https://forums.digitalpoint.com/posts/2140659/ip" class="item control ip OverlayTrigger"><span></span>IP</a>
+				
+				
+				
+				
+				
+			</div>
+			
+			<div class="publicControls">
+				
+				
+				
+				
+				
+			</div>
+		</div>
+	
+		
+		<div id="likes-post-2140659"></div>
+	</div>
+
+	
+	
+	
+
+	
+</li>
+			
+		
+			
+				
+
+
+<li id="post-2140703" class="message   " style="transition:all 0 ease 0" data-author="dwest">
+
+	
+
+<div class="messageUserInfo" itemscope="itemscope" itemtype="http://data-vocabulary.org/Person">	
+<div class="messageUserBlock ">
+	
+		<div class="avatarHolder">
+			<span class="helper"></span>
+			<a href="https://www.digitalpoint.com/members/dwest.51893/" class="avatar Av51893m" data-avatarhtml="true"><img src="./Conditional form action...how__files/avatar_m.png" width="192" height="192" alt="dwest"></a>
+			
+			<!-- slot: message_user_info_avatar -->
+		</div>
+
+	
+
+
+	
+		<h3 class="userText">
+			<a href="https://www.digitalpoint.com/members/dwest.51893/" class="username" dir="auto" itemprop="name"><span class="style2">dwest</span></a>
+			<em class="userTitle" itemprop="title">Peon</em>
+			
+
+			<!-- slot: message_user_info_text -->
+		</h3>
+	
+		
+	
+		<div class="extraUserInfo">
+			
+			
+				
+				
+				
+					<dl class="pairsJustified">
+						<dt>Messages:</dt>
+						<dd><a href="https://www.digitalpoint.com/search/member?user_id=51893" class="concealed" rel="nofollow">38</a></dd>
+					</dl>
+				
+				
+				
+					<dl class="pairsJustified">
+						<dt>Likes Received:</dt>
+						<dd>0</dd>
+					</dl>
+				
+				
+				<dl class="pairsJustified">
+	<dt>Best Answers:</dt>
+	
+		<dd>0</dd>
+	
+</dl>
+
+					<dl class="pairsJustified">
+						<dt>Trophy Points:</dt>
+						<dd><a href="https://www.digitalpoint.com/members/dwest.51893/trophies" class="OverlayTrigger concealed">0</a></dd>
+					</dl>
+				
+			
+				
+
+
+				
+				
+				
+				
+			
+				
+							
+			
+						
+			
+			
+		</div>
+	
+		
+
+
+	<span class="arrow"><span></span></span>
+</div>
+</div>
+
+	<div class="messageInfo primaryContent">
+		
+		
+		
+		
+		
+		<a title="Permalink" class="item muted postNumber hashPermalink OverlayTrigger" data-href="posts/2140703/permalink">#17</a>
+<div class="messageContent">		
+			<article>
+				<blockquote class="messageText SelectQuoteContainer ugc baseHtml">
+					
+					Yes, thanks indeed.  But is there no way to do the same thing with PHP??
+					<div class="messageTextEndMarker">&nbsp;</div>
+				</blockquote>
+			</article>
+			
+			
+		</div>
+		
+		
+		
+
+
+		
+		
+		
+		
+				
+		<div class="messageMeta ToggleTriggerAnchor">
+			
+			<div class="privateControls">
+				
+				<span class="item muted">
+					<span class="authorEnd"><a href="https://www.digitalpoint.com/members/dwest.51893/" class="username author" dir="auto">dwest</a>,</span>
+					<span class="DateTime" title="Jan 18, 2007 at 9:51 AM">Jan 18, 2007</span>
+				</span>
+				
+				
+
+
+
+				
+				
+				
+				<a href="https://forums.digitalpoint.com/posts/2140703/ip" class="item control ip OverlayTrigger"><span></span>IP</a>
+				
+				
+				
+				
+				
+			</div>
+			
+			<div class="publicControls">
+				
+				
+				
+				
+				
+			</div>
+		</div>
+	
+		
+		<div id="likes-post-2140703"></div>
+	</div>
+
+	
+	
+	
+
+	
+</li>
+			
+		
+			
+				
+
+
+<li id="post-2140718" class="message   " data-qs="100.000" data-author="noppid">
+
+	
+
+<div class="messageUserInfo" itemscope="itemscope" itemtype="http://data-vocabulary.org/Person">	
+<div class="messageUserBlock ">
+	
+		<div class="avatarHolder">
+			<span class="helper"></span>
+			<a href="https://www.digitalpoint.com/members/noppid.4148/" class="avatar Av4148m" data-avatarhtml="true"><img src="./Conditional form action...how__files/4148.jpg" width="192" height="192" alt="noppid"></a>
+			
+			<!-- slot: message_user_info_avatar -->
+		</div>
+
+	
+
+
+	
+		<h3 class="userText">
+			<a href="https://www.digitalpoint.com/members/noppid.4148/" class="username" dir="auto" itemprop="name"><span class="style5">noppid</span></a>
+			<em class="userTitle" itemprop="title">gunnin' for the quota</em>
+			
+
+			<!-- slot: message_user_info_text -->
+		</h3>
+	
+		
+	
+		<div class="extraUserInfo">
+			
+			
+				
+				
+				
+					<dl class="pairsJustified">
+						<dt>Messages:</dt>
+						<dd><a href="https://www.digitalpoint.com/search/member?user_id=4148" class="concealed" rel="nofollow">4,246</a></dd>
+					</dl>
+				
+				
+				
+					<dl class="pairsJustified">
+						<dt>Likes Received:</dt>
+						<dd>232</dd>
+					</dl>
+				
+				
+				<dl class="pairsJustified">
+	<dt>Best Answers:</dt>
+	
+		<dd>0</dd>
+	
+</dl>
+
+					<dl class="pairsJustified">
+						<dt>Trophy Points:</dt>
+						<dd><a href="https://www.digitalpoint.com/members/noppid.4148/trophies" class="OverlayTrigger concealed">135</a></dd>
+					</dl>
+				
+			
+				
+
+
+				
+				
+				
+				
+			
+				
+							
+			
+						
+			
+			
+		</div>
+	
+		
+
+
+	<span class="arrow"><span></span></span>
+</div>
+</div>
+
+	<div class="messageInfo primaryContent">
+		
+		
+		
+		
+		
+		<a title="Permalink" class="item muted postNumber hashPermalink OverlayTrigger" data-href="posts/2140718/permalink">#18</a>
+<div class="messageContent">		
+			<article>
+				<blockquote class="messageText SelectQuoteContainer ugc baseHtml">
+					
+					We have actually shown you how to do this in both PHP and JS now. Perhaps there is still a communication gap?
+					<div class="messageTextEndMarker">&nbsp;</div>
+				</blockquote>
+			</article>
+			
+			
+		</div>
+		
+		
+		
+
+
+		
+		
+		
+		
+				
+		<div class="messageMeta ToggleTriggerAnchor">
+			
+			<div class="privateControls">
+				
+				<span class="item muted">
+					<span class="authorEnd"><a href="https://www.digitalpoint.com/members/noppid.4148/" class="username author" dir="auto">noppid</a>,</span>
+					<span class="DateTime" title="Jan 18, 2007 at 9:53 AM">Jan 18, 2007</span>
+				</span>
+				
+				
+
+
+
+				
+				
+				
+				<a href="https://forums.digitalpoint.com/posts/2140718/ip" class="item control ip OverlayTrigger"><span></span>IP</a>
+				
+				
+				
+				
+				
+			</div>
+			
+			<div class="publicControls">
+				
+				
+				
+				
+				
+			</div>
+		</div>
+	
+		
+		<div id="likes-post-2140718">
+	
+	<div class="likesSummary secondaryContent">
+		<span class="LikeText">
+			<a href="https://www.digitalpoint.com/members/dwest.51893/" class="username" dir="auto">dwest</a> likes this.
+		</span>
+	</div>
+</div>
+	</div>
+
+	
+	
+	
+
+	
+</li>
+			
+		
+			
+				
+
+
+<li id="post-2140729" class="message   " data-qs="68.964" data-author="krakjoe">
+
+	
+
+<div class="messageUserInfo" itemscope="itemscope" itemtype="http://data-vocabulary.org/Person">	
+<div class="messageUserBlock ">
+	
+		<div class="avatarHolder">
+			<span class="helper"></span>
+			<a href="https://www.digitalpoint.com/members/krakjoe.49785/" class="avatar Av49785m" data-avatarhtml="true"><img src="./Conditional form action...how__files/avatar_m.png" width="192" height="192" alt="krakjoe"></a>
+			
+			<!-- slot: message_user_info_avatar -->
+		</div>
+
+	
+
+
+	
+		<h3 class="userText">
+			<a href="https://www.digitalpoint.com/members/krakjoe.49785/" class="username" dir="auto" itemprop="name"><span class="style5">krakjoe</span></a>
+			<em class="userTitle" itemprop="title">Well-Known Member</em>
+			
+
+			<!-- slot: message_user_info_text -->
+		</h3>
+	
+		
+	
+		<div class="extraUserInfo">
+			
+			
+				
+				
+				
+					<dl class="pairsJustified">
+						<dt>Messages:</dt>
+						<dd><a href="https://www.digitalpoint.com/search/member?user_id=49785" class="concealed" rel="nofollow">1,795</a></dd>
+					</dl>
+				
+				
+				
+					<dl class="pairsJustified">
+						<dt>Likes Received:</dt>
+						<dd>141</dd>
+					</dl>
+				
+				
+				<dl class="pairsJustified">
+	<dt>Best Answers:</dt>
+	
+		<dd>0</dd>
+	
+</dl>
+
+					<dl class="pairsJustified">
+						<dt>Trophy Points:</dt>
+						<dd><a href="https://www.digitalpoint.com/members/krakjoe.49785/trophies" class="OverlayTrigger concealed">135</a></dd>
+					</dl>
+				
+			
+				
+
+
+				
+				
+				
+				
+			
+				
+							
+			
+						
+			
+			
+		</div>
+	
+		
+
+
+	<span class="arrow"><span></span></span>
+</div>
+</div>
+
+	<div class="messageInfo primaryContent">
+		
+		
+		
+		
+		
+		<a title="Permalink" class="item muted postNumber hashPermalink OverlayTrigger" data-href="posts/2140729/permalink">#19</a>
+<div class="messageContent">		
+			<article>
+				<blockquote class="messageText SelectQuoteContainer ugc baseHtml">
+					
+					php is a server side language, it cannot interact that way with html, there are two ways to do it, and you now have both, so choose ....
+					<div class="messageTextEndMarker">&nbsp;</div>
+				</blockquote>
+			</article>
+			
+			
+		</div>
+		
+		
+		
+
+
+		
+		
+		
+		
+				
+		<div class="messageMeta ToggleTriggerAnchor">
+			
+			<div class="privateControls">
+				
+				<span class="item muted">
+					<span class="authorEnd"><a href="https://www.digitalpoint.com/members/krakjoe.49785/" class="username author" dir="auto">krakjoe</a>,</span>
+					<span class="DateTime" title="Jan 18, 2007 at 9:54 AM">Jan 18, 2007</span>
+				</span>
+				
+				
+
+
+
+				
+				
+				
+				<a href="https://forums.digitalpoint.com/posts/2140729/ip" class="item control ip OverlayTrigger"><span></span>IP</a>
+				
+				
+				
+				
+				
+			</div>
+			
+			<div class="publicControls">
+				
+				
+				
+				
+				
+			</div>
+		</div>
+	
+		
+		<div id="likes-post-2140729">
+	
+	<div class="likesSummary secondaryContent">
+		<span class="LikeText">
+			<a href="https://www.digitalpoint.com/members/dwest.51893/" class="username" dir="auto">dwest</a> likes this.
+		</span>
+	</div>
+</div>
+	</div>
+
+	
+	
+	
+
+	
+</li>
+			
+		
+			
+				
+
+
+<li id="post-2140768" class="message   " style="transition:all 0 ease 0" data-author="dwest">
+
+	
+
+<div class="messageUserInfo" itemscope="itemscope" itemtype="http://data-vocabulary.org/Person">	
+<div class="messageUserBlock ">
+	
+		<div class="avatarHolder">
+			<span class="helper"></span>
+			<a href="https://www.digitalpoint.com/members/dwest.51893/" class="avatar Av51893m" data-avatarhtml="true"><img src="./Conditional form action...how__files/avatar_m.png" width="192" height="192" alt="dwest"></a>
+			
+			<!-- slot: message_user_info_avatar -->
+		</div>
+
+	
+
+
+	
+		<h3 class="userText">
+			<a href="https://www.digitalpoint.com/members/dwest.51893/" class="username" dir="auto" itemprop="name"><span class="style2">dwest</span></a>
+			<em class="userTitle" itemprop="title">Peon</em>
+			
+
+			<!-- slot: message_user_info_text -->
+		</h3>
+	
+		
+	
+		<div class="extraUserInfo">
+			
+			
+				
+				
+				
+					<dl class="pairsJustified">
+						<dt>Messages:</dt>
+						<dd><a href="https://www.digitalpoint.com/search/member?user_id=51893" class="concealed" rel="nofollow">38</a></dd>
+					</dl>
+				
+				
+				
+					<dl class="pairsJustified">
+						<dt>Likes Received:</dt>
+						<dd>0</dd>
+					</dl>
+				
+				
+				<dl class="pairsJustified">
+	<dt>Best Answers:</dt>
+	
+		<dd>0</dd>
+	
+</dl>
+
+					<dl class="pairsJustified">
+						<dt>Trophy Points:</dt>
+						<dd><a href="https://www.digitalpoint.com/members/dwest.51893/trophies" class="OverlayTrigger concealed">0</a></dd>
+					</dl>
+				
+			
+				
+
+
+				
+				
+				
+				
+			
+				
+							
+			
+						
+			
+			
+		</div>
+	
+		
+
+
+	<span class="arrow"><span></span></span>
+</div>
+</div>
+
+	<div class="messageInfo primaryContent">
+		
+		
+		
+		
+		
+		<a title="Permalink" class="item muted postNumber hashPermalink OverlayTrigger" data-href="posts/2140768/permalink">#20</a>
+<div class="messageContent">		
+			<article>
+				<blockquote class="messageText SelectQuoteContainer ugc baseHtml">
+					
+					Will do.  Thanks.
+					<div class="messageTextEndMarker">&nbsp;</div>
+				</blockquote>
+			</article>
+			
+			
+		</div>
+		
+		
+		
+
+
+		
+		
+		
+		
+				
+		<div class="messageMeta ToggleTriggerAnchor">
+			
+			<div class="privateControls">
+				
+				<span class="item muted">
+					<span class="authorEnd"><a href="https://www.digitalpoint.com/members/dwest.51893/" class="username author" dir="auto">dwest</a>,</span>
+					<span class="DateTime" title="Jan 18, 2007 at 10:00 AM">Jan 18, 2007</span>
+				</span>
+				
+				
+
+
+
+				
+				
+				
+				<a href="https://forums.digitalpoint.com/posts/2140768/ip" class="item control ip OverlayTrigger"><span></span>IP</a>
+				
+				
+				
+				
+				
+			</div>
+			
+			<div class="publicControls">
+				
+				
+				
+				
+				
+			</div>
+		</div>
+	
+		
+		<div id="likes-post-2140768"></div>
+	</div>
+
+	
+	
+	
+
+	
+</li>
+			
+		
+		
+	</ol>
+
+	
+
+	<input type="hidden" name="_xfToken" value="">
+
+</form>
+
+
+	<div class="pageNavLinkGroup">
+		
+			
+				<div class="linkGroup">
+					
+						<label for="LoginControl"><a href="https://www.digitalpoint.com/login/" class="concealed element">(You must log in or sign up to reply here.)</a></label>
+					
+				</div>
+			
+			<div class="linkGroup" style="display: none"><a href="javascript:" class="muted JsOnly DisplayIgnoredContent Tooltip">Show Ignored Content</a></div>
+
+			
+		
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+						
+						
+						
+						
+							<!-- login form, to be moved to the upper drop-down -->
+							
+
+
+
+
+
+
+
+
+						
+						
+					
+			
+						
+			<div class="breadBoxBottom">
+
+<nav>
+	
+
+	<fieldset class="breadcrumb" style="">
+		
+			
+		<div class="boardTitle"><strong>Digital Point</strong></div>
+		
+		<span class="crumbs">
+			
+				<span class="crust homeCrumb">
+					<a href="https://www.digitalpoint.com/" class="crumb"><span>Home</span></a>
+					<span class="arrow"><span></span></span>
+				</span>
+			
+			
+			
+				<span class="crust selectedTabCrumb">
+					<a href="https://forums.digitalpoint.com/" class="crumb"><span>Forums</span></a>
+					<span class="arrow"><span>&gt;</span></span>
+				</span>
+			
+			
+			
+				
+					<span class="crust">
+						<a href="https://forums.digitalpoint.com/#development.9" class="crumb"><span>Development</span></a>
+						<span class="arrow"><span>&gt;</span></span>
+					</span>
+				
+					<span class="crust">
+						<a href="https://forums.digitalpoint.com/forums/programming.17/" class="crumb"><span>Programming</span></a>
+						<span class="arrow"><span>&gt;</span></span>
+					</span>
+				
+					<span class="crust">
+						<a href="https://forums.digitalpoint.com/forums/php.37/" class="crumb"><span>PHP</span></a>
+						<span class="arrow"><span>&gt;</span></span>
+					</span>
+				
+			
+		</span>
+	</fieldset>
+</nav></div>
+			
+						
+			
+						
+		</div>
+	</div>
+</div>
+
+<header>
+	
+
+
+<div id="header" class="stick" style="top: -72px;">
+	<div id="logoBlock">
+	<div class="pageWidth">
+		<div class="pageContent">
+			<div id="header_middle"><script async="" src="./Conditional form action...how__files/f(2).txt"></script><ins class="adsbygoogle" data-ad-client="ca-pub-5676236325709660" data-ad-slot="3543656489" data-adsbygoogle-status="done" style="width: 468px; height: 60px;" data-ad-status="unfilled"><div id="aswift_0_host" style="border: none; height: 60px; width: 468px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block;"><iframe id="aswift_0" name="aswift_0" browsingtopics="true" style="left:0;position:absolute;top:0;border:0;width:468px;height:60px;" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" width="468" height="60" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allow="attribution-reporting; run-ad-auction" src="./Conditional form action...how__files/ads.html" data-google-container-id="a!1" tabindex="0" title="Advertisement" aria-label="Advertisement" data-google-query-id="CNG2uLvyyIUDFcuUrAIdIOoP3Q" data-load-complete="true"></iframe></div></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div>
+<div id="header_data"><div class="guest">Log in to view your Analytics, AdSense &amp; PayPal stats</div></div>
+
+			
+			<div id="logo"><a href="https://www.digitalpoint.com/">
+
+				<span></span>
+				
+
+<div class="logo" alt="Digital Point"></div>
+
+			</a></div>
+			
+			<span class="helper"></span>
+		</div>
+	</div>
+</div>
+	
+
+<div id="navigation" class="pageWidth withSearch">
+	<div class="pageContent">
+		<nav>
+
+<div class="navTabs">
+	<ul class="publicTabs">
+	
+		<!-- home -->
+		
+		
+		
+		<!-- extra tabs: home -->
+		
+		
+			
+				<li class="navTab portal PopupClosed">
+					<a href="https://www.digitalpoint.com/" class="navLink" accesskey="w">Home</a>
+					
+				</li>
+			
+		
+		
+		
+		
+		<!-- forums -->
+		
+			<li class="navTab forums Popup PopupControl PopupClosed selected PopupContainerControl">
+			
+				<a href="https://forums.digitalpoint.com/" class="navLink NoPopupGadget" rel="Menu" accesskey="f">Forums</a>
+				
+				
+				<div class="tabLinks forumsTabLinks">
+					
+					<ul class="secondaryContent blockLinksList">
+					
+						
+						<li><a href="https://www.digitalpoint.com/search/?type=post">Search Forums</a></li>
+						
+						<li><a href="https://forums.digitalpoint.com/find-new/posts" rel="nofollow">Recent Posts</a></li>
+<li><a href="https://forums.digitalpoint.com/spy/">Spy</a></li>
+					
+					</ul>
+				</div>
+
+
+			
+
+			</li>
+		
+		
+		
+		<!-- extra tabs: middle -->
+		
+		
+			
+				<li class="navTab tools Popup PopupControl PopupClosed PopupContainerControl">
+			
+				<a href="https://tools.digitalpoint.com/" class="navLink NoPopupGadget" rel="Menu" accesskey="t">Tools</a>
+				
+				
+				
+			</li>
+			
+		
+			
+				<li class="navTab marketplace Popup PopupControl PopupClosed PopupContainerControl">
+			
+				<a href="https://marketplace.digitalpoint.com/" class="navLink NoPopupGadget" rel="Menu" accesskey="m">Marketplace</a>
+				
+				
+				
+			</li>
+			
+		
+			
+				<li class="navTab advertising Popup PopupControl PopupClosed PopupContainerControl">
+			
+				<a href="https://advertising.digitalpoint.com/" class="navLink NoPopupGadget" rel="Menu" accesskey="a">Advertising</a>
+				
+				
+				
+			</li>
+			
+		
+		
+		
+		
+		<!-- members -->
+		
+			<li class="navTab members Popup PopupControl PopupClosed PopupContainerControl">
+			
+				<a href="https://www.digitalpoint.com/members/" class="navLink NoPopupGadget" rel="Menu" accesskey="m">Members</a>
+				
+				
+				
+			</li>
+						
+		
+		<!-- extra tabs: end -->
+		
+
+		<!-- responsive popup -->
+		<li class="navTab navigationHiddenTabs Popup PopupControl PopupClosed PopupContainerControl" style="display: none;">	
+						
+			<a rel="Menu" class="navLink NoPopupGadget"><span class="menuIcon">Menu</span></a>
+			
+			
+		</li>
+			
+		
+		<!-- no selection -->
+		
+		
+	</ul>
+	
+	
+</div>
+
+<span class="helper"></span>
+			
+		</nav>	
+	</div>
+</div>
+	
+
+<div id="searchBar" class="pageWidth">
+	
+	<span id="QuickSearchPlaceholder" title="Search">Search</span>
+	<fieldset id="QuickSearch">
+		<form action="https://www.digitalpoint.com/search/search" method="post" class="formPopup">
+			
+			<div class="primaryControls">
+				<!-- block: primaryControls -->
+				<input type="search" name="keywords" value="" class="textCtrl" placeholder="Search..." results="0" title="Enter your search and hit enter" id="QuickSearchQuery">				
+				<!-- end block: primaryControls -->
+			</div>
+			
+			<div class="secondaryControls">
+				<div class="controlsWrapper">
+				
+					<!-- block: secondaryControls -->
+					<dl class="ctrlUnit">
+						<dt></dt>
+						<dd><ul>
+							<li><label><input type="checkbox" name="title_only" value="1" id="search_bar_title_only" class="AutoChecker" data-uncheck="#search_bar_thread"> Search titles only</label></li>
+						</ul></dd>
+					</dl>
+				
+					<dl class="ctrlUnit">
+						<dt><label for="searchBar_users">Posted by Member:</label></dt>
+						<dd>
+							<input type="text" name="users" value="" class="textCtrl AutoComplete" id="searchBar_users" autocomplete="off">
+							<p class="explain">Separate names with a comma.</p>
+						</dd>
+					</dl>
+				
+					<dl class="ctrlUnit">
+						<dt><label for="searchBar_date">Newer Than:</label></dt>
+						<dd><input type="text" data-orig-type="date" name="date" value="" class="textCtrl date" id="searchBar_date"></dd>
+					</dl>
+					
+					
+
+					<dl class="ctrlUnit">
+						<dt></dt>
+						<dd><ul>
+								
+									<li><label title="Search only Conditional form action...how?"><input type="checkbox" name="type[post][thread_id]" value="222457" id="search_bar_thread" class="AutoChecker" data-uncheck="#search_bar_title_only, #search_bar_nodes"> Search this thread only</label></li>
+								
+									<li><label title="Search only PHP"><input type="checkbox" name="nodes[]" value="37" id="search_bar_nodes" class="Disabler AutoChecker" checked="checked" data-uncheck="#search_bar_thread"> Search this forum only</label>
+	<ul id="search_bar_nodes_Disabler">
+		<li><label><input type="checkbox" name="type[post][group_discussion]" value="1" id="search_bar_group_discussion" class="AutoChecker" data-uncheck="#search_bar_thread"> Display results as threads</label></li>
+	</ul></li>
+								
+						</ul></dd>
+					</dl>
+					
+				</div>
+				<!-- end block: secondaryControls -->
+				
+				<dl class="ctrlUnit submitUnit">
+					<dt></dt>
+					<dd>
+						<input type="submit" value="Search" class="button primary Tooltip">
+						<div class="Popup" id="commonSearches">
+							<a rel="Menu" class="button NoPopupGadget Tooltip PopupControl" data-tipclass="flipped"><span class="arrowWidget"></span></a>
+							
+						</div>
+						<a href="https://www.digitalpoint.com/search/" class="button moreOptions Tooltip">More...</a>
+					</dd>
+				</dl>
+				
+			</div>
+			
+			<input type="hidden" name="_xfToken" value="">
+		</form>		
+	</fieldset>
+	
+</div>
+</div>
+
+	
+	
+</header>
+
+</div>
+
+<footer>
+	
+
+
+<div class="footer">
+	<div class="pageWidth">
+		<div class="pageContent">
+			
+			
+			<ul class="footerLinks">
+			
+				
+					<li><a href="https://twitter.com/digitalpoint">Contact Us</a></li>
+				
+				<li><a href="https://www.digitalpoint.com/help/">Help</a></li>
+				<li><a href="https://www.digitalpoint.com/" class="homeLink">Home</a></li>
+				
+				<li><a href="https://forums.digitalpoint.com/forums/-/index.rss" rel="alternate" class="globalFeed" target="_blank" title="RSS feed for Digital Point">RSS</a></li>
+			
+			</ul>
+			
+			<span class="helper"></span>
+		</div>
+	</div>
+</div>
+
+<div class="footerLegal">
+	<div class="pageWidth">
+		<div class="pageContent">
+			<ul id="legal">
+
+			
+				<li><a href="https://www.digitalpoint.com/help/terms">Terms</a></li>
+				
+			
+			</ul>
+			
+			<div id="copyright"> </div>
+			
+		
+			
+			
+			<span class="helper"></span>
+		</div>
+	</div>	
+</div>
+
+</footer>
+
+<script>
+
+
+jQuery.extend(true, XenForo,
+{
+	visitor: { user_id: 0 },
+	serverTimeInfo:
+	{
+		now: 1713344715,
+		today: 1713337200,
+		todayDow: 3
+	},
+	_lightBoxUniversal: "0",
+	_enableOverlays: "1",
+	_animationSpeedMultiplier: "1",
+	_overlayConfig:
+	{
+		top: "10%",
+		speed: 200,
+		closeSpeed: 100,
+		mask:
+		{
+			color: "rgb(255, 255, 255)",
+			opacity: "0.6",
+			loadSpeed: 200,
+			closeSpeed: 100
+		}
+	},
+	_ignoredUsers: [],
+	_loadedScripts: {"thread_view":true,"message":true,"bb_code":true,"message_user_info":true,"likes_summary":true,"prism":true,"ret_a":true,"ret":true,"login_bar":true,"panel_scroller":true,"facebook":true,"\/\/x.dpstatic.com\/j\/digitalpoint\/post_quality.js?_v=baf78408":true,"\/\/x.dpstatic.com\/j\/digitalpoint\/prism\/prism.js?_v=baf78408":true},
+	_cookieConfig: { path: "/", domain: ".digitalpoint.com", prefix: "xf_"},
+	_csrfToken: "",
+	_csrfRefreshUrl: "https://www.digitalpoint.com/login/csrf-token-refresh",
+	_jsVersion: "baf78408"
+});
+
+
+</script>
+
+
+
+
+
+<div id="calroot" style="display: none; position: absolute;"><div id="calhead"><a id="calprev">←</a><div id="caltitle"></div><a id="calnext">→</a></div><div id="calbody"><div id="caldays"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div><div id="calweeks"></div></div></div><div id="JumpMenu" class="Menu JsOnly">
+		<div class="menuColumns secondaryContent"><ul class="blockLinksList"><li class="d0">Search Engines</li><li class="d1"><a href="https://forums.digitalpoint.com/forums/google.5/">Google</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/adsense.27/">AdSense</a></li><li class="d3"><a href="https://forums.digitalpoint.com/forums/guidelines-compliance.69/">Guidelines / Compliance</a></li><li class="d3"><a href="https://forums.digitalpoint.com/forums/placement-reviews-examples.72/">Placement / Reviews / Examples</a></li><li class="d3"><a href="https://forums.digitalpoint.com/forums/reporting-stats.71/">Reporting &amp; Stats</a></li><li class="d3"><a href="https://forums.digitalpoint.com/forums/payments.68/">Payments</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/adwords.35/">AdWords</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/analytics.112/">Analytics</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/google.142/">Google+</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/sitemaps.62/">Sitemaps</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/google-api.7/">Google API</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/shopping.8/">Shopping</a></li><li class="d1"><a href="https://forums.digitalpoint.com/forums/yahoo.6/">Yahoo</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/publisher-network.47/">Publisher Network</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/search-marketing.84/">Search Marketing</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/yahoo-api.46/">Yahoo API</a></li><li class="d1"><a href="https://forums.digitalpoint.com/forums/bing.43/">Bing</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/bing-ads.82/">Bing Ads</a></li><li class="d1"><a href="https://forums.digitalpoint.com/forums/all-other-search-engines.26/">All Other Search Engines</a></li><li class="d1"><a href="https://forums.digitalpoint.com/forums/directories.25/">Directories</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/solicitations-announcements.65/">Solicitations &amp; Announcements</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/odp-dmoz.66/">ODP / DMOZ</a></li></ul><ul class="blockLinksList"><li class="d0">Business &amp; Marketing</li><li class="d1"><a href="https://forums.digitalpoint.com/forums/general-business.33/">General Business</a></li><li class="d1"><a href="https://forums.digitalpoint.com/forums/general-marketing.21/">General Marketing</a></li><li class="d1"><a href="https://forums.digitalpoint.com/forums/search-engine-optimization.12/">Search Engine Optimization</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/keywords.77/">Keywords</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/microdata.67/">Microdata</a></li><li class="d1"><a href="https://forums.digitalpoint.com/forums/payment-processing.101/">Payment Processing</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/paypal.134/">PayPal</a></li><li class="d1"><a href="https://forums.digitalpoint.com/forums/social-networks.118/">Social Networks</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/facebook.135/">Facebook</a></li><li class="d3"><a href="https://forums.digitalpoint.com/forums/facebook-api.136/">Facebook API</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/twitter.140/">Twitter</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/google.142/">Google+</a></li><li class="d1"><a href="https://forums.digitalpoint.com/forums/link-development.13/">Link Development</a></li><li class="d1"><a href="https://forums.digitalpoint.com/forums/legal-issues.44/">Legal Issues</a></li><li class="d1"><a href="https://forums.digitalpoint.com/forums/domain-names.45/">Domain Names</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/appraisals.61/">Appraisals</a></li><li class="d1"><a href="https://forums.digitalpoint.com/forums/copywriting.86/">Copywriting</a></li><li class="d2"><a href="https://marketplace.digitalpoint.com/articles">Article Marketplace</a></li><li class="d1"><a href="https://forums.digitalpoint.com/forums/ecommerce.115/">eCommerce</a></li><li class="d1"><a href="https://forums.digitalpoint.com/forums/pay-per-click-advertising.20/">Pay Per Click Advertising</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/digital-point-ads.138/">Digital Point Ads</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/google-adwords.35/">Google AdWords</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/yahoo-search-marketing.84/">Yahoo Search Marketing</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/bing-ads.82/">Bing Ads</a></li><li class="d1"><a href="https://forums.digitalpoint.com/forums/affiliate-programs.22/">Affiliate Programs</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/affiliate-program-management.79/">Affiliate Program Management</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/commission-junction.73/">Commission Junction</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/google.131/">Google</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/ebay.133/">eBay</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/amazon.75/">Amazon</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/clickbank.87/">ClickBank</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/chitika.74/">Chitika</a></li></ul><ul class="blockLinksList"><li class="d0">Design</li><li class="d1"><a href="https://forums.digitalpoint.com/forums/html-website-design.16/">HTML &amp; Website Design</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/css.39/">CSS</a></li><li class="d1"><a href="https://forums.digitalpoint.com/forums/graphics-multimedia.55/">Graphics &amp; Multimedia</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/photoshop.121/">Photoshop</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/reviews.144/">Reviews</a></li><li class="d1"><a href="https://forums.digitalpoint.com/forums/content-management.51/">Content Management</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/blogging.40/">Blogging</a></li><li class="d3"><a href="https://forums.digitalpoint.com/forums/wordpress.110/">WordPress</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/drupal.120/">Drupal</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/joomla.111/">Joomla</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/xml-rss.78/">XML &amp; RSS</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/scripts.93/">Scripts</a></li></ul><ul class="blockLinksList"><li class="d0">Development</li><li class="d1"><a href="https://forums.digitalpoint.com/forums/programming.17/">Programming</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/php.37/">PHP</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/javascript.38/">JavaScript</a></li><li class="d3"><a href="https://forums.digitalpoint.com/forums/jquery.137/">jQuery</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/c.48/">C#</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/ruby.56/">Ruby</a></li><li class="d1"><a href="https://forums.digitalpoint.com/forums/site-server-administration.18/">Site &amp; Server Administration</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/apache.49/">Apache</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/nginx.147/">Nginx</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/security.95/">Security</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/traffic-analysis.70/">Traffic Analysis</a></li><li class="d3"><a href="https://forums.digitalpoint.com/forums/google-analytics.112/">Google Analytics</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/robots-txt.50/">robots.txt</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/forum-management.64/">Forum Management</a></li><li class="d3"><a href="https://forums.digitalpoint.com/forums/xenforo.106/">XenForo</a></li><li class="d3"><a href="https://forums.digitalpoint.com/forums/vbulletin.109/">vBulletin</a></li><li class="d3"><a href="https://forums.digitalpoint.com/forums/phpbb.88/">phpBB</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/cluster-computing.146/">Cluster Computing</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/google-sitemaps.62/">Google Sitemaps</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/web-hosting.122/">Web Hosting</a></li><li class="d3"><a href="https://forums.digitalpoint.com/forums/outages.124/">Outages</a></li><li class="d3"><a href="https://forums.digitalpoint.com/forums/advertising.98/">Advertising</a></li><li class="d1"><a href="https://forums.digitalpoint.com/forums/databases.57/">Databases</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/mysql.108/">MySQL</a></li></ul><ul class="blockLinksList"><li class="d0">Buy, Sell or Trade</li><li class="d1"><a href="https://forums.digitalpoint.com/forums/sites.52/">Sites</a></li><li class="d2"><a href="https://marketplace.digitalpoint.com/sites">Filter Sites For Sale</a></li><li class="d1"><a href="https://forums.digitalpoint.com/forums/domains.59/">Domains</a></li><li class="d2"><a href="https://marketplace.digitalpoint.com/domains">Filter Domains For Sale</a></li><li class="d1"><a href="https://forums.digitalpoint.com/forums/design-contests.94/">Design Contests</a></li><li class="d1"><a href="https://forums.digitalpoint.com/forums/advertising.90/">Advertising</a></li><li class="d1"><a href="https://forums.digitalpoint.com/forums/secondhand-licenses.148/">Secondhand Licenses</a></li><li class="d1"><a href="https://forums.digitalpoint.com/forums/services.60/">Services</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/content-creation.102/">Content Creation</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/design.104/">Design</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/programming.103/">Programming</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/traffic.99/">Traffic</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/web-hosting.98/">Web Hosting</a></li><li class="d1"><a href="https://marketplace.digitalpoint.com/plug-ins-add-ons.1/category">Plug-ins/Add-ons</a></li><li class="d1"><a href="https://marketplace.digitalpoint.com/templates-styles.2/category">Templates/Styles</a></li><li class="d1"><a href="https://marketplace.digitalpoint.com/scripts.3/category">Scripts</a></li><li class="d1"><a href="https://marketplace.digitalpoint.com/designs.26/category">Designs</a></li><li class="d1"><a href="https://marketplace.digitalpoint.com/ebooks.4/category">eBooks</a></li><li class="d1"><a href="https://marketplace.digitalpoint.com/articles">Articles</a></li></ul><ul class="blockLinksList"><li class="d0">The Digital Point</li><li class="d1"><a href="https://forums.digitalpoint.com/forums/introductions.2/">Introductions</a></li><li class="d1"><a href="https://forums.digitalpoint.com/forums/general-chat.19/">General Chat</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/movies-music-tv.97/">Movies, Music &amp; TV</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/games.126/">Games</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/sports.125/">Sports</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/hardware.107/">Hardware</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/politics-religion.80/">Politics &amp; Religion</a></li><li class="d1"><a href="https://forums.digitalpoint.com/forums/products-tools.14/">Products &amp; Tools</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/keyword-tracker.10/">Keyword Tracker</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/cookie-search.30/">Cookie Search</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/better-analytics.31/">Better Analytics</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/legacy.41/">Legacy</a></li><li class="d3"><a href="https://forums.digitalpoint.com/forums/co-op-advertising-network.34/">Co-op Advertising Network</a></li><li class="d3"><a href="https://forums.digitalpoint.com/forums/optigold-isp.29/">Optigold ISP</a></li><li class="d1"><a href="https://forums.digitalpoint.com/forums/reviews.91/">Reviews</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/websites.23/">Websites</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/design.144/">Design</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/seo.92/">SEO</a></li><li class="d1"><a href="https://forums.digitalpoint.com/forums/support-feedback.3/">Support &amp; Feedback</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/advertising.138/">Advertising</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/keyword-tracker.10/">Keyword Tracker</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/cookie-search.30/">Cookie Search</a></li><li class="d1"><a href="https://forums.digitalpoint.com/forums/the-underground.28/">The Underground</a></li><li class="d1"><a href="https://forums.digitalpoint.com/forums/area-51.127/">Area 51</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/sphinx-search-support.141/">Sphinx Search Support</a></li><li class="d2"><a href="https://forums.digitalpoint.com/forums/xenforo-search-support.42/">XenForo Search Support</a></li></ul></div>
+	</div><div class="Menu JsOnly tabMenu toolsTabLinks" id="XenForoUniq0">
+					
+					<div class="secondaryContent">
+	<div class="muted">Most used tools...</div>
+</div>
+
+<ul class="secondaryContent blockLinksList">
+	<li><a href="https://tools.digitalpoint.com/tracker">Rank Checker</a></li>
+	<li><a href="https://tools.digitalpoint.com/cookie-search">Cookie Search</a></li>
+	<li><a href="https://tools.digitalpoint.com/site-search">Site Search Engine</a></li>
+</ul>
+				</div><div class="Menu JsOnly tabMenu marketplaceTabLinks" id="XenForoUniq1">
+					
+					<ul class="secondaryContent blockLinksList">
+	<li><a href="https://marketplace.digitalpoint.com/sites">Sites</a></li>
+	<li><a href="https://marketplace.digitalpoint.com/domains">Domains</a></li>
+	<li><a href="https://marketplace.digitalpoint.com/plug-ins-add-ons.1/category">Plugins/Add-ons</a></li>
+	<li><a href="https://marketplace.digitalpoint.com/scripts.3/category">Scripts</a></li>
+	<li><a href="https://marketplace.digitalpoint.com/templates-styles.2/category">Templates/Styles</a></li>
+	<li><a href="https://marketplace.digitalpoint.com/designs.26/category">Graphic Designs</a></li>
+	<li><a href="https://marketplace.digitalpoint.com/ebooks.4/category">eBooks</a></li>
+	<li><a href="https://marketplace.digitalpoint.com/articles">Articles</a></li>
+
+</ul>
+
+
+				</div><div class="Menu JsOnly tabMenu advertisingTabLinks" id="XenForoUniq2">
+					
+					
+
+<ul class="secondaryContent blockLinksList">
+	<li><a href="https://advertising.digitalpoint.com/advertiser">Buy Ad Space</a></li>
+	<li><a href="https://advertising.digitalpoint.com/publisher">Sell Ad Space On Your Sites</a></li>
+</ul>
+
+<ul class="secondaryContent blockLinksList">
+	<li><a href="https://advertising.digitalpoint.com/digitalpoint-com.1/site-detail">Advertise on digitalpoint.com</a></li>
+</ul>
+				</div><div class="Menu JsOnly tabMenu membersTabLinks" id="XenForoUniq3">
+					
+					<ul class="secondaryContent blockLinksList">
+					
+						<li><a href="https://www.digitalpoint.com/members/">Notable Members</a></li>
+						
+						<li><a href="https://www.digitalpoint.com/online/">Current Visitors</a></li>
+						<li><a href="https://forums.digitalpoint.com/recent-activity/">Recent Activity</a></li>
+<li><a href="https://www.digitalpoint.com/members/usermap">User Map</a></li>
+<li><a href="https://directory.digitalpoint.com/">Directory</a></li>
+						<li><a href="https://forums.digitalpoint.com/find-new/profile-posts">New Profile Posts</a></li>
+					
+					</ul>
+				</div><div class="Menu JsOnly blockLinksList primaryContent" id="NavigationHiddenMenu"></div><div class="Menu" id="XenForoUniq4">
+								<div class="primaryContent menuHeader">
+									<h3>Useful Searches</h3>
+								</div>
+								<ul class="secondaryContent blockLinksList">
+									<!-- block: useful_searches -->
+									<li><a href="https://forums.digitalpoint.com/find-new/posts?recent=1" rel="nofollow">Recent Posts</a></li>
+									
+									<!-- end block: useful_searches -->
+								</ul>
+							</div><span id="PING_IFRAME_FORM_DETECTION" style="display: none;"></span><ins class="adsbygoogle adsbygoogle-noablate" data-adsbygoogle-status="done" style="display: none !important;" data-ad-status="unfilled"><div id="aswift_1_host" style="border: none; height: 0px; width: 0px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block;"><iframe id="aswift_1" name="aswift_1" browsingtopics="true" style="left:0;position:absolute;top:0;border:0;width:undefinedpx;height:undefinedpx;" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allow="attribution-reporting; run-ad-auction" src="./Conditional form action...how__files/ads(1).html" data-google-container-id="a!2" tabindex="0" title="Advertisement" aria-label="Advertisement" data-load-complete="true"></iframe></div></ins><div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; width: 0px; height: 0px;"><div></div></div></div><ins class="adsbygoogle adsbygoogle-noablate" data-adsbygoogle-status="done" data-anchor-status="displayed" data-anchor-shown="true" style="display: block; width: 100% !important; height: 129px !important; bottom: 0px; clear: none !important; float: none !important; left: 0px; margin: 0px !important; max-height: none !important; max-width: none !important; opacity: 1; overflow: visible !important; padding: 0px !important; position: fixed; right: auto !important; top: auto !important; vertical-align: baseline !important; visibility: visible !important; z-index: 2147483647; background: rgb(250, 250, 250) !important;" data-ad-status="unfilled"><div class="grippy-host"><template shadowrootmode="closed"><ins class="ee" style="inset: auto !important; clear: none !important; display: block !important; float: none !important; height: 5px !important; margin: 0px !important; max-height: none !important; max-width: none !important; opacity: 1 !important; overflow: visible !important; padding: 0px !important; position: relative !important; vertical-align: baseline !important; visibility: visible !important; width: auto !important; z-index: 1 !important; background-color: rgb(250, 250, 250) !important; box-shadow: rgba(0, 0, 0, 0.2) 0px -1px 5px -1px, rgba(0, 0, 0, 0.1) 0px 1px 2px -1px !important;"><span style="display: block !important; width: 80px !important; height: 45px !important; bottom: 0px !important; left: 0% !important; pointer-events: none !important;"><svg style="margin: 0px !important; position: absolute !important; bottom: 0px !important; left: 0% !important; display: block !important; width: 80px !important; height: 30px !important; transform: none !important; pointer-events: initial !important;"><defs><filter id="dropShadowTop" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><fecomponenttransfer in="SourceAlpha" result="TransferredAlpha"><fefuncr type="discrete" tableValues="0.5"></fefuncr><fefuncg type="discrete" tableValues="0.5"></fefuncg><fefuncb type="discrete" tableValues="0.5"></fefuncb></fecomponenttransfer><fegaussianblur in="TransferredAlpha" stdDeviation="2"></fegaussianblur><feoffset dx="0" dy="0" result="offsetblur"></feoffset><femerge><femergenode></femergenode><femergenode in="SourceGraphic"></femergenode></femerge></filter></defs><path d="M0,26 L0,6 A6,6 0 0,1 6,1 L50,1 A6,6 0 0,1 56,6 L56,20 A6,6 0 0,0 62,26 Z" stroke="#FAFAFA" stroke-width="1" fill="#FAFAFA" style="filter: url(&quot;#dropShadowTop&quot;);"></path><rect x="0" y="25" width="80" height="5" style="fill: rgb(250, 250, 250);"></rect><g class="down" stroke="#616161" stroke-width="2px" stroke-linecap="square"><line x1="22" y1="12" x2="28" y2="18"></line><line x1="28" y1="18" x2="34" y2="12"></line></g></svg></span></ins></template></div><div id="aswift_2_host" style="border: none !important; height: 124px !important; width: 100% !important; margin: 0px !important; padding: 0px !important; position: relative !important; visibility: visible !important; background-color: transparent !important; display: inline-block !important; inset: auto !important; clear: none !important; float: none !important; max-height: none !important; max-width: none !important; opacity: 1 !important; overflow: visible !important; vertical-align: baseline !important; z-index: auto !important;"><iframe id="aswift_2" name="aswift_2" browsingtopics="true" style="width: 1005px !important; height: 124px !important; display: block; margin: 0px auto;" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" width="1005" height="124" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allow="attribution-reporting; run-ad-auction" src="./Conditional form action...how__files/zrt_lookup_fy2021.html" data-google-container-id="a!3" tabindex="0" title="Advertisement" aria-label="Advertisement" data-load-complete="true"></iframe></div></ins><iframe src="./Conditional form action...how__files/aframe.html" width="0" height="0" style="display: none;"></iframe></body></html>
