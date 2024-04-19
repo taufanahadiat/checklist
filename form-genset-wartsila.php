@@ -43,7 +43,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
 <header>
-    <h1>Genset Wartsila 01</h1>
+    <img id="logo" src="css/logo.png" alt="Logo Argha"><br>
+    <img id="exit" src="css/exit.png" alt="Exit"><br>
+    <h1 style="text-align: center";>ONLINE CHECKLIST</h1>
 </header>
 <main>
     <table>
