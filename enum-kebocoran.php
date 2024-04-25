@@ -1,7 +1,8 @@
 <?php
 $options = [
-    'on' => 'On',
-    'off' => 'Off'
+    'A' => 'A',
+    'TA' => 'TA',
+    'RS' => 'RS'
 ];
 
 foreach ($options as $value => $label) {

@@ -3,8 +3,6 @@
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 $mysqli = new mysqli('localhost', 'root','','checklistnew_24');
 
-$result_tanggal = $mysqli->query("SELECT tanggal FROM genset_wartsila_01");
-
 ?>
 
 <!DOCTYPE html>
@@ -16,12 +14,14 @@ $result_tanggal = $mysqli->query("SELECT tanggal FROM genset_wartsila_01");
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <header>
+  <div class="header-img">
       <img id="logo" src="css/logo.png" alt="Logo Argha"><br>
       <img id="exit" src="css/exit.png" alt="Exit"><br>
-      <h1 style="text-align: center;">ONLINE CHECKLIST</h1>
+      </div>
+    <header>
+      <h1>ONLINE CHECKLIST</h1>
     </header>
-    
+
     <form>
       <div class="radio">
         <label id="menu-form">
@@ -38,12 +38,12 @@ $result_tanggal = $mysqli->query("SELECT tanggal FROM genset_wartsila_01");
     </form>
 
     <div id="select-form" style="display: none;">
-      <form name="select-form" action="form-genset-wartsila.php">
+      <form name="select-form" onsubmit="handleFormSubmit(event, 'option-form')">
         <div class="custom-label"> 
         <div class="form-row">
           <div class="unitfield">
             <label for="unit">Pilih Unit:</label>
-            <select class="selection" name="unit">
+            <select class="selection" name="unit" id="option-form">
               <?php
               $dbname = 'checklistnew_24';
               $sql = "SHOW TABLES FROM $dbname";
@@ -51,8 +51,12 @@ $result_tanggal = $mysqli->query("SELECT tanggal FROM genset_wartsila_01");
               $i=0;
               while ($row_unit = mysqli_fetch_row($result_unit)) {
                 $row_name= [
-                  0 => "Genset Wartsila 1",
-                  1 => "Genset Wartsila 2",
+                  0 => "Fuel Transfer Pump Unit",
+                  1 => "Genset Wartsila 1",
+                  2 => "Genset Wartsila 2",
+                  3 => "HFO Separator Pump Unit",
+                  4 => "HFO Unloading Pump Unit",
+                  5 => "LFO Unloading Pump Unit",
                 ];
                 if ($row_name[$i]==NULL) {
                   $row_name[$i]="$row_unit[0]";
@@ -72,12 +76,12 @@ $result_tanggal = $mysqli->query("SELECT tanggal FROM genset_wartsila_01");
     </div>
     
     <div id="select-view" style="display: none;">
-    <form name="select-view" action="article.php">
+    <form name="select-view" onsubmit="handleFormSubmit(event, 'option-view')">
     <div class="custom-label">
     <div class="form-row">
         <div class="unitfield">
             <label for="unit">Pilih Unit:</label>
-            <select class="selection" name="unit">
+            <select class="selection" name="unit" id="option-view">
             <?php
               $dbname = 'checklistnew_24';
               $sql = "SHOW TABLES FROM $dbname";
@@ -85,8 +89,12 @@ $result_tanggal = $mysqli->query("SELECT tanggal FROM genset_wartsila_01");
               $i=0;
               while ($row_unit = mysqli_fetch_row($result_unit)) {
                 $row_name= [
-                  0 => "Genset Wartsila 1",
-                  1 => "Genset Wartsila 2",
+                  0 => "Fuel Transfer Pump Unit",
+                  1 => "Genset Wartsila 1",
+                  2 => "Genset Wartsila 2",
+                  3 => "HFO Separator Pump Unit",
+                  4 => "HFO Unloading Pump Unit",
+                  5 => "LFO Unloading Pump Unit",
                 ];
                 if ($row_name[$i]==NULL) {
                   $row_name[$i]="$row_unit[0]";
@@ -99,7 +107,7 @@ $result_tanggal = $mysqli->query("SELECT tanggal FROM genset_wartsila_01");
         </div>
         <div class="tanggalfield">
             <label for="tanggal">Pilih Tanggal:</label>
-            <input type="date" class="input-container" name="tanggal">
+            <input type="date" class="input-container" id="dateInput" name="tanggal">
         </div>
     </div>
     <input class="btn" type="submit" value="SUBMIT">
@@ -126,8 +134,45 @@ $result_tanggal = $mysqli->query("SELECT tanggal FROM genset_wartsila_01");
             $('#select-view').hide();  
           }
         });
+
         $(".selection").prop("selectedIndex", -1);
       });
-    </script>
+
+      function handleFormSubmit(event, selectId) {
+        event.preventDefault();
+
+        var selectElement = document.getElementById(selectId);
+        var selectedUnit = selectElement.value;
+        var selectedDate = document.getElementById('dateInput').value;
+
+            console.log('Selected <select> ID:', selectId);
+            console.log('Selected Value:', selectedUnit);
+            console.log('Selected Date:', selectedDate);
+
+            switch (selectedUnit) {
+                case 'fuel_transfer_pump_unit':
+                case 'hfo_separator_pump_unit':
+                case 'hfo_unloading_pump_unit':
+                case 'lfo_unloading_pump_unit':
+                    if (selectId === 'option-form') {
+                        location.href = 'form-hfo-lfo-fuel.php?selectedUnit=' + encodeURIComponent(selectedUnit);
+                    } else if (selectId === 'option-view') {
+                        location.href = 'view-hfo-lfo-fuel.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedDate=' + encodeURIComponent(selectedDate);
+                    }
+                    break;
+                case 'genset_wartsila_01':
+                case 'genset_wartsila_02':
+                    if (selectId === 'option-form') {
+                        location.href = 'form-genset.php?selectedUnit=' + encodeURIComponent(selectedUnit);
+                    } else if (selectId === 'option-view') {
+                        location.href = 'view-genset.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedDate=' + encodeURIComponent(selectedDate);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+    
+      </script>
   </body>
 </html>
