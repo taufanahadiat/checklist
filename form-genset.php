@@ -43,10 +43,10 @@ require 'request.php';
     
 <?php
 
-$unit_headings = [
+$unit_headings = array(
     "genset_wartsila_01" => "Genset Wartsila 01",
     "genset_wartsila_02" => "Genset Wartsila 02"
-];
+);
 
 if (array_key_exists($unit, $unit_headings)):
     ?>
@@ -91,26 +91,26 @@ if (array_key_exists($unit, $unit_headings)):
                     <th class="measure">Air Condensation Heater</th>
                     <th class="parameter">-</th>
                     <th class="parameter-setting">On</th>
-                    <td colspan="4"><select class="enum" name="anti_cond_heater_8_14"><?= require 'enum-on-off.php'?></td>
-                    <td colspan="4"><select class="enum" name="anti_cond_heater_16_22"><?= require 'enum-on-off.php'?></td>
-                    <td colspan="4"><select class="enum" name="anti_cond_heater_0_6"><?= require 'enum-on-off.php'?></td>
+                    <td colspan="4"><select class="enum" name="anti_cond_heater_8_14"><?php include 'enum-on-off.php'?></td>
+                    <td colspan="4"><select class="enum" name="anti_cond_heater_16_22"><?php include 'enum-on-off.php'?></td>
+                    <td colspan="4"><select class="enum" name="anti_cond_heater_0_6"><?php include 'enum-on-off.php'?></td>
                 </tr>
                 <tr>
                     <th class="measure">Pre lube Pump</th>
                     <th class="parameter">-</th>
                     <th class="parameter-setting">On</th>
-                    <td><select class="enum" name="prelube_pump_8"><?= require 'enum-on-off.php'?></td>
-                    <td><select class="enum" name="prelube_pump_10"><?= require 'enum-on-off.php'?></td>
-                    <td><select class="enum" name="prelube_pump_12"><?= require 'enum-on-off.php'?></td>
-                    <td><select class="enum" name="prelube_pump_14"><?= require 'enum-on-off.php'?></td>
-                    <td><select class="enum" name="prelube_pump_16"><?= require 'enum-on-off.php'?></td>
-                    <td><select class="enum" name="prelube_pump_18"><?= require 'enum-on-off.php'?></td>
-                    <td><select class="enum" name="prelube_pump_20"><?= require 'enum-on-off.php'?></td>
-                    <td><select class="enum" name="prelube_pump_22"><?= require 'enum-on-off.php'?></td>
-                    <td><select class="enum" name="prelube_pump_0"><?= require 'enum-on-off.php'?></td>
-                    <td><select class="enum" name="prelube_pump_2"><?= require 'enum-on-off.php'?></td>
-                    <td><select class="enum" name="prelube_pump_4"><?= require 'enum-on-off.php'?></td>
-                    <td><select class="enum" name="prelube_pump_6"><?= require 'enum-on-off.php'?></td>
+                    <td><select class="enum" name="prelube_pump_8"><?php include 'enum-on-off.php'?></td>
+                    <td><select class="enum" name="prelube_pump_10"><?php include 'enum-on-off.php'?></td>
+                    <td><select class="enum" name="prelube_pump_12"><?php include 'enum-on-off.php'?></td>
+                    <td><select class="enum" name="prelube_pump_14"><?php include 'enum-on-off.php'?></td>
+                    <td><select class="enum" name="prelube_pump_16"><?php include 'enum-on-off.php'?></td>
+                    <td><select class="enum" name="prelube_pump_18"><?php include 'enum-on-off.php'?></td>
+                    <td><select class="enum" name="prelube_pump_20"><?php include 'enum-on-off.php'?></td>
+                    <td><select class="enum" name="prelube_pump_22"><?php include 'enum-on-off.php'?></td>
+                    <td><select class="enum" name="prelube_pump_0"><?php include 'enum-on-off.php'?></td>
+                    <td><select class="enum" name="prelube_pump_2"><?php include 'enum-on-off.php'?></td>
+                    <td><select class="enum" name="prelube_pump_4"><?php include 'enum-on-off.php'?></td>
+                    <td><select class="enum" name="prelube_pump_6"><?php include 'enum-on-off.php'?></td>
                 </tr>
                 <tr>
                     <th class="measure">Pre lube Pump Press</th>
@@ -133,35 +133,35 @@ if (array_key_exists($unit, $unit_headings)):
                     <th class="measure">Kebocoran Oil</th> 
                     <th class="parameter">A/TA/RS</th>
                     <th class="parameter-setting">-</th>
-                    <td><select class="enum" name="kebocoran_oil_8" ><?= require 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_oil_10"><?= require 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_oil_12"><?= require 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_oil_14"><?= require 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_oil_16"><?= require 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_oil_18"><?= require 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_oil_20"><?= require 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_oil_22"><?= require 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_oil_0" ><?= require 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_oil_2" ><?= require 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_oil_4" ><?= require 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_oil_6" ><?= require 'enum-kebocoran.php'?></td>
+                    <td><select class="enum" name="kebocoran_oil_8" ><?php include 'enum-kebocoran.php'?></td>
+                    <td><select class="enum" name="kebocoran_oil_10"><?php include 'enum-kebocoran.php'?></td>
+                    <td><select class="enum" name="kebocoran_oil_12"><?php include 'enum-kebocoran.php'?></td>
+                    <td><select class="enum" name="kebocoran_oil_14"><?php include 'enum-kebocoran.php'?></td>
+                    <td><select class="enum" name="kebocoran_oil_16"><?php include 'enum-kebocoran.php'?></td>
+                    <td><select class="enum" name="kebocoran_oil_18"><?php include 'enum-kebocoran.php'?></td>
+                    <td><select class="enum" name="kebocoran_oil_20"><?php include 'enum-kebocoran.php'?></td>
+                    <td><select class="enum" name="kebocoran_oil_22"><?php include 'enum-kebocoran.php'?></td>
+                    <td><select class="enum" name="kebocoran_oil_0" ><?php include 'enum-kebocoran.php'?></td>
+                    <td><select class="enum" name="kebocoran_oil_2" ><?php include 'enum-kebocoran.php'?></td>
+                    <td><select class="enum" name="kebocoran_oil_4" ><?php include 'enum-kebocoran.php'?></td>
+                    <td><select class="enum" name="kebocoran_oil_6" ><?php include 'enum-kebocoran.php'?></td>
                 </tr>
                 <tr>
                     <th class="measure">Preheating Unit</th>
                     <th class="parameter">-</th>
                     <th class="parameter-setting">On</th>
-                    <td><select class="enum" name="preheat_unit_8"><?= require 'enum-on-off.php'?></td>
-                    <td><select class="enum" name="preheat_unit_10"><?= require 'enum-on-off.php'?></td>
-                    <td><select class="enum" name="preheat_unit_12"><?= require 'enum-on-off.php'?></td>
-                    <td><select class="enum" name="preheat_unit_14"><?= require 'enum-on-off.php'?></td>
-                    <td><select class="enum" name="preheat_unit_16"><?= require 'enum-on-off.php'?></td>
-                    <td><select class="enum" name="preheat_unit_18"><?= require 'enum-on-off.php'?></td>
-                    <td><select class="enum" name="preheat_unit_20"><?= require 'enum-on-off.php'?></td>
-                    <td><select class="enum" name="preheat_unit_22"><?= require 'enum-on-off.php'?></td>
-                    <td><select class="enum" name="preheat_unit_0"><?= require 'enum-on-off.php'?></td>
-                    <td><select class="enum" name="preheat_unit_2"><?= require 'enum-on-off.php'?></td>
-                    <td><select class="enum" name="preheat_unit_4"><?= require 'enum-on-off.php'?></td>
-                    <td><select class="enum" name="preheat_unit_6"><?= require 'enum-on-off.php'?></td>                    
+                    <td><select class="enum" name="preheat_unit_8"><?php include 'enum-on-off.php'?></td>
+                    <td><select class="enum" name="preheat_unit_10"><?php include 'enum-on-off.php'?></td>
+                    <td><select class="enum" name="preheat_unit_12"><?php include 'enum-on-off.php'?></td>
+                    <td><select class="enum" name="preheat_unit_14"><?php include 'enum-on-off.php'?></td>
+                    <td><select class="enum" name="preheat_unit_16"><?php include 'enum-on-off.php'?></td>
+                    <td><select class="enum" name="preheat_unit_18"><?php include 'enum-on-off.php'?></td>
+                    <td><select class="enum" name="preheat_unit_20"><?php include 'enum-on-off.php'?></td>
+                    <td><select class="enum" name="preheat_unit_22"><?php include 'enum-on-off.php'?></td>
+                    <td><select class="enum" name="preheat_unit_0"><?php include 'enum-on-off.php'?></td>
+                    <td><select class="enum" name="preheat_unit_2"><?php include 'enum-on-off.php'?></td>
+                    <td><select class="enum" name="preheat_unit_4"><?php include 'enum-on-off.php'?></td>
+                    <td><select class="enum" name="preheat_unit_6"><?php include 'enum-on-off.php'?></td>                    
                 </tr>
                 <tr>
                     <th class="measure">HT Water Outlet Temp</th>
@@ -242,18 +242,18 @@ if (array_key_exists($unit, $unit_headings)):
                 <th class="measure">Kebocoran Fuel</th> 
                     <th class="parameter">A/TA/RS</th>
                     <th class="parameter-setting">-</th>
-                    <td><select class="enum" name="kebocoran_fuel_8" ><?= require 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_fuel_10"><?= require 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_fuel_12"><?= require 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_fuel_14"><?= require 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_fuel_16"><?= require 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_fuel_18"><?= require 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_fuel_20"><?= require 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_fuel_22"><?= require 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_fuel_0" ><?= require 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_fuel_2" ><?= require 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_fuel_4" ><?= require 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_fuel_6" ><?= require 'enum-kebocoran.php'?></td>
+                    <td><select class="enum" name="kebocoran_fuel_8" ><?php include 'enum-kebocoran.php'?></td>
+                    <td><select class="enum" name="kebocoran_fuel_10"><?php include 'enum-kebocoran.php'?></td>
+                    <td><select class="enum" name="kebocoran_fuel_12"><?php include 'enum-kebocoran.php'?></td>
+                    <td><select class="enum" name="kebocoran_fuel_14"><?php include 'enum-kebocoran.php'?></td>
+                    <td><select class="enum" name="kebocoran_fuel_16"><?php include 'enum-kebocoran.php'?></td>
+                    <td><select class="enum" name="kebocoran_fuel_18"><?php include 'enum-kebocoran.php'?></td>
+                    <td><select class="enum" name="kebocoran_fuel_20"><?php include 'enum-kebocoran.php'?></td>
+                    <td><select class="enum" name="kebocoran_fuel_22"><?php include 'enum-kebocoran.php'?></td>
+                    <td><select class="enum" name="kebocoran_fuel_0" ><?php include 'enum-kebocoran.php'?></td>
+                    <td><select class="enum" name="kebocoran_fuel_2" ><?php include 'enum-kebocoran.php'?></td>
+                    <td><select class="enum" name="kebocoran_fuel_4" ><?php include 'enum-kebocoran.php'?></td>
+                    <td><select class="enum" name="kebocoran_fuel_6" ><?php include 'enum-kebocoran.php'?></td>
                 </tr>
             </tbody>
     </table>

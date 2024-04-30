@@ -50,14 +50,14 @@ $mysqli = new mysqli('localhost', 'root','','checklistnew_24');
               $result_unit = $mysqli->query($sql);
               $i=0;
               while ($row_unit = mysqli_fetch_row($result_unit)) {
-                $row_name= [
+                $row_name= array (
                   0 => "Fuel Transfer Pump Unit",
                   1 => "Genset Wartsila 1",
                   2 => "Genset Wartsila 2",
                   3 => "HFO Separator Pump Unit",
                   4 => "HFO Unloading Pump Unit",
                   5 => "LFO Unloading Pump Unit",
-                ];
+                );
                 if ($row_name[$i]==NULL) {
                   $row_name[$i]="$row_unit[0]";
                 }   
@@ -88,14 +88,14 @@ $mysqli = new mysqli('localhost', 'root','','checklistnew_24');
               $result_unit = $mysqli->query($sql);
               $i=0;
               while ($row_unit = mysqli_fetch_row($result_unit)) {
-                $row_name= [
+                $row_name= array(
                   0 => "Fuel Transfer Pump Unit",
                   1 => "Genset Wartsila 1",
                   2 => "Genset Wartsila 2",
                   3 => "HFO Separator Pump Unit",
                   4 => "HFO Unloading Pump Unit",
                   5 => "LFO Unloading Pump Unit",
-                ];
+                );
                 if ($row_name[$i]==NULL) {
                   $row_name[$i]="$row_unit[0]";
                 }   

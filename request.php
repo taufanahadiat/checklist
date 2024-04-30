@@ -15,14 +15,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $existing_record = mysqli_fetch_assoc($result_select);
 
         // Prepare to build the SQL query for either INSERT or UPDATE
-        $columns = [];
-        $values = [];
+        $columns = array();
+        $values = array();
 
         foreach ($_POST as $key => $value) {
+            $escaped_key = mysqli_real_escape_string($conn, $key);
             $escaped_value = mysqli_real_escape_string($conn, $value);
-            if (!empty($escaped_value)) {
-                $columns[] = "`$key` = '$escaped_value'";
+            
+            echo "Key: $escaped_key, Value: $escaped_value<br>";
+
+            if ($escaped_value === "" || ctype_space($escaped_value)) {
+                $escaped_value = "NULL";
+            } else {
+                $escaped_value = "'" . $escaped_value . "'";
             }
+            array_push($columns, "`$escaped_key`");
+            array_push($values, $escaped_value);
         }
 
         if (empty($columns)) {
@@ -30,11 +38,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             if ($existing_record === null) {
                 // No existing record, perform an INSERT
-                $sql_insert = "INSERT INTO $unit (tanggal, " . implode(", ", array_keys($_POST)) . ") 
-                               VALUES (CURDATE(), " . implode(", ", array_map(function($value) use ($conn) {
-                                    return "'" . mysqli_real_escape_string($conn, $value) . "'";
-                                }, $_POST)) . ")";
-
+                $sql_insert = "INSERT INTO $unit (tanggal, " . implode(", ", $columns) . ") 
+                            VALUES (CURDATE(), " . implode(", ", $values) . ")";
+                
                 $result_insert = mysqli_query($conn, $sql_insert);
 
                 if ($result_insert === false) {
@@ -44,8 +50,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
             } else {
                 // Existing record found, perform an UPDATE
-                $sql_update = "UPDATE $unit SET " . implode(", ", $columns) . " WHERE tanggal = CURDATE()";
-
+                $set_clause = array();
+        
+                for ($i = 0; $i < count($columns); $i++) {
+                    if ($values[$i] === "NULL") {
+                        array_push($set_clause, $columns[$i] . " = NULL");
+                    } else {
+                        array_push($set_clause, $columns[$i] . " = " . mysqli_real_escape_string($conn, $values[$i]) . "'");
+                    }
+                }
+                
+                $sql_update = "UPDATE $unit SET " . implode(", ", $set_clause) . " WHERE tanggal = CURDATE()";
                 $result_update = mysqli_query($conn, $sql_update);
 
                 if ($result_update === false) {
