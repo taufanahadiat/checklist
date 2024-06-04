@@ -1,4 +1,4 @@
-    <div class="custom-label-view">
+    <div class="custom-label-sub">
         <form action="/view-genset.php">
             <div class="">
                 <label for="selectedDate" >Pilih Tanggal:</label>

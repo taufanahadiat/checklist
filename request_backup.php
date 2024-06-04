@@ -1,37 +1,20 @@
 <?php
-require 'database.php';
-
 $unit = $_GET['selectedUnit']; // Get the 'unit' parameter from the query string
-$tanggal = date("Y-m-d");
-
-$sql = "SELECT *
-        FROM $unit
-        where tanggal LIKE '%{$tanggal}%'";
-
-$results = mysqli_query($conn, $sql);
-
-if ($results === false) {
-    echo mysqli_error($conn);
-    //echo "not connect";
-} else {
-    $article = mysqli_fetch_assoc($results);
-    //echo "connect";
-}
-
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
+
     // Check if there's an existing record for today's date
     $sql_select = "SELECT * FROM $unit WHERE tanggal = CURDATE()";
     $result_select = mysqli_query($conn, $sql_select);
-    
+    $date = date("Y-m-d");
+
     if (!$result_select) {
         echo "Error: " . mysqli_error($conn);
     } else {
-        // Check if there is an existing record for today's date
         $existing_record = mysqli_fetch_assoc($result_select);
 
-        // Prepare to build the SQL query for INSERT or UPDATE
+        // Prepare to build the SQL query for either INSERT or UPDATE
         $columns = array();
         $values = array();
 
@@ -39,14 +22,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $escaped_key = mysqli_real_escape_string($conn, $key);
             $escaped_value = mysqli_real_escape_string($conn, $value);
             
-            // Check if the value is empty or just whitespace, and set it to NULL if so
             if ($escaped_value === "" || ctype_space($escaped_value)) {
                 $escaped_value = "NULL";
             } else {
                 $escaped_value = "'" . $escaped_value . "'";
             }
-            
-            // Store the escaped key and value
             array_push($columns, "`$escaped_key`");
             array_push($values, $escaped_value);
         }
@@ -54,41 +34,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (empty($columns)) {
             echo "<script>alert('No valid fields to update.');</script>";
         } else {
-            // Check if an existing record was found
-            if ($existing_record) {
+            if ($existing_record === null) {
+                // No existing record, perform an INSERT
+                $sql_insert = "INSERT INTO $unit (tanggal, " . implode(", ", $columns) . ") 
+                            VALUES (CURDATE(), " . implode(", ", $values) . ")";
+                
+                $result_insert = mysqli_query($conn, $sql_insert);
+
+                if ($result_insert === false) {
+                    echo "<script>alert('Error inserting new record: " . mysqli_error($conn) . "');</script>";
+                } else {
+                    echo "<script>alert('New record submitted successfully for date: $date');</script";
+                }
+            } else {
                 // Existing record found, perform an UPDATE
                 $set_clause = array();
-
+        
                 for ($i = 0; $i < count($columns); $i++) {
                     if ($values[$i] === "NULL") {
                         continue;
-                    } else {
-                        array_push($set_clause, $columns[$i] . " = " . $values[$i]);
                     }
+                        array_push($set_clause, $columns[$i] . " = " . $values[$i]);
                 }
                 
-                // Construct the UPDATE query
                 $sql_update = "UPDATE $unit SET " . implode(", ", $set_clause) . " WHERE tanggal = CURDATE()";
                 $result_update = mysqli_query($conn, $sql_update);
 
                 if ($result_update === false) {
                     echo "<script>alert('Error updating existing record: " . mysqli_error($conn) . "');</script>";
                 } else {
-                    echo "<script>alert('Existing record updated successfully for date: " . date("Y-m-d") . "');</script>";
-                }
-            } else {
-                // No existing record found, perform an INSERT
-                $columns_sql = implode(", ", $columns);
-                $values_sql = implode(", ", $values);
-                
-                // Construct the INSERT query
-                $sql_insert = "INSERT INTO $unit (tanggal, $columns_sql) VALUES (CURDATE(), $values_sql)";
-                $result_insert = mysqli_query($conn, $sql_insert);
-
-                if ($result_insert === false) {
-                    echo "<script>alert('Error inserting new record: " . mysqli_error($conn) . "');</script>";
-                } else {
-                    echo "<script>alert('New record submitted successfully for date: " . date("Y-m-d") . "');</script>";
+                    echo "<script>alert('Existing record updated successfully for date: $date');</script>";
                 }
             }
         }
@@ -96,4 +71,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     mysqli_close($conn); 
 }
-?>

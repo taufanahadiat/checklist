@@ -1,9 +1,8 @@
 <?php
-$unit = $_GET['selectedUnit']; // Get the 'unit' parameter from the query string
+$unit = htmlspecialchars($_GET['selectedUnit']); // Sanitize the 'unit' parameter from the query string
 require 'database.php';
 require 'request.php';
 ?>
-
 
 <!DOCTYPE html>
 <html>
@@ -27,18 +26,23 @@ require 'request.php';
         .input-field{
             cursor: text;
         }
+        .clear-btn {
+            float: right;
+            background: none;
+            border: none;
+            color: red;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .clear-btn:hover {
+            border: 1px solid red;
+            border-radius: 4px;
+        }
     </style>
-
 </head>
 
 <body>
-<div class="header-img">
-      <img id="logo" src="css/logo.png" alt="Logo Argha"><br>
-      <img id="exit" src="css/exit.png" alt="Exit"><br>
-      </div>
-    <header>
-      <h1>ONLINE CHECKLIST</h1>
-    </header>
+<?php include 'header.php'; ?>    
 <main>
     
 <?php
@@ -51,221 +55,206 @@ $unit_headings = array(
 if (array_key_exists($unit, $unit_headings)):
     ?>
     <h2><?php echo $unit_headings[$unit]; ?></h2>
+<?php else: ?>
+    <h2>Unknown Unit</h2>
 <?php endif; ?>
 
-    <table>
-        <thead>
-            <th colspan="3">Time</th>
-            <th>08.00</th>
-            <th>10.00</th>
-            <th>12.00</th>
-            <th>14.00</th>
-            <th>16.00</th>
-            <th>18.00</th>
-            <th>20.00</th>
-            <th>22.00</th>
-            <th>0.00</th>
-            <th>2.00</th>
-            <th>4.00</th>
-            <th>6.00</th>
-    </thead>
-    <form method="post">
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="3">Time</th>
+                    <th>08.00</th>
+                    <th>10.00</th>
+                    <th>12.00</th>
+                    <th>14.00</th>
+                    <th>16.00</th>
+                    <th>18.00</th>
+                    <th>20.00</th>
+                    <th>22.00</th>
+                    <th>0.00</th>
+                    <th>2.00</th>
+                    <th>4.00</th>
+                    <th>6.00</th>
+                </tr>
+            </thead>
             <tbody>
-                <tr>  
-                    <th class="measure">Running Hours</th>
-                    <th class="parameter">-</th>
-                    <th class="parameter-setting">Hour</th>
-                    <td colspan="4"><input type="number" step="0.01" class="input-field" name="running_hrs_8_14"/></td>
-                    <td colspan="4"><input type="number" step="0.01" class="input-field" name="running_hrs_16_22"/></td>
-                    <td colspan="4"><input type="number" step="0.01" class="input-field" name="running_hrs_0_6"/></td>
-                </tr>
-                <tr>
-                    <th class="measure">Lube Oil Sump Level</th>
-                    <th class="parameter">14~17</th>
-                    <th class="parameter-setting">Cm</th>
-                    <td colspan="4"><input type="number" step="0.01" class="input-field" name="lube_oil_sump_lvl_8_14"/></td>
-                    <td colspan="4"><input type="number" step="0.01" class="input-field" name="lube_oil_sump_lvl_16_22"/></td>
-                    <td colspan="4"><input type="number" step="0.01" class="input-field" name="lube_oil_sump_lvl_0_6"/></td>
-                </tr>
-                <tr>
-                    <th class="measure">Air Condensation Heater</th>
-                    <th class="parameter">-</th>
-                    <th class="parameter-setting">On</th>
-                    <td colspan="4"><select class="enum" name="anti_cond_heater_8_14"><?php include 'enum-on-off.php'?></td>
-                    <td colspan="4"><select class="enum" name="anti_cond_heater_16_22"><?php include 'enum-on-off.php'?></td>
-                    <td colspan="4"><select class="enum" name="anti_cond_heater_0_6"><?php include 'enum-on-off.php'?></td>
-                </tr>
-                <tr>
-                    <th class="measure">Pre lube Pump</th>
-                    <th class="parameter">-</th>
-                    <th class="parameter-setting">On</th>
-                    <td><select class="enum" name="prelube_pump_8"><?php include 'enum-on-off.php'?></td>
-                    <td><select class="enum" name="prelube_pump_10"><?php include 'enum-on-off.php'?></td>
-                    <td><select class="enum" name="prelube_pump_12"><?php include 'enum-on-off.php'?></td>
-                    <td><select class="enum" name="prelube_pump_14"><?php include 'enum-on-off.php'?></td>
-                    <td><select class="enum" name="prelube_pump_16"><?php include 'enum-on-off.php'?></td>
-                    <td><select class="enum" name="prelube_pump_18"><?php include 'enum-on-off.php'?></td>
-                    <td><select class="enum" name="prelube_pump_20"><?php include 'enum-on-off.php'?></td>
-                    <td><select class="enum" name="prelube_pump_22"><?php include 'enum-on-off.php'?></td>
-                    <td><select class="enum" name="prelube_pump_0"><?php include 'enum-on-off.php'?></td>
-                    <td><select class="enum" name="prelube_pump_2"><?php include 'enum-on-off.php'?></td>
-                    <td><select class="enum" name="prelube_pump_4"><?php include 'enum-on-off.php'?></td>
-                    <td><select class="enum" name="prelube_pump_6"><?php include 'enum-on-off.php'?></td>
-                </tr>
-                <tr>
-                    <th class="measure">Pre lube Pump Press</th>
-                    <th class="parameter">>0.5</th>
-                    <th class="parameter-setting">Bar</th>
-                    <td><input type="number"step="0.01" class="input-field" name="prelube_pump_press_8" ></td>
-                    <td><input type="number"step="0.01" class="input-field" name="prelube_pump_press_10"></td>
-                    <td><input type="number"step="0.01" class="input-field" name="prelube_pump_press_12"></td>
-                    <td><input type="number"step="0.01" class="input-field" name="prelube_pump_press_14"></td>
-                    <td><input type="number"step="0.01" class="input-field" name="prelube_pump_press_16"></td>
-                    <td><input type="number"step="0.01" class="input-field" name="prelube_pump_press_18"></td>
-                    <td><input type="number"step="0.01" class="input-field" name="prelube_pump_press_20"></td>
-                    <td><input type="number"step="0.01" class="input-field" name="prelube_pump_press_22"></td>
-                    <td><input type="number"step="0.01" class="input-field" name="prelube_pump_press_0" ></td>
-                    <td><input type="number"step="0.01" class="input-field" name="prelube_pump_press_2" ></td>
-                    <td><input type="number"step="0.01" class="input-field" name="prelube_pump_press_4" ></td>
-                    <td><input type="number"step="0.01" class="input-field" name="prelube_pump_press_6" ></td>
-                </tr>
-                <tr>
-                    <th class="measure">Kebocoran Oil</th> 
-                    <th class="parameter">A/TA/RS</th>
-                    <th class="parameter-setting">-</th>
-                    <td><select class="enum" name="kebocoran_oil_8" ><?php include 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_oil_10"><?php include 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_oil_12"><?php include 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_oil_14"><?php include 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_oil_16"><?php include 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_oil_18"><?php include 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_oil_20"><?php include 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_oil_22"><?php include 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_oil_0" ><?php include 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_oil_2" ><?php include 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_oil_4" ><?php include 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_oil_6" ><?php include 'enum-kebocoran.php'?></td>
-                </tr>
-                <tr>
-                    <th class="measure">Preheating Unit</th>
-                    <th class="parameter">-</th>
-                    <th class="parameter-setting">On</th>
-                    <td><select class="enum" name="preheat_unit_8"><?php include 'enum-on-off.php'?></td>
-                    <td><select class="enum" name="preheat_unit_10"><?php include 'enum-on-off.php'?></td>
-                    <td><select class="enum" name="preheat_unit_12"><?php include 'enum-on-off.php'?></td>
-                    <td><select class="enum" name="preheat_unit_14"><?php include 'enum-on-off.php'?></td>
-                    <td><select class="enum" name="preheat_unit_16"><?php include 'enum-on-off.php'?></td>
-                    <td><select class="enum" name="preheat_unit_18"><?php include 'enum-on-off.php'?></td>
-                    <td><select class="enum" name="preheat_unit_20"><?php include 'enum-on-off.php'?></td>
-                    <td><select class="enum" name="preheat_unit_22"><?php include 'enum-on-off.php'?></td>
-                    <td><select class="enum" name="preheat_unit_0"><?php include 'enum-on-off.php'?></td>
-                    <td><select class="enum" name="preheat_unit_2"><?php include 'enum-on-off.php'?></td>
-                    <td><select class="enum" name="preheat_unit_4"><?php include 'enum-on-off.php'?></td>
-                    <td><select class="enum" name="preheat_unit_6"><?php include 'enum-on-off.php'?></td>                    
-                </tr>
-                <tr>
-                    <th class="measure">HT Water Outlet Temp</th>
-                    <th class="parameter">>50</th>
-                    <th class="parameter-setting">°C</th>
-                    <td><input type="number"step="0.01" class="input-field" name="ht_water_outlet_temp_8" ></td>
-                    <td><input type="number"step="0.01" class="input-field" name="ht_water_outlet_temp_10"></td>
-                    <td><input type="number"step="0.01" class="input-field" name="ht_water_outlet_temp_12"></td>
-                    <td><input type="number"step="0.01" class="input-field" name="ht_water_outlet_temp_14"></td>
-                    <td><input type="number"step="0.01" class="input-field" name="ht_water_outlet_temp_16"></td>
-                    <td><input type="number"step="0.01" class="input-field" name="ht_water_outlet_temp_18"></td>
-                    <td><input type="number"step="0.01" class="input-field" name="ht_water_outlet_temp_20"></td>
-                    <td><input type="number"step="0.01" class="input-field" name="ht_water_outlet_temp_22"></td>
-                    <td><input type="number"step="0.01" class="input-field" name="ht_water_outlet_temp_0" ></td>
-                    <td><input type="number"step="0.01" class="input-field" name="ht_water_outlet_temp_2" ></td>
-                    <td><input type="number"step="0.01" class="input-field" name="ht_water_outlet_temp_4" ></td>
-                    <td><input type="number"step="0.01" class="input-field" name="ht_water_outlet_temp_6" ></td>
-                </tr>
-                <tr>
-                    <th class="measure">HT Expantion Tank lvl</th>
-                    <th class="parameter">50~95</th>
-                    <th class="parameter-setting">Cm</th>
-                    <td colspan="4"><input type="number" step="0.01" class="input-field" name="ht_expantion_tank_lvl_8_14"/></td>
-                    <td colspan="4"><input type="number" step="0.01" class="input-field" name="ht_expantion_tank_lvl_16_22"/></td>
-                    <td colspan="4"><input type="number" step="0.01" class="input-field" name="ht_expantion_tank_lvl_0_6"/></td>
-                </tr>
-                <tr>
-                    <th class="measure">LT Expantion Tank lvl</th>
-                    <th class="parameter">50~95</th>
-                    <th class="parameter-setting">Cm</th>
-                    <td colspan="4"><input type="number" step="0.01" class="input-field" name="lt_expantion_tank_lvl_8_14"/></td>
-                    <td colspan="4"><input type="number" step="0.01" class="input-field" name="lt_expantion_tank_lvl_16_22"/></td>
-                    <td colspan="4"><input type="number" step="0.01" class="input-field" name="lt_expantion_tank_lvl_0_6"/></td>
-                </tr>
-                <tr>
-                    <th class="measure">Warming Up</th>
-                    <th class="parameter">2~3</th>
-                    <th class="parameter-setting">Week</th>
-                    <td colspan="4"><input type="number" step="0.01" class="input-field" name="warming_up_8_14"/></td>
-                    <td colspan="4"><input type="number" step="0.01" class="input-field" name="warming_up_16_22"/></td>
-                    <td colspan="4"><input type="number" step="0.01" class="input-field" name="warming_up_0_6"/></td>
-                </tr>
-                <tr>
-                <th class="measure">Fuel Oil Inlet Temp</th>
-                    <th class="parameter">-</th>
-                    <th class="parameter-setting">°C</th>
-                    <td><input type="number"step="0.01" class="input-field" name="fuel_oil_inlet_temp_8" ></td>
-                    <td><input type="number"step="0.01" class="input-field" name="fuel_oil_inlet_temp_10"></td>
-                    <td><input type="number"step="0.01" class="input-field" name="fuel_oil_inlet_temp_12"></td>
-                    <td><input type="number"step="0.01" class="input-field" name="fuel_oil_inlet_temp_14"></td>
-                    <td><input type="number"step="0.01" class="input-field" name="fuel_oil_inlet_temp_16"></td>
-                    <td><input type="number"step="0.01" class="input-field" name="fuel_oil_inlet_temp_18"></td>
-                    <td><input type="number"step="0.01" class="input-field" name="fuel_oil_inlet_temp_20"></td>
-                    <td><input type="number"step="0.01" class="input-field" name="fuel_oil_inlet_temp_22"></td>
-                    <td><input type="number"step="0.01" class="input-field" name="fuel_oil_inlet_temp_0" ></td>
-                    <td><input type="number"step="0.01" class="input-field" name="fuel_oil_inlet_temp_2" ></td>
-                    <td><input type="number"step="0.01" class="input-field" name="fuel_oil_inlet_temp_4" ></td>
-                    <td><input type="number"step="0.01" class="input-field" name="fuel_oil_inlet_temp_6" ></td>
-                </tr>
-                <tr>
-                <th class="measure">Fuel Oil Inlet Pressure</th>
-                    <th class="parameter">4.0~7.0</th>
-                    <th class="parameter-setting">Bar</th>
-                    <td><input type="number"step="0.01" class="input-field" name="fuel_oil_inlet_pressure_8" ></td>
-                    <td><input type="number"step="0.01" class="input-field" name="fuel_oil_inlet_pressure_10"></td>
-                    <td><input type="number"step="0.01" class="input-field" name="fuel_oil_inlet_pressure_12"></td>
-                    <td><input type="number"step="0.01" class="input-field" name="fuel_oil_inlet_pressure_14"></td>
-                    <td><input type="number"step="0.01" class="input-field" name="fuel_oil_inlet_pressure_16"></td>
-                    <td><input type="number"step="0.01" class="input-field" name="fuel_oil_inlet_pressure_18"></td>
-                    <td><input type="number"step="0.01" class="input-field" name="fuel_oil_inlet_pressure_20"></td>
-                    <td><input type="number"step="0.01" class="input-field" name="fuel_oil_inlet_pressure_22"></td>
-                    <td><input type="number"step="0.01" class="input-field" name="fuel_oil_inlet_pressure_0" ></td>
-                    <td><input type="number"step="0.01" class="input-field" name="fuel_oil_inlet_pressure_2" ></td>
-                    <td><input type="number"step="0.01" class="input-field" name="fuel_oil_inlet_pressure_4" ></td>
-                    <td><input type="number"step="0.01" class="input-field" name="fuel_oil_inlet_pressure_6" ></td>
-                </tr>
-                <tr>
-                <th class="measure">Kebocoran Fuel</th> 
-                    <th class="parameter">A/TA/RS</th>
-                    <th class="parameter-setting">-</th>
-                    <td><select class="enum" name="kebocoran_fuel_8" ><?php include 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_fuel_10"><?php include 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_fuel_12"><?php include 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_fuel_14"><?php include 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_fuel_16"><?php include 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_fuel_18"><?php include 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_fuel_20"><?php include 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_fuel_22"><?php include 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_fuel_0" ><?php include 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_fuel_2" ><?php include 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_fuel_4" ><?php include 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_fuel_6" ><?php include 'enum-kebocoran.php'?></td>
-                </tr>
+            <form method="post">
+        <?php
+            require 'database.php';
+            $sql_select = "SELECT * FROM $unit WHERE tanggal = CURDATE()";
+            $result_select = mysqli_query($conn, $sql_select);
+            if (!$result_select) {
+                die("Query failed: " . mysqli_error($conn));
+            }                
+            $existing_record = mysqli_fetch_assoc($result_select);
+
+            // Function to format the value
+            function formatValue($value) {
+                // Check if the value is a float and has .00 as decimals
+                if (is_numeric($value) && floor($value) == $value) {
+                    return intval($value); // Return integer value
+                } else {
+                    return $value; // Otherwise, return the original value
+                }
+            }
+
+            // Example usage:
+            $value = 10.00;
+            //echo formatValue($value); // Output: 10
+
+            $value = 10.50;
+            //echo formatValue($value); // Output: 10.5
+
+                $parameters = array(
+                    array("Running Hours", "-", "Hour", "running_hrs"),
+                    array("Lube Oil Sump Level", "14~17", "Cm", "lube_oil_sump_lvl"),
+                    array("Air Condensation Heater", "-", "On", "anti_cond_heater"),
+                    array("Pre lube Pump", "-", "On", "prelube_pump", true),
+                    array("Pre lube Pump Press", ">0.5", "Bar", "prelube_pump_press"),
+                    array("Kebocoran Oil", "A/TA/RS", "-", "kebocoran_oil", true),
+                    array("Preheating Unit", "-", "On", "preheat_unit", true),
+                    array("HT Water Outlet Temp", ">50", "°C", "ht_water_outlet_temp"),
+                    array("HT Expantion Tank lvl", "50~95", "Cm", "ht_expantion_tank_lvl"),
+                    array("LT Expantion Tank lvl", "50~95", "Cm", "lt_expantion_tank_lvl"),
+                    array("Warming Up", "2~3", "Week", "warming_up"),
+                    array("Fuel Oil Inlet Temp", "-", "°C", "fuel_oil_inlet_temp"),
+                    array("Fuel Oil Inlet Pressure", "4.0~7.0", "Bar", "fuel_oil_inlet_pressure"),
+                    array("Kebocoran Fuel", "A/TA/RS", "-", "kebocoran_fuel", true)
+                );
+
+                foreach ($parameters as $parameter) {
+                    $name = $parameter[0];
+                    $param = $parameter[1];
+                    $setting = $parameter[2];
+                    $field_name = $parameter[3];
+                    $is_select = isset($parameter[4]) ? $parameter[4] : false;
+                    $times = array("8_14", "16_22", "0_6"); // Times for the fields
+                    echo "<tr>";
+                    echo "<th class='measure'>$name</th>";
+                    echo "<th class='parameter'>$param</th>";
+                    echo "<th class='parameter-setting'>$setting</th>";
+                    
+                    if ($is_select) {
+                        for ($i = 8; $i <= 22; $i += 2) {
+                            $field_key = "{$field_name}_$i";
+                            $field_data = isset($existing_record[$field_key]) ? htmlspecialchars($existing_record[$field_key]) : '';                
+                            if ($field_data !== '') {
+                                echo '<td>' . htmlspecialchars(formatValue($field_data));
+                                echo "<button type='button' class='clear-btn' data-field='{$field_name}_$i'>X</button>";
+                                echo    '</td>';
+                                } else {                            
+                            echo "<td><select class='enum' name='{$field_name}_$i'>";
+                            include $field_name === "kebocoran_oil" || $field_name === "kebocoran_fuel" ? 'enum-kebocoran.php' : 'enum-on-off.php';
+                            echo "</select></td>";
+                                }
+                        }
+                        for ($i = 0; $i <= 6; $i += 2) {
+                            $field_key = "{$field_name}_$i";
+                            $field_data = isset($existing_record[$field_key]) ? htmlspecialchars($existing_record[$field_key]) : '';                
+                            if ($field_data !== '') {
+                                echo '<td>' . htmlspecialchars(formatValue($field_data));
+                                echo "<button type='button' class='clear-btn' data-field='{$field_name}_$i'>X</button>";
+                                echo    '</td>';
+                                } else {                            
+                            echo "<td><select class='enum' name='{$field_name}_$i'>";
+                            include $field_name === "kebocoran_oil" || $field_name === "kebocoran_fuel" ? 'enum-kebocoran.php' : 'enum-on-off.php';
+                            echo "</select></td>";
+                                }
+                        }
+                    } else {
+                        // Add colspan for specific fields
+                        if (in_array($name, array("Running Hours", "Lube Oil Sump Level", "HT Expantion Tank lvl", "LT Expantion Tank lvl", "Warming Up"))) {
+                            foreach ($times as $time) {
+                                $field_data = "{$field_name}_$time";
+                                if ($existing_record && isset($existing_record[$field_data])) {
+                                    echo '<td colspan="4">' . htmlspecialchars(formatValue($existing_record[$field_data]));
+                                    echo "<button type='button' class='clear-btn' data-field='$field_data'>X</button>";
+                                    echo    '</td>';
+                                    } else {        
+                                echo "<td colspan='4'><input type='number' step='0.01' class='input-field' name='{$field_name}_{$time}'></td>";
+                                    }
+                            }
+                        } else if ($name === "Air Condensation Heater") {
+                            foreach ($times as $time) {
+                                $field_data = "{$field_name}_$time";
+                                if ($existing_record && isset($existing_record[$field_data])) {
+                                    echo '<td colspan="4">' . htmlspecialchars(formatValue($existing_record[$field_data]));
+                                    echo "<button type='button' class='clear-btn' data-field='$field_data'>X</button>";
+                                    echo    '</td>';
+                                    } else {        
+                                echo "<td colspan='4'><select class='enum' name='{$field_name}_{$time}'>";
+                                include 'enum-on-off.php'; // Assuming 'enum-on-off.php' contains the options for the select element
+                                echo "</select></td>";
+                                    }
+                            }                            
+                        } else {
+                            for ($i = 8; $i <= 22; $i += 2) {
+                                $field_key = "{$field_name}_$i";
+                                $field_data = isset($existing_record[$field_key]) ? htmlspecialchars($existing_record[$field_key]) : '';                
+                                if ($field_data !== '') {
+                                    echo '<td>' . htmlspecialchars(formatValue($field_data));
+                                    echo "<button type='button' class='clear-btn' data-field='{$field_name}_$i'>X</button>";
+                                    echo    '</td>';
+                                    } else {                          
+                                echo "<td><input type='number' step='0.01' class='input-field' name='{$field_name}_$i'></td>";
+                                    }
+                            }
+                            for ($i = 0; $i <= 6; $i += 2) {
+                                $field_key = "{$field_name}_$i";
+                                $field_data = isset($existing_record[$field_key]) ? htmlspecialchars($existing_record[$field_key]) : '';                
+                                if ($field_data !== '') {
+                                    echo '<td>' . htmlspecialchars(formatValue($field_data));
+                                    echo "<button type='button' class='clear-btn' data-field='{$field_name}_$i'>X</button>";
+                                    echo    '</td>';
+                                    } else {                           
+                                echo "<td><input type='number' step='0.01' class='input-field' name='{$field_name}_$i'></td>";
+                                    }
+                            }
+                        }
+                    }
+                    echo "</tr>";
+                }
+                ?>
             </tbody>
-    </table>
-    <br>
-    <button class="btn">SAVE</button>
+            </table>
+        <br>
+        <button class="btn">SAVE</button>
     </form>
 </main>
 <script>
-        document.getElementById("exit").onclick=function (){
-            location.href = 'selection.php'
-        }
+    document.getElementById("exit").onclick=function (){
+    location.href = 'selection.php'
+    }
+    $(document).ready(function() {
         $(".enum").prop("selectedIndex", -1);
-    </script>
+    });
+
+    $(document).ready(function() {
+        $('.clear-btn').click(function() {
+            var fieldToClear = $(this).data('field');
+            var confirmed = confirm('Are you sure you want to clear this field?');
+
+            if (confirmed) {
+                // Send an AJAX request to update the field to NULL
+                $.ajax({
+                    url: 'clear_field.php',
+                    method: 'POST',
+                    data: {
+                        field_to_clear: fieldToClear,
+                        unit: '<?php echo $unit; ?>' // Pass the unit parameter
+                    },
+                    success: function(response) {
+                        // Reload the page after clearing the field
+                        location.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle error
+                        console.error(xhr.responseText);
+                    }
+                });
+            }
+        });
+    });
+</script>
 </body>
 </html>

@@ -32,13 +32,7 @@ if ($results === false) {
 </head>
 
 <body>
-    <div class="header-img">
-      <img id="logo" src="css/logo.png" alt="Logo Argha"><br>
-      <img id="exit" src="css/exit.png" alt="Exit"><br>
-    </div>
-<header>
-      <h1>ONLINE CHECKLIST</h1>
-</header>
+<?php include 'header.php'; ?>    
 <?php
 $unit_headings = array(
     "hfo_unloading_pump_unit" => "HFO Unloading Pump Unit",
@@ -76,55 +70,53 @@ if (array_key_exists($unit, $unit_headings)):
                 </thead>
                 <article>
                 <tbody>
+                <?php 
+                $time_ranges = array('8_14', '16_22', '0_6');
+                $time = array(8, 10, 12, 14, 16, 18, 20, 22, 0, 2, 4, 6);
+                ?>
                 <tr>  
                     <th class="measure">Operating Pump#1</th>
                     <th class="parameter">ON/OFF</th>
                     <th class="parameter-setting">-</th>
-                    <td colspan="4"><?php echo $article['operating_pump1_8_14']; ?></td>
-                    <td colspan="4"><?php echo $article['operating_pump1_16_22']; ?></td>
-                    <td colspan="4"><?php echo $article['operating_pump1_0_6']; ?></td>
+                    <?php
+                    foreach ($time_ranges as $range) {
+                        $field_name = "operating_pump1_$range";
+                        echo '<td colspan="4">' . $article[$field_name] . '</td>';
+                    }
+                    ?>
                 </tr>
                 <tr>
                     <th class="measure">Kebocoran Fuel</th> 
                     <th class="parameter">A/TA/RS</th>
                     <th class="parameter-setting">-</th>
-                    <td><?php echo $article['kebocoran_fuel1_8']; ?></td>
-                    <td><?php echo $article['kebocoran_fuel1_10']; ?></td>
-                    <td><?php echo $article['kebocoran_fuel1_12']; ?></td>
-                    <td><?php echo $article['kebocoran_fuel1_14']; ?></td>
-                    <td><?php echo $article['kebocoran_fuel1_16']; ?></td>
-                    <td><?php echo $article['kebocoran_fuel1_18']; ?></td>
-                    <td><?php echo $article['kebocoran_fuel1_20']; ?></td>
-                    <td><?php echo $article['kebocoran_fuel1_22']; ?></td>
-                    <td><?php echo $article['kebocoran_fuel1_0']; ?></td>
-                    <td><?php echo $article['kebocoran_fuel1_2']; ?></td>
-                    <td><?php echo $article['kebocoran_fuel1_4']; ?></td>
-                    <td><?php echo $article['kebocoran_fuel1_6']; ?></td>
+                    <?php
+                    foreach ($time as $t) {
+                        $field_name = "kebocoran_fuel1_$t";
+                        echo '<td>' . $article[$field_name] . '</td>';
+                    }
+                    ?>
                 </tr>
                 <tr>  
                     <th class="measure">Operating Pump#2</th>
                     <th class="parameter">ON/OFF</th>
                     <th class="parameter-setting">-</th>
-                    <td colspan="4"><?php echo $article['operating_pump2_8_14']; ?></td>
-                    <td colspan="4"><?php echo $article['operating_pump2_16_22']; ?></td>
-                    <td colspan="4"><?php echo $article['operating_pump2_0_6']; ?></td>
+                    <?php
+                    foreach ($time_ranges as $range) {
+                        $field_name = "operating_pump2_$range";
+                        echo '<td colspan="4">' . $article[$field_name] . '</td>';
+                    }
+                    ?>
                 </tr>
                 <tr>
                     <th class="measure">Kebocoran Fuel</th> 
                     <th class="parameter">A/TA/RS</th>
                     <th class="parameter-setting">-</th>
-                    <td><?php echo $article['kebocoran_fuel2_8']; ?></td>
-                    <td><?php echo $article['kebocoran_fuel2_10']; ?></td>
-                    <td><?php echo $article['kebocoran_fuel2_12']; ?></td>
-                    <td><?php echo $article['kebocoran_fuel2_14']; ?></td>
-                    <td><?php echo $article['kebocoran_fuel2_16']; ?></td>
-                    <td><?php echo $article['kebocoran_fuel2_18']; ?></td>
-                    <td><?php echo $article['kebocoran_fuel2_20']; ?></td>
-                    <td><?php echo $article['kebocoran_fuel2_22']; ?></td>
-                    <td><?php echo $article['kebocoran_fuel2_0']; ?></td>
-                    <td><?php echo $article['kebocoran_fuel2_2']; ?></td>
-                    <td><?php echo $article['kebocoran_fuel2_4']; ?></td>
-                    <td><?php echo $article['kebocoran_fuel2_6']; ?></td>
+                    <?php
+                    foreach ($time as $t) {
+                        $field_name = "kebocoran_fuel2_$t";
+                        echo '<td>' . $article[$field_name] . '</td>';
+                    }
+                    ?>
                 </tr>
                 </tbody>
                 </article>

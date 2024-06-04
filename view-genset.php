@@ -2,8 +2,8 @@
 
 include 'database.php';
 
-$tanggal = "" . $_GET['selectedDate'];
-$unit = "" . $_GET['selectedUnit'];
+$tanggal = $_GET['selectedDate'];
+$unit = $_GET['selectedUnit'];
 $sql = "SELECT *
         FROM $unit
         where tanggal LIKE '%{$tanggal}%'";
@@ -31,15 +31,8 @@ if ($results === false) {
 
 </head>
 
-<body>
-    <div class="header-img">
-      <img id="logo" src="css/logo.png" alt="Logo Argha"><br>
-      <img id="exit" src="css/exit.png" alt="Exit"><br>
-    </div>
-<header>
-      <h1>ONLINE CHECKLIST</h1>
-</header>
 <?php
+include 'header.php';
 $unit_headings = array(
     "genset_wartsila_01" => "Genset Wartsila 01",
     "genset_wartsila_02" => "Genset Wartsila 02"
@@ -74,188 +67,173 @@ if (array_key_exists($unit, $unit_headings)):
                 </thead>
                 <article>
                 <tbody>
+               <?php 
+                $time_ranges = array('8_14', '16_22', '0_6');
+                $time = array(8, 10, 12, 14, 16, 18, 20, 22, 0, 2, 4, 6);
+                ?>
                 <tr>  
                     <th class="measure">Running Hours</th>
                     <th class="parameter" style="text-align: center">-</th>
                     <th class="parameter-setting">Hour</th>
-                    <td colspan="4" style="text-align:center"><?php echo $article['running_hrs_8_14']; ?></td>
-                    <td colspan="4" style="text-align:center"><?php echo $article['running_hrs_16_22']; ?></td>
-                    <td colspan="4" style="text-align:center"><?php echo $article['running_hrs_0_6']; ?></td>
+                    <?php
+                    foreach ($time_ranges as $range) {
+                        $field_name = "running_hrs_$range";
+                        echo '<td colspan="4" style="text-align:center">' . $article[$field_name] . '</td>';
+                    }
+                    ?>
                 </tr>
                 <tr>
                     <th class="measure">Lube Oil Sump Level</th>
                     <th class="parameter">14~17</th>
                     <th class="parameter-setting">Cm</th>
-                    <td colspan="4" style="text-align:center"><?php echo $article['lube_oil_sump_lvl_8_14']; ?></td>
-                    <td colspan="4" style="text-align:center"><?php echo $article['lube_oil_sump_lvl_16_22']; ?></td>
-                    <td colspan="4" style="text-align:center"><?php echo $article['lube_oil_sump_lvl_0_6']; ?></td>
+                    <?php
+                    foreach ($time_ranges as $range) {
+                        $field_name = "lube_oil_sump_lvl_$range";
+                        echo '<td colspan="4" style="text-align:center">' . $article[$field_name] . '</td>';
+                    }
+                    ?>
                 </tr>
+                
                 <tr>
                     <th class="measure">Air Condenstion Heater</th>
                     <th class="parameter" style="text-align: center">-</th>
                     <th class="parameter-setting">On</th>
-                    <td colspan="4" style="text-align:center"><?php echo $article['anti_cond_heater_8_14']; ?></td>
-                    <td colspan="4" style="text-align:center"><?php echo $article['anti_cond_heater_16_22']; ?></td>
-                    <td colspan="4" style="text-align:center"><?php echo $article['anti_cond_heater_0_6']; ?></td>
+                    <?php
+                    foreach ($time_ranges as $range) {
+                        $field_name = "anti_cond_heater_$range";
+                        echo '<td colspan="4" style="text-align:center">' . $article[$field_name] . '</td>';
+                    }
+                    ?>
                 </tr>
                 <tr>
                     <th class="measure">Pre lube Pump</th>
                     <th class="parameter" style="text-align: center">-</th>
                     <th class="parameter-setting">On</th>
-                    <td style="text-align: center"><?php echo $article['prelube_pump_8']; ?></td>
-                    <td style="text-align: center"><?php echo $article['prelube_pump_10']; ?></td>
-                    <td style="text-align: center"><?php echo $article['prelube_pump_12']; ?></td>
-                    <td style="text-align: center"><?php echo $article['prelube_pump_14']; ?></td>
-                    <td style="text-align: center"><?php echo $article['prelube_pump_16']; ?></td>
-                    <td style="text-align: center"><?php echo $article['prelube_pump_18']; ?></td>
-                    <td style="text-align: center"><?php echo $article['prelube_pump_20']; ?></td>
-                    <td style="text-align: center"><?php echo $article['prelube_pump_22']; ?></td>
-                    <td style="text-align: center"><?php echo $article['prelube_pump_0']; ?></td>
-                    <td style="text-align: center"><?php echo $article['prelube_pump_2']; ?></td>
-                    <td style="text-align: center"><?php echo $article['prelube_pump_4']; ?></td>
-                    <td style="text-align: center"><?php echo $article['prelube_pump_6']; ?></td>
+                    <?php
+                    foreach ($time as $t) {
+                        $field_name = "prelube_pump_$t";
+                        echo '<td style="text-align: center;">' . $article[$field_name] . '</td>';
+                    }
+                    ?>
                 </tr>
                 <tr>
                     <th class="measure">Pre lube Pump Press</th>
                     <th class="parameter">>0.5</th>
                     <th class="parameter-setting">Bar</th>
-                    <td><?php echo $article['prelube_pump_press_8']; ?></td>
-                    <td><?php echo $article['prelube_pump_press_10']; ?></td>
-                    <td><?php echo $article['prelube_pump_press_12']; ?></td>
-                    <td><?php echo $article['prelube_pump_press_14']; ?></td>
-                    <td><?php echo $article['prelube_pump_press_16']; ?></td>
-                    <td><?php echo $article['prelube_pump_press_18']; ?></td>
-                    <td><?php echo $article['prelube_pump_press_20']; ?></td>
-                    <td><?php echo $article['prelube_pump_press_22']; ?></td>
-                    <td><?php echo $article['prelube_pump_press_0']; ?></td>
-                    <td><?php echo $article['prelube_pump_press_2']; ?></td>
-                    <td><?php echo $article['prelube_pump_press_4']; ?></td>
-                    <td><?php echo $article['prelube_pump_press_6']; ?></td>
+                    <?php
+                    foreach ($time as $t) {
+                        $field_name = "prelube_pump_press_$t";
+                        echo '<td>' . $article[$field_name] . '</td>';
+                    }
+                    ?>
                 </tr>
+                
                 <tr>
-                <th class="measure">Kebocoran Oil</th>
-                <th class="parameter">A/TA/RS</th>
-                <th class="parameter-setting">-</th>
-                <td style="text-align: center"><?php echo $article['kebocoran_oil_8']; ?></td>
-                <td style="text-align: center"><?php echo $article['kebocoran_oil_10']; ?></td>
-                <td style="text-align: center"><?php echo $article['kebocoran_oil_12']; ?></td>
-                <td style="text-align: center"><?php echo $article['kebocoran_oil_14']; ?></td>
-                <td style="text-align: center"><?php echo $article['kebocoran_oil_16']; ?></td>
-                <td style="text-align: center"><?php echo $article['kebocoran_oil_18']; ?></td>
-                <td style="text-align: center"><?php echo $article['kebocoran_oil_20']; ?></td>
-                <td style="text-align: center"><?php echo $article['kebocoran_oil_22']; ?></td>
-                <td style="text-align: center"><?php echo $article['kebocoran_oil_0']; ?></td>
-                <td style="text-align: center"><?php echo $article['kebocoran_oil_2']; ?></td>
-                <td style="text-align: center"><?php echo $article['kebocoran_oil_4']; ?></td>
-                <td style="text-align: center"><?php echo $article['kebocoran_oil_6']; ?></td>
+                    <th class="measure">Kebocoran Oil</th>
+                    <th class="parameter">A/TA/RS</th>
+                    <th class="parameter-setting">-</th>
+                    <?php
+                    foreach ($time as $t) {
+                        $field_name = "kebocoran_oil_$t";
+                        echo '<td style="text-align: center;">' . $article[$field_name] . '</td>';
+                    }
+                    ?>
                 </tr>
+                
                 <tr>
                     <th class="measure">Preheating Unit</th>
                     <th class="parameter" style="text-align: center">-</th>
                     <th class="parameter-setting">On</th>
-                    <td style="text-align: center;"><?php echo $article['preheat_unit_8'] ?></td>
-                    <td style="text-align: center;"><?php echo $article['preheat_unit_10'] ?></td>
-                    <td style="text-align: center;"><?php echo $article['preheat_unit_12'] ?></td>
-                    <td style="text-align: center;"><?php echo $article['preheat_unit_14'] ?></td>
-                    <td style="text-align: center;"><?php echo $article['preheat_unit_16'] ?></td>
-                    <td style="text-align: center;"><?php echo $article['preheat_unit_18'] ?></td>
-                    <td style="text-align: center;"><?php echo $article['preheat_unit_20'] ?></td>
-                    <td style="text-align: center;"><?php echo $article['preheat_unit_22'] ?></td>
-                    <td style="text-align: center;"><?php echo $article['preheat_unit_0'] ?></td>
-                    <td style="text-align: center;"><?php echo $article['preheat_unit_2'] ?></td>
-                    <td style="text-align: center;"><?php echo $article['preheat_unit_4'] ?></td>
-                    <td style="text-align: center;"><?php echo $article['preheat_unit_6'] ?></td>
+                    <?php
+                    foreach ($time as $t) {
+                        $field_name = "preheat_unit_$t";
+                        echo '<td style="text-align: center;">' . $article[$field_name] . '</td>';
+                    }
+                    ?>
                 </tr>
+                
                 <tr>
                     <th class="measure">HT Water Outlet Temp</th>
                     <th class="parameter">>50</th>
                     <th class="parameter-setting">°C</th>
-                    <td><?php echo $article['ht_water_outlet_temp_8'] ?></td>
-                    <td><?php echo $article['ht_water_outlet_temp_10'] ?></td>
-                    <td><?php echo $article['ht_water_outlet_temp_12'] ?></td>
-                    <td><?php echo $article['ht_water_outlet_temp_14'] ?></td>
-                    <td><?php echo $article['ht_water_outlet_temp_16'] ?></td>
-                    <td><?php echo $article['ht_water_outlet_temp_18'] ?></td>
-                    <td><?php echo $article['ht_water_outlet_temp_20'] ?></td>
-                    <td><?php echo $article['ht_water_outlet_temp_22'] ?></td>
-                    <td><?php echo $article['ht_water_outlet_temp_0'] ?></td>
-                    <td><?php echo $article['ht_water_outlet_temp_2'] ?></td>
-                    <td><?php echo $article['ht_water_outlet_temp_4'] ?></td>
-                    <td><?php echo $article['ht_water_outlet_temp_6'] ?></td>
+                    <?php
+                    foreach ($time as $t) {
+                        $field_name = "ht_water_outlet_temp_$t";
+                        echo '<td>' . $article[$field_name] . '</td>';
+                    }
+                    ?>
                 </tr>
+                
                 <tr>
                     <th class="measure">HT Expantion Tank lvl</th>
                     <th class="parameter">50~95</th>
                     <th class="parameter-setting">Cm</th>
-                    <td colspan="4" style="text-align: center";><?php echo $article['lt_expantion_tank_lvl_8_14'] ?></td>
-                    <td colspan="4" style="text-align: center";><?php echo $article['lt_expantion_tank_lvl_16_22'] ?></td>
-                    <td colspan="4" style="text-align: center";><?php echo $article['lt_expantion_tank_lvl_0_6'] ?></td>
+                    <?php
+                    foreach ($time_ranges as $range) {
+                        $field_name = "ht_expantion_tank_lvl_$range";
+                        echo '<td colspan="4" style="text-align: center;">' . $article[$field_name] . '</td>';
+                    }
+                    ?>
                 </tr>
+                
                 <tr>
                     <th class="measure">LT Expantion Tank lvl</th>
                     <th class="parameter">50~95</th>
                     <th class="parameter-setting">Cm</th>
-                    <td colspan="4" style="text-align: center";><?php echo $article['ht_expantion_tank_lvl_8_14'] ?></td>
-                    <td colspan="4" style="text-align: center";><?php echo $article['ht_expantion_tank_lvl_16_22'] ?></td>
-                    <td colspan="4" style="text-align: center";><?php echo $article['ht_expantion_tank_lvl_0_6'] ?></td>
-
+                    <?php
+                    foreach ($time_ranges as $range) {
+                        $field_name = "lt_expantion_tank_lvl_$range";
+                        echo '<td colspan="4" style="text-align: center;">' . $article[$field_name] . '</td>';
+                    }
+                    ?>
                 </tr>
+                
+                <tr>
                     <th class="measure">Warming Up</th>
                     <th class="parameter">2~3</th>
                     <th class="parameter-setting">Week</th>
-                    <td colspan="4" style="text-align: center"><?php echo $article['warming_up_8_14'] ?></td>
-                    <td colspan="4" style="text-align: center"><?php echo $article['warming_up_16_22'] ?></td>
-                    <td colspan="4" style="text-align: center"><?php echo $article['warming_up_0_6'] ?></td>
+                    <?php
+                    foreach ($time_ranges as $range) {
+                        $field_name = "warming_up_$range";
+                        echo '<td colspan="4" style="text-align: center;">' . $article[$field_name] . '</td>';
+                    }
+                    ?>
+                </tr>
+                
                 <tr>
                     <th class="measure">Fuel Oil Inlet Temp</th>
                     <th class="parameter" style="text-align: center;">-</th>
                     <th class="parameter-setting">°C</th>
-                    <td><?php echo $article['fuel_oil_inlet_temp_8'] ?></td>
-                    <td><?php echo $article['fuel_oil_inlet_temp_10'] ?></td>
-                    <td><?php echo $article['fuel_oil_inlet_temp_12'] ?></td>
-                    <td><?php echo $article['fuel_oil_inlet_temp_14'] ?></td>
-                    <td><?php echo $article['fuel_oil_inlet_temp_16'] ?></td>
-                    <td><?php echo $article['fuel_oil_inlet_temp_18'] ?></td>
-                    <td><?php echo $article['fuel_oil_inlet_temp_20'] ?></td>
-                    <td><?php echo $article['fuel_oil_inlet_temp_22'] ?></td>
-                    <td><?php echo $article['fuel_oil_inlet_temp_0'] ?></td>
-                    <td><?php echo $article['fuel_oil_inlet_temp_2'] ?></td>
-                    <td><?php echo $article['fuel_oil_inlet_temp_4'] ?></td>
-                    <td><?php echo $article['fuel_oil_inlet_temp_6'] ?></td>
+                    <?php
+                    foreach ($time as $t) {
+                        $field_name = "fuel_oil_inlet_temp_$t";
+                        echo '<td>' . $article[$field_name] . '</td>';
+                    }
+                    ?>
                 </tr>
+                
                 <tr>
                     <th class="measure">Fuel Oil Inlet Pressure</th>
                     <th class="parameter">4.0~7.0</th>
                     <th class="parameter-setting">Bar</th>
-                    <td><?php echo $article['fuel_oil_inlet_pressure_8'] ?></td>
-                    <td><?php echo $article['fuel_oil_inlet_pressure_10'] ?></td>
-                    <td><?php echo $article['fuel_oil_inlet_pressure_12'] ?></td>
-                    <td><?php echo $article['fuel_oil_inlet_pressure_14'] ?></td>
-                    <td><?php echo $article['fuel_oil_inlet_pressure_16'] ?></td>
-                    <td><?php echo $article['fuel_oil_inlet_pressure_18'] ?></td>
-                    <td><?php echo $article['fuel_oil_inlet_pressure_20'] ?></td>
-                    <td><?php echo $article['fuel_oil_inlet_pressure_22'] ?></td>
-                    <td><?php echo $article['fuel_oil_inlet_pressure_0'] ?></td>
-                    <td><?php echo $article['fuel_oil_inlet_pressure_2'] ?></td>
-                    <td><?php echo $article['fuel_oil_inlet_pressure_4'] ?></td>
-                    <td><?php echo $article['fuel_oil_inlet_pressure_6'] ?></td>
+                    <?php
+                    foreach ($time as $t) {
+                        $field_name = "fuel_oil_inlet_pressure_$t";
+                        echo '<td>' . $article[$field_name] . '</td>';
+                    }
+                    ?>
                 </tr>
+                
                 <tr>
                     <th class="measure">Kebocoran Fuel</th>
                     <th class="parameter">A/TA/RS</th>
                     <th class="parameter-setting">-</th>
-                    <td style="text-align: center;"><?php echo $article['kebocoran_fuel_8'] ?></td>
-                    <td style="text-align: center;"><?php echo $article['kebocoran_fuel_10'] ?></td>
-                    <td style="text-align: center;"><?php echo $article['kebocoran_fuel_12'] ?></td>
-                    <td style="text-align: center;"><?php echo $article['kebocoran_fuel_14'] ?></td>
-                    <td style="text-align: center;"><?php echo $article['kebocoran_fuel_16'] ?></td>
-                    <td style="text-align: center;"><?php echo $article['kebocoran_fuel_18'] ?></td>
-                    <td style="text-align: center;"><?php echo $article['kebocoran_fuel_20'] ?></td>
-                    <td style="text-align: center;"><?php echo $article['kebocoran_fuel_22'] ?></td>
-                    <td style="text-align: center;"><?php echo $article['kebocoran_fuel_0'] ?></td>
-                    <td style="text-align: center;"><?php echo $article['kebocoran_fuel_2'] ?></td>
-                    <td style="text-align: center;"><?php echo $article['kebocoran_fuel_4'] ?></td>
-                    <td style="text-align: center;"><?php echo $article['kebocoran_fuel_6'] ?></td>
+                    <?php
+                    foreach ($time as $t) {
+                        $field_name = "kebocoran_fuel_$t";
+                        echo '<td style="text-align: center;">' . $article[$field_name] . '</td>';
+                    }
+                    ?>
                 </tr>
                 </tbody>
                 </article>

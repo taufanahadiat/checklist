@@ -5,7 +5,6 @@ require 'request.php';
 ?>
 
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,6 +26,18 @@ require 'request.php';
         }
         .input-field{
             cursor: text;
+        }
+        .clear-btn {
+            float: right;
+            background: none;
+            border: none;
+            color: red;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .clear-btn:hover {
+            border: 1px solid red;
+            border-radius: 4px;
         }
     </style>
 
@@ -75,55 +86,104 @@ if (array_key_exists($unit, $unit_headings)):
     </thead>
     <form method="post">
             <tbody>
-                <tr>  
-                    <th class="measure">Operating Pump#1</th>
+                <?php
+                require 'database.php';
+                $sql_select = "SELECT * FROM $unit WHERE tanggal = CURDATE()";
+                $result_select = mysqli_query($conn, $sql_select);
+                if (!$result_select) {
+                    die("Query failed: " . mysqli_error($conn));
+                }                
+                $existing_record = mysqli_fetch_assoc($result_select);
+                $time_ranges = array('8_14', '16_22', '0_6');
+                $times = array('8', '10', '12', '14', '16', '18', '20', '22', '0', '2', '4', '6');
+
+                ?>
+                <tr>
+                <th class="measure">Operating Pump#1</th>
                     <th class="parameter">ON/OFF</th>
                     <th class="parameter-setting">-</th>
-                    <td colspan="4"><select class="enum" name="operating_pump1_8_14"><?php include 'enum-on-off.php'?></td>
-                    <td colspan="4"><select class="enum" name="operating_pump1_16_22"><?php include 'enum-on-off.php'?></td>
-                    <td colspan="4"><select class="enum" name="operating_pump1_0_6"><?php include 'enum-on-off.php'?></td>
+                    <?php
+                        foreach ($time_ranges as $range) {
+                            $field_name = "operating_pump1_$range";
+
+                            if ($existing_record && isset($existing_record[$field_name])) {
+                            echo '<td colspan="4">' . htmlspecialchars($existing_record[$field_name]);
+                            echo "<button type='button' class='clear-btn' data-field='$field_name'>X</button>";
+                            echo    '</td>';
+                            } else {
+                                echo "<td colspan='4'>";
+                                echo "<select class='enum' name='$field_name'>";
+                                include 'enum-on-off.php';
+                                echo "</select>";
+                            echo "</td>";
+                            }
+                        }                    
+                    ?>
                 </tr>
                 <tr>
                     <th class="measure">Kebocoran Fuel</th> 
                     <th class="parameter">A/TA/RS</th>
                     <th class="parameter-setting">-</th>
-                    <td><select class="enum" name="kebocoran_fuel1_8" ><?php include 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_fuel1_10"><?php include 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_fuel1_12"><?php include 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_fuel1_14"><?php include 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_fuel1_16"><?php include 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_fuel1_18"><?php include 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_fuel1_20"><?php include 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_fuel1_22"><?php include 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_fuel1_0" ><?php include 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_fuel1_2" ><?php include 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_fuel1_4" ><?php include 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_fuel1_6" ><?php include 'enum-kebocoran.php'?></td>
+                    <?php
+                        foreach ($times as $time) {
+                            $field_name = "kebocoran_fuel1_$time";
+
+                            if ($existing_record && isset($existing_record[$field_name])) {
+                            echo '<td>' . htmlspecialchars($existing_record[$field_name]);
+                            echo "<button type='button' class='clear-btn' data-field='$field_name'>X</button>";
+                            echo    '</td>';
+
+                            } else {
+                                echo "<td>";
+                                echo "<select class='enum' name='$field_name'>";
+                                include 'enum-kebocoran.php';
+                                echo "</select></td>";
+                            }
+                        }
+                    ?>
                 </tr>
                 <tr>  
                     <th class="measure">Operating Pump#2</th>
                     <th class="parameter">ON/OFF</th>
                     <th class="parameter-setting">-</th>
-                    <td colspan="4"><select class="enum" name="operating_pump2_8_14"><?php include 'enum-on-off.php'?></td>
-                    <td colspan="4"><select class="enum" name="operating_pump2_16_22"><?php include 'enum-on-off.php'?></td>
-                    <td colspan="4"><select class="enum" name="operating_pump2_0_6"><?php include 'enum-on-off.php'?></td>
+                    <?php
+                        foreach ($time_ranges as $range) {
+                            $field_name = "operating_pump2_$range";
+
+                            if ($existing_record && isset($existing_record[$field_name])) {
+                            echo '<td colspan="4">' . htmlspecialchars($existing_record[$field_name]);
+                            echo "<button type='button' class='clear-btn' data-field='$field_name'>X</button>";
+                            echo    '</td>';
+                            } else {
+                                echo "<td colspan='4'>";
+                                echo "<select class='enum' name='$field_name'>";
+                                include 'enum-on-off.php';
+                                echo "</select>";
+                            echo "</td>";
+                            }
+                        }                   
+                    ?>
                 </tr>
                 <tr>
                     <th class="measure">Kebocoran Fuel</th> 
                     <th class="parameter">A/TA/RS</th>
                     <th class="parameter-setting">-</th>
-                    <td><select class="enum" name="kebocoran_fuel2_8" ><?php include 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_fuel2_10"><?php include 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_fuel2_12"><?php include 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_fuel2_14"><?php include 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_fuel2_16"><?php include 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_fuel2_18"><?php include 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_fuel2_20"><?php include 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_fuel2_22"><?php include 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_fuel2_0" ><?php include 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_fuel2_2" ><?php include 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_fuel2_4" ><?php include 'enum-kebocoran.php'?></td>
-                    <td><select class="enum" name="kebocoran_fuel2_6" ><?php include 'enum-kebocoran.php'?></td>
+                    <?php
+                        foreach ($times as $time) {
+                            $field_name = "kebocoran_fuel2_$time";
+
+                            if ($existing_record && isset($existing_record[$field_name])) {
+                            echo '<td>' . htmlspecialchars($existing_record[$field_name]);
+                            echo "<button type='button' class='clear-btn' data-field='$field_name'>X</button>";
+                            echo    '</td>';
+                            } else {
+                                echo "<td>";
+                                echo "<select class='enum' name='$field_name'>";
+                                include 'enum-kebocoran.php';
+                                echo "</select></td>";
+                            }
+                        }
+                    ?>
                 </tr>
             </tbody>
     </table>
@@ -137,6 +197,34 @@ if (array_key_exists($unit, $unit_headings)):
         }
         $(".enum").prop("selectedIndex", -1);
         $(".input-field").val('');
+
+        $(document).ready(function() {
+        $('.clear-btn').click(function() {
+            var fieldToClear = $(this).data('field');
+            var confirmed = confirm('Are you sure you want to clear this field?');
+
+            if (confirmed) {
+                // Send an AJAX request to update the field to NULL
+                $.ajax({
+                    url: 'clear_field.php',
+                    method: 'POST',
+                    data: {
+                        field_to_clear: fieldToClear,
+                        unit: '<?php echo $unit; ?>' // Pass the unit parameter
+                    },
+                    success: function(response) {
+                        // Reload the page after clearing the field
+                        location.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle error
+                        console.error(xhr.responseText);
+                    }
+                });
+            }
+        });
+    });
+
     </script>
 </body>
 </html>
