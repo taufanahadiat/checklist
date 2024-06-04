@@ -1,7 +1,7 @@
 <?php
 
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-$mysqli = new mysqli('localhost', 'root','','checklistnew_24');
+$mysqli = new mysqli('localhost', 'root','akpidev3','checklistnew_24');
 
 ?>
 
@@ -259,7 +259,7 @@ $(".selection-area").prepend("<option value='' disabled selected class='placehol
                     if (selectId === 'option-form-genset') {
                         location.href = 'form-common-unit.php?selectedUnit=' + encodeURIComponent(selectedUnit);
                     } else if (selectId === 'option-view-genset') {
-                        location.href = 'view-hfo-lfo-fuel.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedDate=' + encodeURIComponent(selectedDate);
+                        location.href = 'view-common-unit.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedDate=' + encodeURIComponent(selectedDate);
                     }
                     break;
                 case 'fuel_booster':
@@ -280,7 +280,7 @@ $(".selection-area").prepend("<option value='' disabled selected class='placehol
                     if (selectId === 'option-form-genset') {
                         location.href = 'form-heater-oil.php?selectedUnit=' + encodeURIComponent(selectedUnit);
                     } else if (selectId === 'option-view-genset') {
-                        location.href = 'view-hfo-lfo-fuel.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedDate=' + encodeURIComponent(selectedDate);
+                        location.href = 'view-heater-oil.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedDate=' + encodeURIComponent(selectedDate);
                     }
                     break;                    
                 case 'genset_wartsila_01':

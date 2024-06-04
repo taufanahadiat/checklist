@@ -73,7 +73,7 @@ $value = 10.50;
                 <article>
                 <tbody>
                 <?php
-                $models = array("tank1", "tank2", "tank3");
+                $time = array(8, 10, 12, 14, 16, 18, 20, 22, 0, 2, 4, 6);
                 $parameters = array("Air Pressure", "Auto Drain", "Kondensat", "Kandungan Oli");
                 $uom = array("Bar", "-", "-", "-");
                 $standard = array("6.0 ~ 7.5", "B", "TA", "TA");

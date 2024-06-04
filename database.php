@@ -3,7 +3,7 @@
 $dbhost = "localhost";
 $dbname = "checklistnew_24";
 $dbuser = "root";
-$dbpass = "";
+$dbpass = "akpidev3";
 
 $conn = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
 
