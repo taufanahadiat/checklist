@@ -61,12 +61,15 @@ require 'request.php';
     </thead>
     <form method="post">
             <tbody>
+                <?php
+                $times = array("8", "10", "12", "14", "16", "18", "20", "22", "0", "2", "4", "6");
+                $time_ranges = array("8_14", "16_22", "0_6");
+                ?>
                 <tr>
                 <th class="measure">Operating Pump#1</th>
                     <th class="parameter">ON/OFF</th>
                     <th class="parameter-setting">-</th>
                     <?php
-                        $times = array("8", "10", "12", "14", "16", "18", "20", "22", "0", "2", "4", "6");
                         foreach ($times as $time) {
                             echo "<td>";
                             $field_name = "operating_pump1_$time";
@@ -81,7 +84,6 @@ require 'request.php';
                     <th class="parameter">A/TA/RS</th>
                     <th class="parameter-setting">-</th>
                     <?php
-                        $times = array("8", "10", "12", "14", "16", "18", "20", "22", "0", "2", "4", "6");
                         foreach ($times as $time) {
                             echo "<td>";
                             $field_name = "kebocoran_fuel1_$time";
@@ -96,7 +98,6 @@ require 'request.php';
                     <th class="parameter">ON/OFF</th>
                     <th class="parameter-setting">-</th>
                     <?php
-                        $times = array("8", "10", "12", "14", "16", "18", "20", "22", "0", "2", "4", "6");
                         foreach ($times as $time) {
                             echo "<td>";
                             $field_name = "operating_pump2_$time";
@@ -111,7 +112,6 @@ require 'request.php';
                     <th class="parameter">A/TA/RS</th>
                     <th class="parameter-setting">-</th>
                     <?php
-                        $times = array("8", "10", "12", "14", "16", "18", "20", "22", "0", "2", "4", "6");
                         foreach ($times as $time) {
                             echo "<td>";
                             $field_name = "kebocoran_fuel2_$time";
@@ -126,10 +126,9 @@ require 'request.php';
                     <th class="parameter">-</th>
                     <th class="parameter-setting">Liter</th>
                     <?php
-                        $times = array("8_14", "16_22", "0_6");
-                        foreach ($times as $time) {
+                        foreach ($time_ranges as $range) {
                             echo "<td colspan='4'>";
-                            $field_name = "flowrate_booster_$time";
+                            $field_name = "flowrate_booster_$range";
                                 echo "<input type='number' step='0.01' class='input-field' name='$field_name'>";
                                 echo "</select>";
                             echo "</td>";
@@ -141,10 +140,9 @@ require 'request.php';
                     <th class="parameter">-</th>
                     <th class="parameter-setting">Liter</th>
                     <?php
-                        $times = array("8_14", "16_22", "0_6");
-                        foreach ($times as $time) {
+                        foreach ($time_ranges as $range) {
                             echo "<td colspan='4'>";
-                            $field_name = "flowrate_monitor_$time";
+                            $field_name = "flowrate_monitor_$range";
                                 echo "<input type='number' step='0.01' class='input-field' name='$field_name'>";
                                 echo "</select>";
                             echo "</td>";
@@ -154,15 +152,14 @@ require 'request.php';
                 <tr>  
                     <th class="measure">HFO/LFO</th>
                     <th class="parameter">-</th>
-                    <th class="parameter-setting">Liter</th>
+                    <th class="parameter-setting">-</th>
                     <?php
-                        $times = array("8_14", "16_22", "0_6");
-                        foreach ($times as $time) {
+                        foreach ($time_ranges as $range) {
                             echo "<td colspan='4'>";
-                            $field_name = "hdo_lfo_$time";
-                                echo "<input type='number' step='0.01' class='input-field' name='$field_name'>";
-                                echo "</select>";
-                            echo "</td>";
+                            $field_name = "hfo_lfo_$range";
+                            echo "<select class='enum' name='$field_name'>";
+                            include 'enum-hfo-lfo.php';
+                            echo "</select></td>";
                         }
                     ?>
                 </tr>
@@ -171,7 +168,6 @@ require 'request.php';
                     <th class="parameter">3.5~5.0</th>
                     <th class="parameter-setting">Bar</th>
                     <?php
-                        $times = array("8", "10", "12", "14", "16", "18", "20", "22", "0", "2", "4", "6");
                         foreach ($times as $time) {
                             echo "<td>";
                             $field_name = "feed_pressure_$time";
@@ -185,7 +181,6 @@ require 'request.php';
                     <th class="parameter">4.0~5.0</th>
                     <th class="parameter-setting">Bar</th>
                     <?php
-                        $times = array("8", "10", "12", "14", "16", "18", "20", "22", "0", "2", "4", "6");
                         foreach ($times as $time) {
                             echo "<td>";
                             $field_name = "outlet_pressure_$time";
@@ -199,7 +194,6 @@ require 'request.php';
                     <th class="parameter">80~110</th>
                     <th class="parameter-setting">°C</th>
                     <?php
-                        $times = array("8", "10", "12", "14", "16", "18", "20", "22", "0", "2", "4", "6");
                         foreach ($times as $time) {
                             echo "<td>";
                             $field_name = "fuel_temp_$time";
@@ -213,7 +207,6 @@ require 'request.php';
                     <th class="parameter">0~16</th>
                     <th class="parameter-setting">cSt</th>
                     <?php
-                        $times = array("8", "10", "12", "14", "16", "18", "20", "22", "0", "2", "4", "6");
                         foreach ($times as $time) {
                             echo "<td>";
                             $field_name = "fuel_visc_$time";
@@ -224,13 +217,12 @@ require 'request.php';
                 </tr>                                                                                               
                 <tr>
                 <th class="measure">Flushing Counter</th>
-                    <th class="parameter">0~16</th>
-                    <th class="parameter-setting">cSt</th>
+                    <th class="parameter">-</th>
+                    <th class="parameter-setting">Cycl</th>
                     <?php
-                        $times = array("8_14", "16_22", "0_6");
-                        foreach ($times as $time) {
+                        foreach ($time_ranges as $range) {
                             echo "<td colspan='4'>";
-                            $field_name = "flushing_count_$time";
+                            $field_name = "flushing_count_$range";
                             echo "<input type='number' step='0.01' class='input-field' name='$field_name'>";
                             echo "</td>";
                         }

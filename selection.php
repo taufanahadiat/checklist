@@ -266,7 +266,7 @@ $(".selection-area").prepend("<option value='' disabled selected class='placehol
                     if (selectId === 'option-form-genset') {
                         location.href = 'form-fuel-booster.php?selectedUnit=' + encodeURIComponent(selectedUnit);
                     } else if (selectId === 'option-view-genset') {
-                        location.href = 'view-hfo-lfo-fuel.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedDate=' + encodeURIComponent(selectedDate);
+                        location.href = 'view-fuel-booster.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedDate=' + encodeURIComponent(selectedDate);
                     }
                     break;     
                   case 'fuel_oil_feeder':
@@ -282,7 +282,14 @@ $(".selection-area").prepend("<option value='' disabled selected class='placehol
                     } else if (selectId === 'option-view-genset') {
                         location.href = 'view-heater-oil.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedDate=' + encodeURIComponent(selectedDate);
                     }
-                    break;                    
+                    break;
+                case 'genset_man':
+                    if (selectId === 'option-form-genset') {
+                        location.href = 'form-genset-man.php?selectedUnit=' + encodeURIComponent(selectedUnit);
+                    } else if (selectId === 'option-view-genset') {
+                        location.href = 'view-genset-man.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedDate=' + encodeURIComponent(selectedDate);
+                    }
+                    break;                  
                 case 'genset_wartsila_01':
                 case 'genset_wartsila_02':
                     if (selectId === 'option-form-genset') {
