@@ -1,7 +1,7 @@
 <?php
 $options = array(
-    'auto' => 'Auto',
-    'manual' => 'Manua',
+    'AUTO' => 'AUTO',
+    'MANUAL' => 'MANUAL',
 );
 
 foreach ($options as $value => $label) {

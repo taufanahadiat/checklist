@@ -1,7 +1,7 @@
 <?php
 $options = array(
-    'yes' => 'Yes',
-    'no' => 'No',
+    'YES' => 'YES',
+    'NO' => 'NO',
 );
 
 foreach ($options as $value => $label) {

@@ -94,8 +94,8 @@ function formatValue($value) {
                 $measurements = array(
                     array("DC System Voltage", "110~125", "Volt", "dc_system_volt_"),
                     array("LV Switchgear Voltage", "380~410", "Volt", "lv_switchgear_"),
-                    array("Starting Air Pressure #1", "20~29", "Bar", "start_air_press1_"),
-                    array("Starting Air Pressure #2", "20~29", "Bar", "start_air_press2_"),
+                    array("Starting Air Pressure #1", "20~30", "Bar", "start_air_press1_"),
+                    array("Starting Air Pressure #2", "20~30", "Bar", "start_air_press2_"),
                     array("Drain Starting Air Bottle", "-", "-", "drain_start_"),
                     array("Compressor #1", "-", "Hour", "compressor1_"),
                     array("Kebocoran Oil", "A/TA/RS", "-", "kebocoran_oil1_", true),

@@ -163,7 +163,7 @@ if (array_key_exists($unit, $unit_headings)):
                         }
                     } else {
                         // Add colspan for specific fields
-                        if (in_array($name, array("Running Hours", "Lube Oil Sump Level", "HT Expantion Tank lvl", "LT Expantion Tank lvl", "Warming Up"))) {
+                        if (in_array($name, array("Running Hours", "Lube Oil Sump Level", "HT Expantion Tank lvl", "LT Expantion Tank lvl"))) {
                             foreach ($times as $time) {
                                 $field_data = "{$field_name}_$time";
                                 if ($existing_record && isset($existing_record[$field_data])) {
@@ -183,10 +183,23 @@ if (array_key_exists($unit, $unit_headings)):
                                     echo    '</td>';
                                     } else {        
                                 echo "<td colspan='4'><select class='enum' name='{$field_name}_{$time}'>";
-                                include 'enum-on-off.php'; // Assuming 'enum-on-off.php' contains the options for the select element
+                                include 'enum-on-off.php'; 
                                 echo "</select></td>";
                                     }
                             }                            
+                        } else if ($name === "Warming Up") {
+                            foreach ($times as $time) {
+                                $field_data = "{$field_name}_$time";
+                                if ($existing_record && isset($existing_record[$field_data])) {
+                                    echo '<td colspan="4">' . htmlspecialchars(formatValue($existing_record[$field_data]));
+                                    echo "<button type='button' class='clear-btn' data-field='$field_data'>X</button>";
+                                    echo    '</td>';
+                                    } else {        
+                                echo "<td colspan='4'><select class='enum' name='{$field_name}_{$time}'>";
+                                include 'enum-yes-no.php'; 
+                                echo "</select></td>";
+                                    }
+                            }                        
                         } else {
                             for ($i = 8; $i <= 22; $i += 2) {
                                 $field_key = "{$field_name}_$i";
