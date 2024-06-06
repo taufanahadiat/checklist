@@ -7,15 +7,6 @@
               <option value="shift3">Shift 3</option>
             </select>
           </div>
-          <div class="unitfield">
-            <label for="time">Waktu:</label>
-            <select class="selection-chiller" name="time" id="option-time">
-              <option value="" disabled selected hidden>Opsi Waktu</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-            </select>
-          </div>
           <div >
             <label for="line">Line:</label>
             <select class="selection-line" name="line" id="option-form-chiller">

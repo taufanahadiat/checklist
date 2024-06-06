@@ -8,15 +8,6 @@
             </select>
           </div>
           <div class="unitfield">
-            <label for="time">Waktu:</label>
-            <select class="selection-chiller" name="time" id="option-time-compressor">
-              <option value="" disabled selected hidden>Opsi Waktu</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-            </select>
-          </div>
-          <div class="unitfield">
             <label for="line">Line:</label>
             <select class="selection-chiller" name="line" id="option-line-compressor">
               <option value="" disabled selected hidden>Pilih Line</option>
