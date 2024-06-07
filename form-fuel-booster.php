@@ -27,6 +27,18 @@ require 'request.php';
         .input-field{
             cursor: text;
         }
+        .clear-btn {
+            float: right;
+            background: none;
+            border: none;
+            color: red;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .clear-btn:hover {
+            border: 1px solid red;
+            border-radius: 4px;
+        }
     </style>
 
 </head>
@@ -62,6 +74,22 @@ require 'request.php';
     <form method="post">
             <tbody>
                 <?php
+                require 'database.php';
+                date_default_timezone_set('Asia/Jakarta'); // Replace 'YOUR_TIMEZONE' with the appropriate timezone
+
+                // Determine if the current time is between 00:00-06:00
+                $currentHour = (int) date('H');
+                if ($currentHour >= 0 && $currentHour < 6) {
+                    $tanggal = date("Y-m-d", strtotime("-1 day")); // Yesterday's date
+                } else {
+                    $tanggal = date("Y-m-d"); // Today's date
+                }
+                $sql_select = "SELECT * FROM $unit WHERE tanggal = CURDATE()";
+                $result_select = mysqli_query($conn, $sql_select);
+                if (!$result_select) {
+                    die("Query failed: " . mysqli_error($conn));
+                }                
+                $existing_record = mysqli_fetch_assoc($result_select);
                 $times = array("8", "10", "12", "14", "16", "18", "20", "22", "0", "2", "4", "6");
                 $time_ranges = array("8_14", "16_22", "0_6");
                 ?>
@@ -73,9 +101,15 @@ require 'request.php';
                         foreach ($times as $time) {
                             echo "<td>";
                             $field_name = "operating_pump1_$time";
+                            if ($existing_record && isset($existing_record[$field_name])) {
+                                echo htmlspecialchars($existing_record[$field_name]);
+                                echo "<button type='button' class='clear-btn' data-field='$field_name'>X</button>";
+                                echo    '</td>';
+                                } else {
                                 echo "<select class='enum' name='$field_name'>";
                                 include 'enum-on-off.php';
                                 echo "</select></td>";
+                                }
                             }
                     ?>
                 </tr>
@@ -87,9 +121,15 @@ require 'request.php';
                         foreach ($times as $time) {
                             echo "<td>";
                             $field_name = "kebocoran_fuel1_$time";
+                            if ($existing_record && isset($existing_record[$field_name])) {
+                                echo htmlspecialchars($existing_record[$field_name]);
+                                echo "<button type='button' class='clear-btn' data-field='$field_name'>X</button>";
+                                echo    '</td>';
+                                } else {
                             echo "<select class='enum' name='$field_name'>";
                             include 'enum-kebocoran.php';
                             echo "</select></td>";
+                                }
                         }
                     ?>
                 </tr>
@@ -101,9 +141,15 @@ require 'request.php';
                         foreach ($times as $time) {
                             echo "<td>";
                             $field_name = "operating_pump2_$time";
+                            if ($existing_record && isset($existing_record[$field_name])) {
+                                echo htmlspecialchars($existing_record[$field_name]);
+                                echo "<button type='button' class='clear-btn' data-field='$field_name'>X</button>";
+                                echo    '</td>';
+                                } else {
                                 echo "<select class='enum' name='$field_name'>";
                                 include 'enum-on-off.php';
                                 echo "</select></td>";
+                                }
                             }
                     ?>
                 </tr>
@@ -115,9 +161,15 @@ require 'request.php';
                         foreach ($times as $time) {
                             echo "<td>";
                             $field_name = "kebocoran_fuel2_$time";
+                            if ($existing_record && isset($existing_record[$field_name])) {
+                                echo htmlspecialchars($existing_record[$field_name]);
+                                echo "<button type='button' class='clear-btn' data-field='$field_name'>X</button>";
+                                echo    '</td>';
+                                } else {
                             echo "<select class='enum' name='$field_name'>";
                             include 'enum-kebocoran.php';
                             echo "</select></td>";
+                                }
                         }
                     ?>
                 </tr>
@@ -129,9 +181,15 @@ require 'request.php';
                         foreach ($time_ranges as $range) {
                             echo "<td colspan='4'>";
                             $field_name = "flowrate_booster_$range";
+                            if ($existing_record && isset($existing_record[$field_name])) {
+                                echo htmlspecialchars($existing_record[$field_name]);
+                                echo "<button type='button' class='clear-btn' data-field='$field_name'>X</button>";
+                                echo    '</td>';
+                                } else {
                                 echo "<input type='number' step='0.01' class='input-field' name='$field_name'>";
                                 echo "</select>";
                             echo "</td>";
+                                }
                         }
                     ?>
                 </tr>
@@ -143,9 +201,15 @@ require 'request.php';
                         foreach ($time_ranges as $range) {
                             echo "<td colspan='4'>";
                             $field_name = "flowrate_monitor_$range";
+                            if ($existing_record && isset($existing_record[$field_name])) {
+                                echo htmlspecialchars($existing_record[$field_name]);
+                                echo "<button type='button' class='clear-btn' data-field='$field_name'>X</button>";
+                                echo    '</td>';
+                                } else {
                                 echo "<input type='number' step='0.01' class='input-field' name='$field_name'>";
                                 echo "</select>";
                             echo "</td>";
+                                }
                         }
                     ?>
                 </tr>
@@ -157,9 +221,15 @@ require 'request.php';
                         foreach ($time_ranges as $range) {
                             echo "<td colspan='4'>";
                             $field_name = "hfo_lfo_$range";
+                            if ($existing_record && isset($existing_record[$field_name])) {
+                                echo htmlspecialchars($existing_record[$field_name]);
+                                echo "<button type='button' class='clear-btn' data-field='$field_name'>X</button>";
+                                echo    '</td>';
+                                } else {
                             echo "<select class='enum' name='$field_name'>";
                             include 'enum-hfo-lfo.php';
                             echo "</select></td>";
+                                }
                         }
                     ?>
                 </tr>
@@ -171,8 +241,14 @@ require 'request.php';
                         foreach ($times as $time) {
                             echo "<td>";
                             $field_name = "feed_pressure_$time";
+                            if ($existing_record && isset($existing_record[$field_name])) {
+                                echo htmlspecialchars($existing_record[$field_name]);
+                                echo "<button type='button' class='clear-btn' data-field='$field_name'>X</button>";
+                                echo    '</td>';
+                                } else {
                             echo "<input type='number' step='0.01' class='input-field' name='$field_name'>";
                             echo "</td>";
+                                }
                         }
                     ?>
                 </tr>                                                                                               
@@ -184,8 +260,14 @@ require 'request.php';
                         foreach ($times as $time) {
                             echo "<td>";
                             $field_name = "outlet_pressure_$time";
+                            if ($existing_record && isset($existing_record[$field_name])) {
+                                echo htmlspecialchars($existing_record[$field_name]);
+                                echo "<button type='button' class='clear-btn' data-field='$field_name'>X</button>";
+                                echo    '</td>';
+                                } else {
                             echo "<input type='number' step='0.01' class='input-field' name='$field_name'>";
                             echo "</td>";
+                                }
                         }
                     ?>
                 </tr>                                                                                               
@@ -197,8 +279,14 @@ require 'request.php';
                         foreach ($times as $time) {
                             echo "<td>";
                             $field_name = "fuel_temp_$time";
+                            if ($existing_record && isset($existing_record[$field_name])) {
+                                echo htmlspecialchars($existing_record[$field_name]);
+                                echo "<button type='button' class='clear-btn' data-field='$field_name'>X</button>";
+                                echo    '</td>';
+                                } else {
                             echo "<input type='number' step='0.01' class='input-field' name='$field_name'>";
                             echo "</td>";
+                                }
                         }
                     ?>
                 </tr>
@@ -210,8 +298,14 @@ require 'request.php';
                         foreach ($times as $time) {
                             echo "<td>";
                             $field_name = "fuel_visc_$time";
+                            if ($existing_record && isset($existing_record[$field_name])) {
+                                echo htmlspecialchars($existing_record[$field_name]);
+                                echo "<button type='button' class='clear-btn' data-field='$field_name'>X</button>";
+                                echo    '</td>';
+                                } else {
                             echo "<input type='number' step='0.01' class='input-field' name='$field_name'>";
                             echo "</td>";
+                                }
                         }
                     ?>
                 </tr>                                                                                               
@@ -223,8 +317,14 @@ require 'request.php';
                         foreach ($time_ranges as $range) {
                             echo "<td colspan='4'>";
                             $field_name = "flushing_count_$range";
+                            if ($existing_record && isset($existing_record[$field_name])) {
+                                echo htmlspecialchars($existing_record[$field_name]);
+                                echo "<button type='button' class='clear-btn' data-field='$field_name'>X</button>";
+                                echo    '</td>';
+                                } else {
                             echo "<input type='number' step='0.01' class='input-field' name='$field_name'>";
                             echo "</td>";
+                                }
                         }
                     ?>
                 </tr>                                                                                                
@@ -240,6 +340,33 @@ require 'request.php';
         }
         $(".enum").prop("selectedIndex", -1);
         $(".input-field").val('');
+
+        $(document).ready(function() {
+        $('.clear-btn').click(function() {
+            var fieldToClear = $(this).data('field');
+            var confirmed = confirm('Are you sure you want to clear this field?');
+
+            if (confirmed) {
+                // Send an AJAX request to update the field to NULL
+                $.ajax({
+                    url: 'clear_field.php',
+                    method: 'POST',
+                    data: {
+                        field_to_clear: fieldToClear,
+                        unit: '<?php echo $unit; ?>' // Pass the unit parameter
+                    },
+                    success: function(response) {
+                        // Reload the page after clearing the field
+                        location.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle error
+                        console.error(xhr.responseText);
+                    }
+                });
+            }
+        });
+    });
     </script>
 </body>
 </html>

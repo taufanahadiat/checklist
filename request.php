@@ -3,6 +3,8 @@ require 'database.php';
 
 $unit = $_GET['selectedUnit']; // Get the 'unit' parameter from the query string
 
+date_default_timezone_set('Asia/Jakarta'); // Replace 'YOUR_TIMEZONE' with the appropriate timezone
+
 // Determine if the current time is between 00:00-06:00
 $currentHour = (int) date('H');
 if ($currentHour >= 0 && $currentHour < 6) {

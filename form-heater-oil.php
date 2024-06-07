@@ -26,6 +26,18 @@ require 'request.php';
         .input-field {
             cursor: text;
         }
+        .clear-btn {
+            float: right;
+            background: none;
+            border: none;
+            color: red;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .clear-btn:hover {
+            border: 1px solid red;
+            border-radius: 4px;
+        }
     </style>
 </head>
 <body>
@@ -59,6 +71,22 @@ require 'request.php';
         <form method="post">
             <tbody>
                 <?php
+                require 'database.php';
+                date_default_timezone_set('Asia/Jakarta'); // Replace 'YOUR_TIMEZONE' with the appropriate timezone
+
+                // Determine if the current time is between 00:00-06:00
+                $currentHour = (int) date('H');
+                if ($currentHour >= 0 && $currentHour < 6) {
+                    $tanggal = date("Y-m-d", strtotime("-1 day")); // Yesterday's date
+                } else {
+                    $tanggal = date("Y-m-d"); // Today's date
+                }
+                $sql_select = "SELECT * FROM $unit WHERE tanggal = CURDATE()";
+                $result_select = mysqli_query($conn, $sql_select);
+                if (!$result_select) {
+                    die("Query failed: " . mysqli_error($conn));
+                }                
+                $existing_record = mysqli_fetch_assoc($result_select);
                 $measurements = array(
                     array("Operating Pump#1", "ON/OFF", "-", "operating_pump1_", "enum-on-off.php"),
                     array("Kebocoran Oil", "A/TA/RS", "-", "kebocoran_oil1_", "enum-kebocoran.php"),
@@ -86,6 +114,11 @@ require 'request.php';
                     foreach ($times as $time) {
                         echo "<td>";
                         $field_name = $measurement[3] . $time;
+                        if ($existing_record && isset($existing_record[$field_name])) {
+                            echo htmlspecialchars($existing_record[$field_name]);
+                            echo "<button type='button' class='clear-btn' data-field='$field_name'>X</button>";
+                            echo    '</td>';
+                            } else {
                         if ($measurement[4] !== null) {
                             echo "<select class='enum' name='$field_name'>";
                             include $measurement[4];
@@ -93,6 +126,7 @@ require 'request.php';
                         } else {
                             echo "<input type='number' step='0.01' class='input-field' name='$field_name'>";
                         }
+                    }
                         echo "</td>";
                     }
                     echo "</tr>";
@@ -110,6 +144,33 @@ document.getElementById("exit").onclick = function() {
 }
 $(".enum").prop("selectedIndex", -1);
 $(".input-field").val('');
+
+$(document).ready(function() {
+        $('.clear-btn').click(function() {
+            var fieldToClear = $(this).data('field');
+            var confirmed = confirm('Are you sure you want to clear this field?');
+
+            if (confirmed) {
+                // Send an AJAX request to update the field to NULL
+                $.ajax({
+                    url: 'clear_field.php',
+                    method: 'POST',
+                    data: {
+                        field_to_clear: fieldToClear,
+                        unit: '<?php echo $unit; ?>' // Pass the unit parameter
+                    },
+                    success: function(response) {
+                        // Reload the page after clearing the field
+                        location.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle error
+                        console.error(xhr.responseText);
+                    }
+                });
+            }
+        });
+    });
 </script>
 </body>
 </html>

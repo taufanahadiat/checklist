@@ -380,6 +380,19 @@
     font-weight: bold;
 }
 
+.clear-btn {
+    float: right;
+    background: none;
+    border: none;
+    color: red;
+    font-size: 16px;
+    cursor: pointer;
+}
+.clear-btn:hover {
+    border: 1px solid red;
+    border-radius: 4px;
+}
+
 @media (max-width: 600px) {
     .container {
         flex-direction: column;
