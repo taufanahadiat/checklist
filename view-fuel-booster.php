@@ -4,20 +4,7 @@ include 'database.php';
 
 $tanggal = $_GET['selectedDate'];
 $unit = $_GET['selectedUnit'];
-$sql = "SELECT *
-        FROM $unit
-        where tanggal LIKE '%{$tanggal}%'";
-
-$results = mysqli_query($conn, $sql);
-
-if ($results === false) {
-    echo mysqli_error($conn);
-    //echo "not connect";
-} else {
-    $article = mysqli_fetch_assoc($results);
-    //echo "connect";
-}
-
+include 'request-view.php';
 ?>
 
 
@@ -70,7 +57,7 @@ include 'header.php'; ?>
                     <?php
                         foreach ($times as $time) {
                             $field_name = "operating_pump1_$time";
-                        echo '<td style="text-align:center">' . $article[$field_name] . '</td>';
+                        echo '<td style="text-align:center">' . formatValue($article[$field_name]) . '</td>';
                     }
                     ?>
                 </tr>
@@ -81,7 +68,7 @@ include 'header.php'; ?>
                     <?php
                         foreach ($times as $time) {
                             $field_name = "kebocoran_fuel1_$time";
-                        echo '<td style="text-align:center">' . $article[$field_name] . '</td>';
+                        echo '<td style="text-align:center">' . formatValue($article[$field_name]) . '</td>';
                     }
                     ?>
                 </tr>
@@ -93,7 +80,7 @@ include 'header.php'; ?>
                     <?php
                         foreach ($times as $time) {
                             $field_name = "operating_pump2_$time";
-                        echo '<td style="text-align:center">' . $article[$field_name] . '</td>';
+                        echo '<td style="text-align:center">' . formatValue($article[$field_name]) . '</td>';
                     }
                     ?>
                 </tr>
@@ -104,7 +91,7 @@ include 'header.php'; ?>
                     <?php
                         foreach ($times as $time) {
                             $field_name = "kebocoran_fuel2_$time";
-                        echo '<td style="text-align: center;">' . $article[$field_name] . '</td>';
+                        echo '<td style="text-align: center;">' . formatValue($article[$field_name]) . '</td>';
                     }
                     ?>
                 </tr>
@@ -115,7 +102,7 @@ include 'header.php'; ?>
                     <?php
                         foreach ($time_ranges as $range) {
                             $field_name = "flowrate_booster_$range";
-                        echo '<td colspan="4">' . $article[$field_name] . '</td>';
+                        echo '<td colspan="4">' . formatValue($article[$field_name]) . '</td>';
                     }
                     ?>
                 </tr>
@@ -127,7 +114,7 @@ include 'header.php'; ?>
                     <?php
                         foreach ($time_ranges as $range) {
                             $field_name = "flowrate_monitor_$range";
-                        echo '<td colspan="4" style="text-align: center;">' . $article[$field_name] . '</td>';
+                        echo '<td colspan="4" style="text-align: center;">' . formatValue($article[$field_name]) . '</td>';
                     }
                     ?>
                 </tr>
@@ -139,7 +126,7 @@ include 'header.php'; ?>
                     <?php
                         foreach ($time_ranges as $range) {
                             $field_name = "hfo_lfo_$range";
-                        echo '<td colspan="4" style="text-align: center;">' . $article[$field_name] . '</td>';
+                        echo '<td colspan="4" style="text-align: center;">' . formatValue($article[$field_name]) . '</td>';
                     }
                     ?>
                 </tr>
@@ -151,7 +138,7 @@ include 'header.php'; ?>
                     <?php
                         foreach ($times as $time) {
                             $field_name = "feed_pressure_$time";
-                        echo '<td>' . $article[$field_name] . '</td>';
+                        echo '<td>' . formatValue($article[$field_name]) . '</td>';
                     }
                     ?>
                 </tr>
@@ -163,7 +150,7 @@ include 'header.php'; ?>
                     <?php
                         foreach ($times as $time) {
                             $field_name = "outlet_pressure_$time";
-                        echo '<td style="text-align: center;">' . $article[$field_name] . '</td>';
+                        echo '<td style="text-align: center;">' . formatValue($article[$field_name]) . '</td>';
                     }
                     ?>
                 </tr>
@@ -175,7 +162,7 @@ include 'header.php'; ?>
                     <?php
                         foreach ($times as $time) {
                             $field_name = "fuel_temp_$time";
-                        echo '<td style="text-align: center;">' . $article[$field_name] . '</td>';
+                        echo '<td style="text-align: center;">' . formatValue($article[$field_name]) . '</td>';
                     }
                     ?>
                 </tr>
@@ -187,7 +174,7 @@ include 'header.php'; ?>
                     <?php
                         foreach ($times as $time) {
                             $field_name = "fuel_visc_$time";
-                        echo '<td style="text-align: center;">' . $article[$field_name] . '</td>';
+                        echo '<td style="text-align: center;">' . formatValue($article[$field_name]) . '</td>';
                     }
                     ?>
                 </tr>
@@ -199,7 +186,7 @@ include 'header.php'; ?>
                     <?php
                         foreach ($time_ranges as $range) {
                             $field_name = "flushing_count_$range";
-                        echo '<td colspan="4">' . $article[$field_name] . '</td>';
+                        echo '<td colspan="4">' . formatValue($article[$field_name]) . '</td>';
                     }
                     ?>
                 </tr>

@@ -4,19 +4,7 @@ include 'database.php';
 
 $tanggal = $_GET['selectedDate'];
 $unit = $_GET['selectedUnit'];
-$sql = "SELECT *
-        FROM $unit
-        where tanggal LIKE '%{$tanggal}%'";
-
-$results = mysqli_query($conn, $sql);
-
-if ($results === false) {
-    echo mysqli_error($conn);
-    //echo "not connect";
-} else {
-    $article = mysqli_fetch_assoc($results);
-    //echo "connect";
-}
+include 'request-view.php';
 
 ?>
 
@@ -78,7 +66,7 @@ if (array_key_exists($unit, $unit_headings)):
                     <?php
                     foreach ($time_ranges as $range) {
                         $field_name = "running_hrs_$range";
-                        echo '<td colspan="4" style="text-align:center">' . $article[$field_name] . '</td>';
+                        echo '<td colspan="4" style="text-align:center">' . formatValue($article[$field_name]) . '</td>';
                     }
                     ?>
                 </tr>
@@ -89,7 +77,7 @@ if (array_key_exists($unit, $unit_headings)):
                     <?php
                     foreach ($time_ranges as $range) {
                         $field_name = "lube_oil_sump_lvl_$range";
-                        echo '<td colspan="4" style="text-align:center">' . $article[$field_name] . '</td>';
+                        echo '<td colspan="4" style="text-align:center">' . formatValue($article[$field_name]) . '</td>';
                     }
                     ?>
                 </tr>
@@ -101,7 +89,7 @@ if (array_key_exists($unit, $unit_headings)):
                     <?php
                     foreach ($time_ranges as $range) {
                         $field_name = "anti_cond_heater_$range";
-                        echo '<td colspan="4" style="text-align:center">' . $article[$field_name] . '</td>';
+                        echo '<td colspan="4" style="text-align:center">' . formatValue($article[$field_name]) . '</td>';
                     }
                     ?>
                 </tr>
@@ -112,7 +100,7 @@ if (array_key_exists($unit, $unit_headings)):
                     <?php
                     foreach ($time as $t) {
                         $field_name = "prelube_pump_$t";
-                        echo '<td style="text-align: center;">' . $article[$field_name] . '</td>';
+                        echo '<td style="text-align: center;">' . formatValue($article[$field_name]) . '</td>';
                     }
                     ?>
                 </tr>
@@ -123,7 +111,7 @@ if (array_key_exists($unit, $unit_headings)):
                     <?php
                     foreach ($time as $t) {
                         $field_name = "prelube_pump_press_$t";
-                        echo '<td>' . $article[$field_name] . '</td>';
+                        echo '<td>' . formatValue($article[$field_name]) . '</td>';
                     }
                     ?>
                 </tr>
@@ -135,7 +123,7 @@ if (array_key_exists($unit, $unit_headings)):
                     <?php
                     foreach ($time as $t) {
                         $field_name = "kebocoran_oil_$t";
-                        echo '<td style="text-align: center;">' . $article[$field_name] . '</td>';
+                        echo '<td style="text-align: center;">' . formatValue($article[$field_name]) . '</td>';
                     }
                     ?>
                 </tr>
@@ -147,7 +135,7 @@ if (array_key_exists($unit, $unit_headings)):
                     <?php
                     foreach ($time as $t) {
                         $field_name = "preheat_unit_$t";
-                        echo '<td style="text-align: center;">' . $article[$field_name] . '</td>';
+                        echo '<td style="text-align: center;">' . formatValue($article[$field_name]) . '</td>';
                     }
                     ?>
                 </tr>
@@ -159,7 +147,7 @@ if (array_key_exists($unit, $unit_headings)):
                     <?php
                     foreach ($time as $t) {
                         $field_name = "ht_water_outlet_temp_$t";
-                        echo '<td>' . $article[$field_name] . '</td>';
+                        echo '<td>' . formatValue($article[$field_name]) . '</td>';
                     }
                     ?>
                 </tr>
@@ -171,7 +159,7 @@ if (array_key_exists($unit, $unit_headings)):
                     <?php
                     foreach ($time_ranges as $range) {
                         $field_name = "ht_expantion_tank_lvl_$range";
-                        echo '<td colspan="4" style="text-align: center;">' . $article[$field_name] . '</td>';
+                        echo '<td colspan="4" style="text-align: center;">' . formatValue($article[$field_name]) . '</td>';
                     }
                     ?>
                 </tr>
@@ -183,7 +171,7 @@ if (array_key_exists($unit, $unit_headings)):
                     <?php
                     foreach ($time_ranges as $range) {
                         $field_name = "lt_expantion_tank_lvl_$range";
-                        echo '<td colspan="4" style="text-align: center;">' . $article[$field_name] . '</td>';
+                        echo '<td colspan="4" style="text-align: center;">' . formatValue($article[$field_name]) . '</td>';
                     }
                     ?>
                 </tr>
@@ -195,7 +183,7 @@ if (array_key_exists($unit, $unit_headings)):
                     <?php
                     foreach ($time_ranges as $range) {
                         $field_name = "warming_up_$range";
-                        echo '<td colspan="4" style="text-align: center;">' . $article[$field_name] . '</td>';
+                        echo '<td colspan="4" style="text-align: center;">' . formatValue($article[$field_name]) . '</td>';
                     }
                     ?>
                 </tr>
@@ -207,7 +195,7 @@ if (array_key_exists($unit, $unit_headings)):
                     <?php
                     foreach ($time as $t) {
                         $field_name = "fuel_oil_inlet_temp_$t";
-                        echo '<td>' . $article[$field_name] . '</td>';
+                        echo '<td>' . formatValue($article[$field_name]) . '</td>';
                     }
                     ?>
                 </tr>
@@ -219,7 +207,7 @@ if (array_key_exists($unit, $unit_headings)):
                     <?php
                     foreach ($time as $t) {
                         $field_name = "fuel_oil_inlet_pressure_$t";
-                        echo '<td>' . $article[$field_name] . '</td>';
+                        echo '<td>' . formatValue($article[$field_name]) . '</td>';
                     }
                     ?>
                 </tr>
@@ -231,7 +219,7 @@ if (array_key_exists($unit, $unit_headings)):
                     <?php
                     foreach ($time as $t) {
                         $field_name = "kebocoran_fuel_$t";
-                        echo '<td style="text-align: center;">' . $article[$field_name] . '</td>';
+                        echo '<td style="text-align: center;">' . formatValue($article[$field_name]) . '</td>';
                     }
                     ?>
                 </tr>

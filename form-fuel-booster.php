@@ -44,18 +44,23 @@ require 'request.php';
 </head>
 
 <body>
-<div class="header-img">
-      <img id="logo" src="css/logo.png" alt="Logo Argha"><br>
-      <img id="exit" src="css/exit.png" alt="Exit"><br>
-      </div>
-    <header>
-      <h1>ONLINE CHECKLIST</h1>
-    </header>
+<?php include 'header.php'; ?>
 <main>
     
     <h2>Fuel Booster Unit</h2>
 
     <table>
+    <form name="select-form-genset" onsubmit="handleFormSubmit(event, 'option-form-genset')">
+        <div class="custom-label-form"> 
+        <label for="unit-genset">Change Unit:</label>
+          <div class="unitfield-form">
+            <select class="selection-genset" name="unit-genset" id="option-form-genset">
+              <?php include 'pilih-unit-genset.php' ?>
+            </select>
+          </div>
+          <input style="margin-top: 20px" class="btn-form" type="submit" value="SUBMIT">
+          </div>
+      </form>
         <thead>
             <th colspan="3">Time</th>
             <th>08.00</th>
@@ -75,21 +80,8 @@ require 'request.php';
             <tbody>
                 <?php
                 require 'database.php';
-                date_default_timezone_set('Asia/Jakarta'); // Replace 'YOUR_TIMEZONE' with the appropriate timezone
+                include 'request-view.php';
 
-                // Determine if the current time is between 00:00-06:00
-                $currentHour = (int) date('H');
-                if ($currentHour >= 0 && $currentHour < 6) {
-                    $tanggal = date("Y-m-d", strtotime("-1 day")); // Yesterday's date
-                } else {
-                    $tanggal = date("Y-m-d"); // Today's date
-                }
-                $sql_select = "SELECT * FROM $unit WHERE tanggal = CURDATE()";
-                $result_select = mysqli_query($conn, $sql_select);
-                if (!$result_select) {
-                    die("Query failed: " . mysqli_error($conn));
-                }                
-                $existing_record = mysqli_fetch_assoc($result_select);
                 $times = array("8", "10", "12", "14", "16", "18", "20", "22", "0", "2", "4", "6");
                 $time_ranges = array("8_14", "16_22", "0_6");
                 ?>
@@ -102,7 +94,7 @@ require 'request.php';
                             echo "<td>";
                             $field_name = "operating_pump1_$time";
                             if ($existing_record && isset($existing_record[$field_name])) {
-                                echo htmlspecialchars($existing_record[$field_name]);
+                                echo htmlspecialchars(formatValue($existing_record[$field_name]));
                                 echo "<button type='button' class='clear-btn' data-field='$field_name'>X</button>";
                                 echo    '</td>';
                                 } else {
@@ -122,7 +114,7 @@ require 'request.php';
                             echo "<td>";
                             $field_name = "kebocoran_fuel1_$time";
                             if ($existing_record && isset($existing_record[$field_name])) {
-                                echo htmlspecialchars($existing_record[$field_name]);
+                                echo htmlspecialchars(formatValue($existing_record[$field_name]));
                                 echo "<button type='button' class='clear-btn' data-field='$field_name'>X</button>";
                                 echo    '</td>';
                                 } else {
@@ -142,7 +134,7 @@ require 'request.php';
                             echo "<td>";
                             $field_name = "operating_pump2_$time";
                             if ($existing_record && isset($existing_record[$field_name])) {
-                                echo htmlspecialchars($existing_record[$field_name]);
+                                echo htmlspecialchars(formatValue($existing_record[$field_name]));
                                 echo "<button type='button' class='clear-btn' data-field='$field_name'>X</button>";
                                 echo    '</td>';
                                 } else {
@@ -162,7 +154,7 @@ require 'request.php';
                             echo "<td>";
                             $field_name = "kebocoran_fuel2_$time";
                             if ($existing_record && isset($existing_record[$field_name])) {
-                                echo htmlspecialchars($existing_record[$field_name]);
+                                echo htmlspecialchars(formatValue($existing_record[$field_name]));
                                 echo "<button type='button' class='clear-btn' data-field='$field_name'>X</button>";
                                 echo    '</td>';
                                 } else {
@@ -182,7 +174,7 @@ require 'request.php';
                             echo "<td colspan='4'>";
                             $field_name = "flowrate_booster_$range";
                             if ($existing_record && isset($existing_record[$field_name])) {
-                                echo htmlspecialchars($existing_record[$field_name]);
+                                echo htmlspecialchars(formatValue($existing_record[$field_name]));
                                 echo "<button type='button' class='clear-btn' data-field='$field_name'>X</button>";
                                 echo    '</td>';
                                 } else {
@@ -202,7 +194,7 @@ require 'request.php';
                             echo "<td colspan='4'>";
                             $field_name = "flowrate_monitor_$range";
                             if ($existing_record && isset($existing_record[$field_name])) {
-                                echo htmlspecialchars($existing_record[$field_name]);
+                                echo htmlspecialchars(formatValue($existing_record[$field_name]));
                                 echo "<button type='button' class='clear-btn' data-field='$field_name'>X</button>";
                                 echo    '</td>';
                                 } else {
@@ -222,7 +214,7 @@ require 'request.php';
                             echo "<td colspan='4'>";
                             $field_name = "hfo_lfo_$range";
                             if ($existing_record && isset($existing_record[$field_name])) {
-                                echo htmlspecialchars($existing_record[$field_name]);
+                                echo htmlspecialchars(formatValue($existing_record[$field_name]));
                                 echo "<button type='button' class='clear-btn' data-field='$field_name'>X</button>";
                                 echo    '</td>';
                                 } else {
@@ -242,7 +234,7 @@ require 'request.php';
                             echo "<td>";
                             $field_name = "feed_pressure_$time";
                             if ($existing_record && isset($existing_record[$field_name])) {
-                                echo htmlspecialchars($existing_record[$field_name]);
+                                echo htmlspecialchars(formatValue($existing_record[$field_name]));
                                 echo "<button type='button' class='clear-btn' data-field='$field_name'>X</button>";
                                 echo    '</td>';
                                 } else {
@@ -261,7 +253,7 @@ require 'request.php';
                             echo "<td>";
                             $field_name = "outlet_pressure_$time";
                             if ($existing_record && isset($existing_record[$field_name])) {
-                                echo htmlspecialchars($existing_record[$field_name]);
+                                echo htmlspecialchars(formatValue($existing_record[$field_name]));
                                 echo "<button type='button' class='clear-btn' data-field='$field_name'>X</button>";
                                 echo    '</td>';
                                 } else {
@@ -280,7 +272,7 @@ require 'request.php';
                             echo "<td>";
                             $field_name = "fuel_temp_$time";
                             if ($existing_record && isset($existing_record[$field_name])) {
-                                echo htmlspecialchars($existing_record[$field_name]);
+                                echo htmlspecialchars(formatValue($existing_record[$field_name]));
                                 echo "<button type='button' class='clear-btn' data-field='$field_name'>X</button>";
                                 echo    '</td>';
                                 } else {
@@ -299,7 +291,7 @@ require 'request.php';
                             echo "<td>";
                             $field_name = "fuel_visc_$time";
                             if ($existing_record && isset($existing_record[$field_name])) {
-                                echo htmlspecialchars($existing_record[$field_name]);
+                                echo htmlspecialchars(formatValue($existing_record[$field_name]));
                                 echo "<button type='button' class='clear-btn' data-field='$field_name'>X</button>";
                                 echo    '</td>';
                                 } else {
@@ -318,7 +310,7 @@ require 'request.php';
                             echo "<td colspan='4'>";
                             $field_name = "flushing_count_$range";
                             if ($existing_record && isset($existing_record[$field_name])) {
-                                echo htmlspecialchars($existing_record[$field_name]);
+                                echo htmlspecialchars(formatValue($existing_record[$field_name]));
                                 echo "<button type='button' class='clear-btn' data-field='$field_name'>X</button>";
                                 echo    '</td>';
                                 } else {
@@ -367,6 +359,56 @@ require 'request.php';
             }
         });
     });
+    function handleFormSubmit(event, selectId) {
+    event.preventDefault();
+
+    var selectElement = document.getElementById(selectId);
+    var selectedUnit = selectElement.value;    
+              
+            console.log('Selected <select> ID:', selectId);
+            console.log('Selected Value:', selectedUnit);
+
+            switch (selectedUnit) {
+                case 'fuel_transfer_pump_unit':
+                case 'hfo_separator_pump_unit':
+                case 'hfo_unloading_pump_unit':
+                case 'lfo_unloading_pump_unit':
+                    if (selectId === 'option-form-genset') {
+                        location.href = 'form-hfo-lfo-fuel.php?selectedUnit=' + encodeURIComponent(selectedUnit);
+                    } break;
+                case 'common_unit':
+                    if (selectId === 'option-form-genset') {
+                        location.href = 'form-common-unit.php?selectedUnit=' + encodeURIComponent(selectedUnit);
+                    } break;
+                case 'fuel_booster':
+                    if (selectId === 'option-form-genset') {
+                        location.href = 'form-fuel-booster.php?selectedUnit=' + encodeURIComponent(selectedUnit);
+                    } break;     
+                  case 'fuel_oil_feeder':
+                    if (selectId === 'option-form-genset') {
+                        location.href = 'form-fuel-oil-feeder.php?selectedUnit=' + encodeURIComponent(selectedUnit);
+                    } break;                                   
+                case 'heater_oil':
+                    if (selectId === 'option-form-genset') {
+                        location.href = 'form-heater-oil.php?selectedUnit=' + encodeURIComponent(selectedUnit);
+                    } break;
+                case 'genset_man':
+                    if (selectId === 'option-form-genset') {
+                        location.href = 'form-genset-man.php?selectedUnit=' + encodeURIComponent(selectedUnit);
+                    } break;                  
+                case 'genset_wartsila_01':
+                case 'genset_wartsila_02':
+                    if (selectId === 'option-form-genset') {
+                        location.href = 'form-genset.php?selectedUnit=' + encodeURIComponent(selectedUnit);
+                    } break;
+                case 'kebocoran_fuel_tank':
+                    if (selectId === 'option-form-genset') {
+                        location.href = 'form-kebocoran-fuel-tank.php?selectedUnit=' + encodeURIComponent(selectedUnit);
+                    } break;
+                default:
+                    break;
+            }
+        }
     </script>
 </body>
 </html>

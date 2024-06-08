@@ -15,7 +15,7 @@
               <option value="6&7">OPP 6-7</option>
             </select>
           </div>
-          <div >
+          <div class="unitfield">
             <label for="unit">Unit:</label>
             <select class="selection-line" name="unit" id="option-form-compressor">
               <option value="" disabled selected hidden>Pilih Unit</option>

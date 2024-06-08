@@ -4,34 +4,8 @@ include 'database.php';
 $tanggal = "" . $_GET['selectedDate'];
 $unit = "" . $_GET['selectedUnit'];
 
-$sql = "SELECT * FROM $unit WHERE tanggal LIKE '%{$tanggal}%'";
-$results = mysqli_query($conn, $sql);
+include 'request-view.php';
 
-if ($results === false) {
-    echo mysqli_error($conn);
-} else {
-    $article = mysqli_fetch_assoc($results);
-}
-
-?>
-<?php
-
-// Function to format the value
-function formatValue($value) {
-    // Check if the value is a float and has .00 as decimals
-    if (is_numeric($value) && floor($value) == $value) {
-        return intval($value); // Return integer value
-    } else {
-        return $value; // Otherwise, return the original value
-    }
-}
-
-// Example usage:
-$value = 10.00;
-//echo formatValue($value); // Output: 10
-
-$value = 10.50;
-//echo formatValue($value); // Output: 10.5
 ?>
 
 

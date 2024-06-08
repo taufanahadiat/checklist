@@ -224,7 +224,6 @@ $mysqli = new mysqli('localhost', 'root','akpidev3','checklistnew_24');
     });
 });
 
-$(".selection-genset").prepend("<option value='' disabled selected class='placeholder-option' hidden>Pilih Genset</option>");
 $(".selection-area").prepend("<option value='' disabled selected class='placeholder-option' hidden>Pilih Area</option>");
         //$(".selection").prop("selectedIndex", -1);
 

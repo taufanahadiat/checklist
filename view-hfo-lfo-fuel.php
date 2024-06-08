@@ -4,20 +4,8 @@ require 'database.php';
 
 $tanggal = "" . $_GET['selectedDate'];
 $unit = "" . $_GET['selectedUnit'];
-$sql = "SELECT *
-        FROM $unit
-        where tanggal LIKE '%{$tanggal}%'";
 
-$results = mysqli_query($conn, $sql);
-
-if ($results === false) {
-    echo mysqli_error($conn);
-    //echo "not connect";
-} else {
-    $article = mysqli_fetch_assoc($results);
-    //echo "connect";
-}
-
+include 'request-view.php';
 ?>
 
 
@@ -81,7 +69,7 @@ if (array_key_exists($unit, $unit_headings)):
                     <?php
                     foreach ($time_ranges as $range) {
                         $field_name = "operating_pump1_$range";
-                        echo '<td colspan="4">' . $article[$field_name] . '</td>';
+                        echo '<td colspan="4">' . formatValue($article[$field_name]) . '</td>';
                     }
                     ?>
                 </tr>
@@ -92,7 +80,7 @@ if (array_key_exists($unit, $unit_headings)):
                     <?php
                     foreach ($time as $t) {
                         $field_name = "kebocoran_fuel1_$t";
-                        echo '<td>' . $article[$field_name] . '</td>';
+                        echo '<td>' . formatValue($article[$field_name]) . '</td>';
                     }
                     ?>
                 </tr>
@@ -103,7 +91,7 @@ if (array_key_exists($unit, $unit_headings)):
                     <?php
                     foreach ($time_ranges as $range) {
                         $field_name = "operating_pump2_$range";
-                        echo '<td colspan="4">' . $article[$field_name] . '</td>';
+                        echo '<td colspan="4">' . formatValue($article[$field_name]) . '</td>';
                     }
                     ?>
                 </tr>
@@ -114,7 +102,7 @@ if (array_key_exists($unit, $unit_headings)):
                     <?php
                     foreach ($time as $t) {
                         $field_name = "kebocoran_fuel2_$t";
-                        echo '<td>' . $article[$field_name] . '</td>';
+                        echo '<td>' . formatValue($article[$field_name]) . '</td>';
                     }
                     ?>
                 </tr>

@@ -4,20 +4,7 @@ include 'database.php';
 
 $tanggal = $_GET['selectedDate'];
 $unit = $_GET['selectedUnit'];
-$sql = "SELECT *
-        FROM $unit
-        where tanggal LIKE '%{$tanggal}%'";
-
-$results = mysqli_query($conn, $sql);
-
-if ($results === false) {
-    echo mysqli_error($conn);
-    //echo "not connect";
-} else {
-    $article = mysqli_fetch_assoc($results);
-    //echo "connect";
-}
-
+include 'request-view.php';
 ?>
 
 
@@ -70,7 +57,7 @@ include 'header.php'; ?>
                     <?php
                     foreach ($time_ranges as $range) {
                         $field_name = "running_hours_$range";
-                        echo '<td colspan="4" style="text-align:center">' . $article[$field_name] . '</td>';
+                        echo '<td colspan="4" style="text-align:center">' . formatValue($article[$field_name]) . '</td>';
                     }
                     ?>
                 </tr>
@@ -81,7 +68,7 @@ include 'header.php'; ?>
                     <?php
                     foreach ($time_ranges as $range) {
                         $field_name = "breaker_position_$range";
-                        echo '<td colspan="4" style="text-align:center">' . $article[$field_name] . '</td>';
+                        echo '<td colspan="4" style="text-align:center">' . formatValue($article[$field_name]) . '</td>';
                     }
                     ?>
                 </tr>
@@ -92,7 +79,7 @@ include 'header.php'; ?>
                     <?php
                     foreach ($time_ranges as $range) {
                         $field_name = "energy_switch_$range";
-                        echo '<td colspan="4" style="text-align:center">' . $article[$field_name] . '</td>';
+                        echo '<td colspan="4" style="text-align:center">' . formatValue($article[$field_name]) . '</td>';
                     }
                     ?>
                 </tr>
@@ -103,7 +90,7 @@ include 'header.php'; ?>
                     <?php
                     foreach ($time_ranges as $range) {
                         $field_name = "switch_mode_$range";
-                        echo '<td colspan="4" style="text-align:center">' . $article[$field_name] . '</td>';
+                        echo '<td colspan="4" style="text-align:center">' . formatValue($article[$field_name]) . '</td>';
                     }
                     ?>
                 </tr>
@@ -114,7 +101,7 @@ include 'header.php'; ?>
                     <?php
                     foreach ($time_ranges as $range) {
                         $field_name = "warming_up_$range";
-                        echo '<td colspan="4" style="text-align:center">' . $article[$field_name] . '</td>';
+                        echo '<td colspan="4" style="text-align:center">' . formatValue($article[$field_name]) . '</td>';
                     }
                     ?>
                 </tr>
@@ -125,7 +112,7 @@ include 'header.php'; ?>
                     <?php
                     foreach ($times as $time) {
                         $field_name = "voltage_battery_$time";
-                        echo '<td style="text-align:center">' . $article[$field_name] . '</td>';
+                        echo '<td style="text-align:center">' . formatValue($article[$field_name]) . '</td>';
                     }
                     ?>
                 </tr>
@@ -136,7 +123,7 @@ include 'header.php'; ?>
                     <?php
                     foreach ($times as $time) {
                         $field_name = "kebocoran_fuel_$time";
-                        echo '<td style="text-align:center">' . $article[$field_name] . '</td>';
+                        echo '<td style="text-align:center">' . formatValue($article[$field_name]) . '</td>';
                     }
                     ?>
                 </tr>

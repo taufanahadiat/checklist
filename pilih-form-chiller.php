@@ -7,7 +7,7 @@
               <option value="shift3">Shift 3</option>
             </select>
           </div>
-          <div >
+          <div class="unitfield">
             <label for="line">Line:</label>
             <select class="selection-line" name="line" id="option-form-chiller">
               <option value="" disabled selected hidden>Pilih Line</option>
