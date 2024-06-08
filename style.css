@@ -193,7 +193,7 @@
         color: #000;
         cursor: pointer;
       }
-      .selection-area, .selection-chiller{
+      .selection-area, .selection-shift, .selection-chiller{
         appearance: none;
         display: inline-block;
         text-align: center;
@@ -371,7 +371,7 @@
     flex-direction: column;
 }
 
-.selection-genset, .input-container, .selection-area, .selection-chiller, .selection-line{
+.selection-genset, .input-container, .selection-area, .selection-shift, .selection-line, .selection-chiller{
     width: 100%;
     box-sizing: border-box;
 }

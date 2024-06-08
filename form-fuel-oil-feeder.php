@@ -120,6 +120,8 @@ require 'request.php';
                     } else {
                         echo "<input type='number' step='0.01' class='input-field' name='$field_name'>";
                     }
+
+                    
                 }
                     echo "</td>";
                 }

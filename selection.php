@@ -228,22 +228,28 @@ $(".selection-genset").prepend("<option value='' disabled selected class='placeh
 $(".selection-area").prepend("<option value='' disabled selected class='placeholder-option' hidden>Pilih Area</option>");
         //$(".selection").prop("selectedIndex", -1);
 
-      function handleFormSubmit(event, selectId) {
-        event.preventDefault();
+function handleFormSubmit(event, selectId) {
+    event.preventDefault();
 
-        var selectElement = document.getElementById(selectId);
-        var selectedUnit = selectElement.value;
-        // Find the closest form element that contains the select element
-        var formElement = selectElement.closest('form');
+    var selectElement = document.getElementById(selectId);
+    var selectedUnit = selectElement.value;
 
-        // Find the date input within the same form
-        var dateInput = formElement.querySelector('.dateInput');
-        var selectedDate = dateInput ? dateInput.value : null;
-        var selectedShift = formElement.value;
+    // Find the closest form element that contains the select element
+    var formElement = selectElement.closest('form');
+
+    // Find the date input within the same form
+    var dateInput = formElement.querySelector('.dateInput');
+    var selectedDate = dateInput ? dateInput.value : null;
+
+    // Assuming there is another select element for shift within the same form
+    var shiftSelect = formElement.querySelector('.selection-shift');
+    var selectedShift = shiftSelect ? shiftSelect.value : null;
+    
               
             console.log('Selected <select> ID:', selectId);
             console.log('Selected Value:', selectedUnit);
             console.log('Selected Date:', selectedDate);
+            console.log('Selected Shift:', selectedShift);
 
             switch (selectedUnit) {
                 case 'fuel_transfer_pump_unit':
@@ -299,23 +305,30 @@ $(".selection-area").prepend("<option value='' disabled selected class='placehol
                         location.href = 'view-genset.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedDate=' + encodeURIComponent(selectedDate);
                     }
                     break;
+                case 'kebocoran_fuel_tank':
+                    if (selectId === 'option-form-genset') {
+                        location.href = 'form-kebocoran-fuel-tank.php?selectedUnit=' + encodeURIComponent(selectedUnit);
+                    } else if (selectId === 'option-view-genset') {
+                        location.href = 'view-kebocoran-fuel-tank.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedDate=' + encodeURIComponent(selectedDate);
+                    }
+                    break;
                 case 'chiller_trane_67bopet':
-                    if (selectId === 'option-form-chiller') {
-                        location.href = 'form-chiller67bopet-trane.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedShift=' + encodedURIComponent(selectedShift);
+                    if (selectId === 'option-form-chiller' && selectId === 'option-shift-chiller') {
+                        location.href = 'form-chiller67bopet-trane.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedShift=' + encodeURIComponent(selectedShift);
                     } else if (selectId === 'option-view-chiller') {
                         location.href = 'view-chiller67bopet.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedDate=' + encodeURIComponent(selectedDate) + '&selectedUnit2=chiller_hitachi_67bopet';
                     }
                     break;
                 case 'chiller_trane_45met34':
-                    if (selectId === 'option-form-chiller') {
-                        location.href = 'form-chiller45met34-trane.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedShift=' + encodedURIComponent(selectedShift);
+                    if (selectId === 'option-form-chiller' && selectId === 'option-shift-chiller') {
+                        location.href = 'form-chiller45met34-trane.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedShift=' + encodeURIComponent(selectedShift);
                     } else if (selectId === 'option-view-chiller') {
                         location.href = 'view-chiller45met34.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedDate=' + encodeURIComponent(selectedDate) + '&selectedUnit2=chiller_hitachi_45met34';
                     }
                     break;                    
                 case 'chiller_trane_coat14met12':
-                    if (selectId === 'option-form-chiller') {
-                        location.href = 'form-chillercoat14met12-trane.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedShift=' + encodedURIComponent(selectedShift);
+                    if (selectId === 'option-form-chiller' && selectId === 'option-shift-chiller') {
+                        location.href = 'form-chillercoat14met12-trane.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedShift=' + encodeURIComponent(selectedShift);
                     } else if (selectId === 'option-view-chiller') {
                         location.href = 'view-chillercoat14met12.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedDate=' + encodeURIComponent(selectedDate) + '&selectedUnit2=chiller_hitachi_coat14met12';
                     }

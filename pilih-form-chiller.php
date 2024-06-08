@@ -1,6 +1,6 @@
           <div class="unitfield">
             <label for="shift">Shift:</label>
-            <select class="selection-shift" name="shift" id="option-shift">
+            <select class="selection-shift" name="shift" id="option-shift-chiller">
               <option value="" disabled selected hidden>Pilih Shift</option>
               <option value="shift1">Shift 1</option>
               <option value="shift2">Shift 2</option>
