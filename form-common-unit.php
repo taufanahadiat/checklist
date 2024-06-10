@@ -114,6 +114,10 @@ require 'request.php';
                                 echo "<select class='enum' name='$field_name'>";
                                 include 'enum-kebocoran.php';
                                 echo "</select>";
+                            } else if ($measurement[3] == "drain_start_"){
+                                echo "<select class='enum' name='$field_name'>";
+                                include 'enum-yes-no.php';
+                                echo "</select>";
                             } else {
                                 echo "<input type='number' step='0.01' class='input-field' name='$field_name'>";
                             }
