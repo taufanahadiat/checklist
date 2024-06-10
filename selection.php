@@ -242,7 +242,9 @@ function handleFormSubmit(event, selectId) {
     // Assuming there is another select element for shift within the same form
     var shiftSelect = formElement.querySelector('.selection-shift');
     var selectedShift = shiftSelect ? shiftSelect.value : null;
-    
+
+    var lineSelect = formElement.querySelector('.selection-line');
+    var selectedLine = lineSelect ? lineSelect.value : null;    
               
             console.log('Selected <select> ID:', selectId);
             console.log('Selected Value:', selectedUnit);
@@ -335,28 +337,28 @@ function handleFormSubmit(event, selectId) {
                     break;
             //Compressor                    
                 case 'compressor':
-                    if (selectId === 'option-form-compressor') {
-                        location.href = 'form-compressor.php?selectedUnit=' + encodeURIComponent(selectedUnit);
+                    if (selectId === 'option-form-compressor' && selectedShift && selectedLine) {
+                        location.href = 'form-compressor.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedShift=' + encodeURIComponent(selectedShift) + '&selectedLine=' + encodeURIComponent(selectedLine);
                     } else if (selectId === 'option-view-compressor') {
                         location.href = 'view-compressor.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedDate=' + encodeURIComponent(selectedDate);
                     }
                     break;                    
                 case 'air_dryer':
-                    if (selectId === 'option-form-compressor') {
-                        location.href = 'form-air-dryer.php?selectedUnit=' + encodeURIComponent(selectedUnit);
+                    if (selectId === 'option-form-compressor' && selectedShift && selectedLine) {
+                        location.href = 'form-air-dryer.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedShift=' + encodeURIComponent(selectedShift) + '&selectedLine=' + encodeURIComponent(selectedLine);
                     } else if (selectId === 'option-view-compressor') {
                         location.href = 'view-air-dryer.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedDate=' + encodeURIComponent(selectedDate);
                     }
                 case 'air_receiver_tank':
-                    if (selectId === 'option-form-compressor') {
-                        location.href = 'form-air-receiver-tank.php?selectedUnit=' + encodeURIComponent(selectedUnit);
+                    if (selectId === 'option-form-compressor' && selectedShift && selectedLine) {
+                        location.href = 'form-air-receiver-tank.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedShift=' + encodeURIComponent(selectedShift) + '&selectedLine=' + encodeURIComponent(selectedLine);
                     } else if (selectId === 'option-view-compressor') {
                         location.href = 'view-air-receiver-tank.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedDate=' + encodeURIComponent(selectedDate);
                     }
                     break;                    
                 case 'received_tank':
-                    if (selectId === 'option-form-compressor') {
-                        location.href = 'form-received-tank.php?selectedUnit=' + encodeURIComponent(selectedUnit);
+                    if (selectId === 'option-form-compressor' && selectedShift && selectedLine) {
+                        location.href = 'form-received-tank.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedShift=' + encodeURIComponent(selectedShift) + '&selectedLine=' + encodeURIComponent(selectedLine);
                     } else if (selectId === 'option-view-compressor') {
                         location.href = 'view-received-tank.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedDate=' + encodeURIComponent(selectedDate);
                     }

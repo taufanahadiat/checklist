@@ -33,19 +33,22 @@ require 'request-chiller.php';
 <main>
 
     <h2>CHILLER OPP 4~5 & MET 3~4</h2>
+    <h4>SHIFT <?php echo $shift;?></h4>
 
     <div id="select-unit-chiller" class="custom-label-sub">
         <form name="select-unit-chiller" onsubmit="handleFormSubmit(event, 'option-unit-chiller')">
-            <div>
-                <label for="unit-chiller" >Unit: </label>
-                <select class="selection-chiller" name="unit-chiller" id="option-unit-chiller">
-                    <option value="chiller_trane_45met34">Trane & Clivet</option>
+            <div class="custom-label-form">
+                <label for="option-unit-chiller" >Unit:</label>
+                <select style="margin-left: 10px" class="selection-line" name="unit-chiller" id="option-unit-chiller">
+                <option value="chiller_trane_45met34">Trane & Clivet</option>
                     <option value="chiller_hitachi_45met34">Hitachi</option>
-                <input type="submit" class="btn-view" value="SUBMIT">
+
+            </div>
+            <div>
+                <input style="margin-top: 20px; margin-left: 10px;" type="submit" class="btn-form" value="SUBMIT">
             </div>
         </form>
     </div>
-
     
     <table>
         <thead>

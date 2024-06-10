@@ -1,8 +1,10 @@
 <?php
 // Sanitize the 'selectedUnit' parameter from the query string
 $unit = htmlspecialchars($_GET['selectedUnit']); 
+$shift = htmlspecialchars($_GET['selectedShift']);
+$line = htmlspecialchars($_GET['selectedLine']);
 require 'database.php';
-require 'request.php';
+require 'request-compressor.php';
 ?>
 
 <!DOCTYPE html>
@@ -33,8 +35,11 @@ require 'request.php';
 <body>
 <?php include 'header.php'; ?>
 <main>
-    <h2>COMPRESSOR LINE</h2>
+    <h2>COMPRESSOR LINE OPP <?php echo $line; ?></h2>
+    <h4>SHIFT <?php echo $shift;?></h4>
+
         <table>
+        <?php include 'pilih-unit-compressor.php'; ?>
             <thead>
             <tr>
             <th>PARAMETER</th>
@@ -59,6 +64,9 @@ require 'request.php';
             <form method="post">
             <tbody>
             <?php
+                require 'database.php';
+                include 'request-view-compressor.php';
+
                 $models = array("compkaeser19", "compboge01", "boge02", "kaeser22", "compsullair18", "compsullair20", "compsullair21", "compsullair23", "compsullair24", "compsullair25", "compaugust28", "compaugust29", "compaugust30", "adsullair34");
                 $parameters = array("Air Dischrg. Press", "Air Dishrg. Temp", "Separator Δ Press.", "Oil Level (%Botm SG)", "Vibration", "Noise", "Running Hours", "Load Hours", "Δ Voltage", "Current", "Alarm");
                 $uom = array("Bar", "°C", "Bar", "-", "-", "-", "H", "H", "%", "A", "-");
@@ -90,9 +98,16 @@ require 'request.php';
                             $enum = "<option value='A'>A</option><option value='TA'>TA</option>";
                         }
                     
+                        if ($existing_record && isset($existing_record[$fieldName])) {
+                            echo "<td>";
+                            echo htmlspecialchars(formatValue($existing_record[$fieldName]));
+                            echo "<button type='button' class='clear-btn' data-field='$fieldName'>X</button>";
+                            echo "</td>";
+                        } else {
                         // Generate input row
                         $inputrow = "<$dataType $dataClass name='$fieldName'>$enum</$dataType>";
                         echo "<td>$inputrow</td>";
+                        }
                     }
                     echo "</tr>";
                 }

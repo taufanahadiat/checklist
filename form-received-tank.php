@@ -1,8 +1,10 @@
 <?php
 // Sanitize the 'selectedUnit' parameter from the query string
 $unit = htmlspecialchars($_GET['selectedUnit']); 
+$shift = htmlspecialchars($_GET['selectedShift']);
+$line = htmlspecialchars($_GET['selectedLine']);
 require 'database.php';
-require 'request.php';
+require 'request-compressor.php';
 ?>
 
 <!DOCTYPE html>
@@ -33,8 +35,10 @@ require 'request.php';
 <body>
 <?php include 'header.php'; ?>
 <main>
-    <h2>RECEIVED TANK LINE</h2>
+    <h2>RECEIVED TANK LINE OPP <?php echo $line; ?></h2>
+    <h4>SHIFT <?php echo $shift;?></h4>
         <table>
+        <?php include 'pilih-unit-compressor.php'; ?>
             <thead>
             <tr>
             <th>PARAMETER</th>
@@ -48,6 +52,8 @@ require 'request.php';
             <form method="post">
             <tbody>
             <?php
+                require 'database.php';
+                include 'request-view-compressor.php';
                 $models = array("tank1", "tank2", "tank3");
                 $parameters = array("Air Pressure", "Auto Drain", "Kondensat", "Kandungan Oli");
                 $uom = array("Bar", "-", "-", "-");
@@ -72,9 +78,16 @@ require 'request.php';
                         } elseif ($index === 2 || $index === 3) {
                             $enum = "<option value='A'>A</option><option value='TA'>TA</option>";
                         }
+                        if ($existing_record && isset($existing_record[$fieldName])) {
+                            echo "<td>";
+                            echo htmlspecialchars(formatValue($existing_record[$fieldName]));
+                            echo "<button type='button' class='clear-btn' data-field='$fieldName'>X</button>";
+                            echo "</td>";
+                        } else {
                         // Generate input row
                         $inputrow = "<$dataType $dataClass name='$fieldName'>$enum</$dataType>";
                         echo "<td>$inputrow</td>";
+                        }
                     }
                     echo "</tr>";
                 }
