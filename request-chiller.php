@@ -2,8 +2,9 @@
 require 'database.php';
 
 $unit = $_GET['selectedUnit']; // Get the 'unit' parameter from the query string
+$shift = $_GET['selectedShift'];
 
-date_default_timezone_set('Asia/Jakarta'); // Replace 'YOUR_TIMEZONE' with the appropriate timezone
+date_default_timezone_set('Asia/Jakarta'); 
 
 // Determine if the current time is between 00:00-06:00
 $currentHour = (int) date('H');
@@ -16,7 +17,8 @@ if ($currentHour >= 0 && $currentHour < 8) {
 // Use the determined date for the SELECT query
 $sql = "SELECT *
         FROM $unit
-        WHERE tanggal LIKE '%{$tanggal}%'";
+        WHERE tanggal LIKE '%{$tanggal}%'
+        AND shift LIKE '%{$shift}%'";
 
 $results = mysqli_query($conn, $sql);
 
@@ -31,7 +33,7 @@ if ($results === false) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     // Check if there's an existing record for the determined date
-    $sql_select = "SELECT * FROM $unit WHERE tanggal = '$tanggal'";
+    $sql_select = "SELECT * FROM $unit WHERE tanggal = '$tanggal' AND shift LIKE '%{$shift}%'";
     $result_select = mysqli_query($conn, $sql_select);
     
     if (!$result_select) {
@@ -77,13 +79,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
                 
                 // Construct the UPDATE query
-                $sql_update = "UPDATE $unit SET " . implode(", ", $set_clause) . " WHERE tanggal = '$tanggal'";
+                $sql_update = "UPDATE $unit SET " . implode(", ", $set_clause) . " WHERE tanggal = '$tanggal' AND shift LIKE '%{$shift}%'";
                 $result_update = mysqli_query($conn, $sql_update);
 
                 if ($result_update === false) {
                     echo "<script>alert('Error updating existing record: " . mysqli_error($conn) . "');</script>";
                 } else {
-                    echo "<script>alert('Existing record updated successfully for date: " . $tanggal . "');</script>";
+                    echo "<script>alert('Existing record updated successfully for date: " . $tanggal . " and shift: " . $shift . "');</script>";
                 }
             } else {
                 // No existing record found, perform an INSERT
@@ -91,13 +93,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $values_sql = implode(", ", $values);
                 
                 // Construct the INSERT query
-                $sql_insert = "INSERT INTO $unit (tanggal, $columns_sql) VALUES ('$tanggal', $values_sql)";
+                $sql_insert = "INSERT INTO $unit (tanggal, shift, $columns_sql) VALUES ('$tanggal', '$shift', $values_sql)";
                 $result_insert = mysqli_query($conn, $sql_insert);
 
                 if ($result_insert === false) {
                     echo "<script>alert('Error inserting new record: " . mysqli_error($conn) . "');</script>";
                 } else {
-                    echo "<script>alert('New record submitted successfully for date: " . $tanggal . "');</script>";
+                    echo "<script>alert('New record submitted successfully for date: " . $tanggal . " and shift: " . $shift . "');</script>";
                 }
             }
         }

@@ -2,9 +2,9 @@
             <label for="shift">Shift:</label>
             <select class="selection-shift" name="shift" id="option-shift-chiller">
               <option value="" disabled selected hidden>Pilih Shift</option>
-              <option value="shift1">Shift 1</option>
-              <option value="shift2">Shift 2</option>
-              <option value="shift3">Shift 3</option>
+              <option value="1">Shift 1</option>
+              <option value="2">Shift 2</option>
+              <option value="3">Shift 3</option>
             </select>
           </div>
           <div class="unitfield">

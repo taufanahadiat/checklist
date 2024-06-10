@@ -1,7 +1,8 @@
 <?php
 $unit = $_GET['selectedUnit']; // Get the 'unit' parameter from the query string
+$shift = $_GET['selectedShift'];
 require 'database.php';
-require 'request.php';
+require 'request-chiller.php';
 ?>
 
 
@@ -91,6 +92,9 @@ require 'request.php';
         <form method="post">
             <tbody>
             <?php
+            require 'database.php';
+            include 'request-view-chiller.php';
+
             $trane_units = array(
                 "Trane 40", "Trane 41", "Clivet 47", "Clivet 49", "Clivet 50", 
             );
@@ -106,8 +110,22 @@ require 'request.php';
                 <tr>
                     <th class="measure2"><?php echo $unit; ?></th>
                     <?php foreach ($field_names as $field) : ?>
-                        <td><input type="number" step="0.01" class="input-field" name="<?php echo strtolower(str_replace(' ', '', $unit)) . '_' . $field; ?>"></td>
-                    <?php endforeach; ?>
+                    <?php $inputName = strtolower(str_replace(' ', '', $unit)) . '_' . $field; ?>
+                    <?php
+                    if ($existing_record && isset($existing_record[$inputName])) {
+                        echo "<td>";
+                        echo htmlspecialchars(formatValue($existing_record[$inputName]));
+                        echo "<button type='button' class='clear-btn' data-field='$inputName'>X</button>";
+                        echo "</td>";
+                    } else {
+                        ?>
+                        <td>
+                            <input type="number" step="0.01" class="input-field" name="<?php echo $inputName; ?>">
+                        </td>
+                        <?php
+                    }
+                    ?>
+                <?php endforeach; ?>
                 </tr>
             <?php endforeach; ?>
 
@@ -128,16 +146,18 @@ require 'request.php';
 
         var selectElement = document.getElementById(selectId);
         var selectedUnit = selectElement.value;
+        var selectedShift = '<?php echo $shift; ?>'; 
 
             console.log('Selected <select> ID:', selectId);
             console.log('Selected Value:', selectedUnit);
+            console.log('Selected Shift:', selectedShift);
 
             switch (selectedUnit) {
                 case 'chiller_trane_45met34':
-                        location.href = 'form-chiller45met34-trane.php?selectedUnit=' + encodeURIComponent(selectedUnit);
+                        location.href = 'form-chiller45met34-trane.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedShift=' + encodeURIComponent(selectedShift);
                     break;
                 case 'chiller_hitachi_45met34':
-                        location.href = 'form-chiller45met34-hitachi.php?selectedUnit=' + encodeURIComponent(selectedUnit);
+                        location.href = 'form-chiller45met34-hitachi.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedShift=' + encodeURIComponent(selectedShift);
                     break;      
                 default:
                     break;

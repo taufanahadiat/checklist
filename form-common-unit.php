@@ -49,7 +49,7 @@ require 'request.php';
     <table>
     <form name="select-form-genset" onsubmit="handleFormSubmit(event, 'option-form-genset')">
         <div class="custom-label-form"> 
-        <label for="unit-genset">Change Unit:</label>
+        <label for="unit-genset">Change Unit: </label>
           <div class="unitfield-form">
             <select class="selection-genset" name="unit-genset" id="option-form-genset">
               <?php include 'pilih-unit-genset.php' ?>

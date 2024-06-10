@@ -1,7 +1,8 @@
 <?php
 $unit = $_GET['selectedUnit']; // Get the 'unit' parameter from the query string
+$shift = $_GET['selectedShift'];
 require 'database.php';
-require 'request.php';
+require 'request-chiller.php';
 ?>
 
 
@@ -128,16 +129,18 @@ require 'request.php';
 
         var selectElement = document.getElementById(selectId);
         var selectedUnit = selectElement.value;
+        var selectedShift = '<?php echo $shift; ?>';
 
             console.log('Selected <select> ID:', selectId);
             console.log('Selected Value:', selectedUnit);
+            console.log('Selected Shift:', selectedShift);
 
             switch (selectedUnit) {
                 case 'chiller_trane_coat14met12':
-                        location.href = 'form-chillercoat14met12-trane.php?selectedUnit=' + encodeURIComponent(selectedUnit);
+                        location.href = 'form-chillercoat14met12-trane.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedShift=' + encodeURIComponent(selectedShift);
                     break;
                 case 'chiller_hitachi_coat14met12':
-                        location.href = 'form-chillercoat14met12-hitachi.php?selectedUnit=' + encodeURIComponent(selectedUnit);
+                        location.href = 'form-chillercoat14met12-hitachi.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedShift=' + encodeURIComponent(selectedShift);
                     break;      
                 default:
                     break;

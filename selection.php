@@ -64,6 +64,7 @@ $mysqli = new mysqli('localhost', 'root','akpidev3','checklistnew_24');
     <div class="custom-label"> 
       <label for="menu-area">Area: </label>
         <select class="selection-area" name="menu-area" id="menu-area">
+        <option value="" disabled selected hidden>Pilih Area</option>
           <option value="chiller">Chiller</option>
           <option value="compressor">Compressor & Air Dryer</option>
           <option value="genset">Genset</option>
@@ -224,8 +225,6 @@ $mysqli = new mysqli('localhost', 'root','akpidev3','checklistnew_24');
     });
 });
 
-$(".selection-area").prepend("<option value='' disabled selected class='placeholder-option' hidden>Pilih Area</option>");
-        //$(".selection").prop("selectedIndex", -1);
 
 function handleFormSubmit(event, selectId) {
     event.preventDefault();
@@ -251,6 +250,7 @@ function handleFormSubmit(event, selectId) {
             console.log('Selected Shift:', selectedShift);
 
             switch (selectedUnit) {
+            //Genset
                 case 'fuel_transfer_pump_unit':
                 case 'hfo_separator_pump_unit':
                 case 'hfo_unloading_pump_unit':
@@ -311,27 +311,29 @@ function handleFormSubmit(event, selectId) {
                         location.href = 'view-kebocoran-fuel-tank.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedDate=' + encodeURIComponent(selectedDate);
                     }
                     break;
+            //Chiller
                 case 'chiller_trane_67bopet':
-                    if (selectId === 'option-form-chiller' && selectId === 'option-shift-chiller') {
+                    if (selectId === 'option-form-chiller' && selectedShift) {
                         location.href = 'form-chiller67bopet-trane.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedShift=' + encodeURIComponent(selectedShift);
                     } else if (selectId === 'option-view-chiller') {
                         location.href = 'view-chiller67bopet.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedDate=' + encodeURIComponent(selectedDate) + '&selectedUnit2=chiller_hitachi_67bopet';
                     }
                     break;
                 case 'chiller_trane_45met34':
-                    if (selectId === 'option-form-chiller' && selectId === 'option-shift-chiller') {
+                    if (selectId === 'option-form-chiller' && selectedShift) {
                         location.href = 'form-chiller45met34-trane.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedShift=' + encodeURIComponent(selectedShift);
                     } else if (selectId === 'option-view-chiller') {
                         location.href = 'view-chiller45met34.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedDate=' + encodeURIComponent(selectedDate) + '&selectedUnit2=chiller_hitachi_45met34';
                     }
                     break;                    
                 case 'chiller_trane_coat14met12':
-                    if (selectId === 'option-form-chiller' && selectId === 'option-shift-chiller') {
+                    if (selectId === 'option-form-chiller' && selectedShift) {
                         location.href = 'form-chillercoat14met12-trane.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedShift=' + encodeURIComponent(selectedShift);
                     } else if (selectId === 'option-view-chiller') {
                         location.href = 'view-chillercoat14met12.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedDate=' + encodeURIComponent(selectedDate) + '&selectedUnit2=chiller_hitachi_coat14met12';
                     }
-                    break;                    
+                    break;
+            //Compressor                    
                 case 'compressor':
                     if (selectId === 'option-form-compressor') {
                         location.href = 'form-compressor.php?selectedUnit=' + encodeURIComponent(selectedUnit);

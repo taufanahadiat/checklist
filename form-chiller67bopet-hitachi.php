@@ -1,7 +1,8 @@
 <?php
 $unit = $_GET['selectedUnit']; // Get the 'unit' parameter from the query string
+$shift = $_GET['selectedShift'];
 require 'database.php';
-require 'request.php';
+require 'request-chiller.php';
 ?>
 
 
@@ -96,6 +97,8 @@ require 'request.php';
         <form method="post">
         <tbody>
     <?php
+    require 'database.php';
+    include 'request-view-chiller.php';
     $models = array("hitachi33", "hitachi34", "hitachi35");
     $categories = array("c1", "c2");
     $modelNames = array("Hitachi 33", "Hitachi 34", "Hitachi 35");
@@ -129,7 +132,14 @@ require 'request.php';
                 if ($category === "c2" && ($field === "temp_set" || $field === "onoff_diff")) {
                     continue;
                 }
+                if ($existing_record && isset($existing_record[$inputName])) {
+                    echo    "<td $rowSpan>";
+                    echo htmlspecialchars(formatValue($existing_record[$inputName]));
+                    echo "<button type='button' class='clear-btn' data-field='$inputName'>X</button>";
+                    echo    "</td>";
+                    } else {
                 echo "<td $rowSpan><input type='$inputType' class='input-field' name='$inputName'></td>";
+                    }
             }
             echo "</tr><tr>";
         }
@@ -154,16 +164,18 @@ require 'request.php';
 
         var selectElement = document.getElementById(selectId);
         var selectedUnit = selectElement.value;
+        var selectedShift = '<?php echo $shift; ?>'; 
 
             console.log('Selected <select> ID:', selectId);
             console.log('Selected Value:', selectedUnit);
+            console.log('Selected Shift:', selectedShift);
 
             switch (selectedUnit) {
                 case 'chiller_trane_67bopet':
-                        location.href = 'form-chiller67bopet-trane.php?selectedUnit=' + encodeURIComponent(selectedUnit);
+                        location.href = 'form-chiller67bopet-trane.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedShift=' + encodeURIComponent(selectedShift);
                         break;
                 case 'chiller_hitachi_67bopet':
-                        location.href = 'form-chiller67bopet-hitachi.php?selectedUnit=' + encodeURIComponent(selectedUnit);
+                        location.href = 'form-chiller67bopet-hitachi.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedShift=' + encodeURIComponent(selectedShift);
                     break;      
                 default:
                     break;
