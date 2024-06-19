@@ -94,6 +94,9 @@ require 'request-chiller.php';
         <form method="post">
             <tbody>
             <?php
+            require 'database.php';
+            include 'request-view-chiller.php';
+
             $trane_units = array(
                 "Trane 46"
             );
@@ -109,8 +112,17 @@ require 'request-chiller.php';
                 <tr>
                     <th class="measure2"><?php echo $unit; ?></th>
                     <?php foreach ($field_names as $field) : ?>
-                        <td><input type="number" step="0.01" class="input-field" name="<?php echo strtolower(str_replace(' ', '', $unit)) . '_' . $field; ?>"></td>
-                    <?php endforeach; ?>
+                        <?php $inputName = strtolower(str_replace(' ', '', $unit)) . '_' . $field; ?>
+                        <?php 
+                        if ($existing_record && isset($existing_record[$inputName])) {
+                            echo "<td>";
+                            echo htmlspecialchars(formatValue($existing_record[$inputName]));
+                            echo "<button type='button' class='clear-btn' data-field='$inputName'>X</button>";
+                            echo "</td>";
+                        } else {
+                        ?>
+                        <td><input type="number" step="0.01" class="input-field" name="<?php echo $inputName ?>"></td>
+                        <?php } endforeach; ?>
                 </tr>
             <?php endforeach; ?>
 

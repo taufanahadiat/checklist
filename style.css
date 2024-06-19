@@ -140,6 +140,14 @@
         text-align: center;
     }
 
+    .blank { 
+        background-color: #535b62 !important;
+    }
+
+    .off {
+        background-color: #d23333 !important;
+    }
+
     .custom-label{
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         font-weight: 500 ;

@@ -5,47 +5,8 @@ $tanggal = "" . $_GET['selectedDate'];
 $unit_trane = "" . $_GET['selectedUnit'];
 $unit_hitachi = "" . $_GET['selectedUnit2']; // Assuming you get the selected Hitachi unit from somewhere
 
-// Fetch data for Trane unit
-$sql_trane = "SELECT * FROM $unit_trane WHERE tanggal LIKE '%{$tanggal}%'";
-$results_trane = mysqli_query($conn, $sql_trane);
-
-if ($results_trane === false) {
-    echo mysqli_error($conn);
-} else {
-    $article_trane = mysqli_fetch_assoc($results_trane);
-}
-
-// Fetch data for Hitachi unit
-$sql_hitachi = "SELECT * FROM $unit_hitachi WHERE tanggal LIKE '%{$tanggal}%'";
-$results_hitachi = mysqli_query($conn, $sql_hitachi);
-
-if ($results_hitachi === false) {
-    echo mysqli_error($conn);
-} else {
-    $article_hitachi = mysqli_fetch_assoc($results_hitachi);
-}
-
+include 'request-view-chiller.php';
 ?>
-<?php
-
-// Function to format the value
-function formatValue($value) {
-    // Check if the value is a float and has .00 as decimals
-    if (is_numeric($value) && floor($value) == $value) {
-        return intval($value); // Return integer value
-    } else {
-        return $value; // Otherwise, return the original value
-    }
-}
-
-// Example usage:
-$value = 10.00;
-//echo formatValue($value); // Output: 10
-
-$value = 10.50;
-//echo formatValue($value); // Output: 10.5
-?>
-
 
 <!DOCTYPE html>
 <html>
@@ -63,7 +24,7 @@ $value = 10.50;
 
     <h2>CHILLER COAT1~4 & MET 1~2</h2>
     <h3>Chiller Hitachi & Clivet</h3>
-    <?php if ($article_trane === null): ?>
+    <?php if ($article_hitachi_1 === null && $article_hitachi_2 === null && $article_hitachi_3 === null): ?>
             <p>Form ini belum terisi</p>
         <?php else: ?>
 
@@ -71,45 +32,57 @@ $value = 10.50;
     <table>
     <thead>
             <tr>
-            <th rowspan="2" colspan="2">DESCRIPTION</th>
-            <th>DISCHARGE</th>
-            <th colspan="2">EVAPORATOR TEMP.</th>
-            <th colspan="2">CONDENSER TEMP.</th>
-            <th>TEMP.</th>
-            <th>ON/OFF</th>
-            <th colspan="2">EVAPORATOR PRESS.</th>
-            <th colspan="2">CONDENSER PRESS.</th>
+            <th rowspan="6" colspan="2">DESCRIPTION</th>
+            <th colspan="3">DISCHARGE</th>
+            <th colspan="6">EVAPORATOR TEMP.</th>
+            <th colspan="6">CONDENSER TEMP.</th>
+            <th colspan="3">TEMP.</th>
+            <th colspan="3">ON/OFF</th>
+            <th colspan="6">EVAPORATOR PRESS.</th>
+            <th colspan="6">CONDENSER PRESS.</th>
             </tr>
 
             <tr class="head">
-                <td>PRESS</td>
-                <td>CEL</td>
-                <td>COL</td>
-                <td>IN</td>
-                <td>OUT</td>
-                <td>SETTING</td>
-                <td>DIFF.</td>
-                <td>IN</td>
-                <td>OUT</td>
-                <td>IN</td>
-                <td>OUT</td>
+                <td colspan="3">PRESS</td>
+                <td colspan="3">CEL</td>
+                <td colspan="3">COL</td>
+                <td colspan="3">IN</td>
+                <td colspan="3">OUT</td>
+                <td colspan="3">SETTING</td>
+                <td colspan="3">DIFF.</td>
+                <td colspan="3">IN</td>
+                <td colspan="3">OUT</td>
+                <td colspan="3">IN</td>
+                <td colspan="3">OUT</td>
             </tr>
 
         </thead>
         <thead class="head">
             <tr>
                 <td colspan="2">Uom</td>
-                <td>Mpa</td>
-                <td>°C</td>
-                <td>°C</td>
-                <td>°C</td>
-                <td>°C</td>
-                <td>°C</td>
-                <td>°C</td>
-                <td>Bar</td>
-                <td>Bar</td>
-                <td>Bar</td>
-                <td>Bar</td>
+                <td colspan="3">Mpa</td>
+                <td colspan="3">°C</td>
+                <td colspan="3">°C</td>
+                <td colspan="3">°C</td>
+                <td colspan="3">°C</td>
+                <td colspan="3">°C</td>
+                <td colspan="3">°C</td>
+                <td colspan="3">Bar</td>
+                <td colspan="3">Bar</td>
+                <td colspan="3">Bar</td>
+                <td colspan="3">Bar</td>
+            </tr>
+            <tr>
+                <td colspan="2">Shift</td>
+                <?php
+                $sets = 11;
+
+                for ($i = 0; $i < $sets; $i++) {
+                    for ($j = 1; $j <= 3; $j++) {
+                        echo "<td>" . $j . "</td>";
+                    }
+                }
+            ?>
             </tr>
         </thead>
                 <article>
@@ -151,7 +124,15 @@ $value = 10.50;
             }            
             foreach ($fields as $index => $field) {
                 if ($model === "clima48") {
-                    echo "<td><echo \$article_hitachi['" . $model . "_" . $field . "'];></td>";
+                    $inputName = $model . "_" . $field;                
+                    $formatted_value_hitachi_1 = formatValue($article_hitachi_1[$inputName]);
+                    echo "<td $rowSpan>$formatted_value_hitachi_1</td>";
+    
+                    $formatted_value_hitachi_2 = formatValue($article_hitachi_2[$inputName]);
+                    echo "<td $rowSpan>$formatted_value_hitachi_2</td>";
+    
+                    $formatted_value_hitachi_3 = formatValue($article_hitachi_3[$inputName]);
+                    echo "<td $rowSpan>$formatted_value_hitachi_3</td>";
                     continue; // Skip the rest of the loop iteration
                 }
                 $fieldName = $model . $category . "_" . $field;
@@ -160,8 +141,14 @@ $value = 10.50;
                 if ($model !== "bitzer31" && $category === "c2" && $field !== "disc_press") {
                     continue;
                 }
-                $formatted_value = formatValue($article_hitachi[$inputName]);                
-                echo "<td $rowSpan>" . $formatted_value . "</td>";
+                $formatted_value_hitachi_1 = formatValue($article_hitachi_1[$inputName]);
+                echo "<td $rowSpan>$formatted_value_hitachi_1</td>";
+
+                $formatted_value_hitachi_2 = formatValue($article_hitachi_2[$inputName]);
+                echo "<td $rowSpan>$formatted_value_hitachi_2</td>";
+
+                $formatted_value_hitachi_3 = formatValue($article_hitachi_3[$inputName]);
+                echo "<td $rowSpan>$formatted_value_hitachi_3</td>";
             }
             echo "</tr><tr>";
         }
@@ -175,7 +162,7 @@ $value = 10.50;
         </table>
         <?php endif; ?>
         <h3> Chiller Trane</h3>
-        <?php if ($article_hitachi === null): ?>
+        <?php if ($article_trane_1 === null && $article_trane_2 === null && $article_trane_3 === null): ?>
             <p>Form ini belum terisi</p>
         <?php else: ?>
 
@@ -184,27 +171,38 @@ $value = 10.50;
     <thead>
             <tr>
                 <th rowspan="2">DESCRIPTION</th>
-                <th colspan="2">EVAPORATOR TEMP.</th>
-                <th colspan="2">CONDENSER TEMP.</th>
-                <th colspan="2">EVAPORATOR PRESS.</th>
-                <th colspan="2">CONDENSER PRESS.</th>
-                <th>TEMP.</th>
-                <th rowspan="2">%RLA</th>
-                <th>APPROACH</th>
+                <th colspan="6">EVAPORATOR TEMP.</th>
+                <th colspan="6">CONDENSER TEMP.</th>
+                <th colspan="6">EVAPORATOR PRESS.</th>
+                <th colspan="6">CONDENSER PRESS.</th>
+                <th colspan="3">TEMP.</th>
+                <th colspan="3" rowspan="2">%RLA</th>
+                <th colspan="3">APPROACH</th>
             </tr>
             <tr class="head">
-                <td>CEL</td>
-                <td>COL</td>
-                <td>IN</td>
-                <td>OUT</td>
-                <td>IN</td>
-                <td>OUT</td>
-                <td>IN</td>
-                <td>OUT</td>
-                <td>SETTING</td>
-                <td>TEMP</td>
+                <td colspan="3">CEL</td>
+                <td colspan="3">COL</td>
+                <td colspan="3">IN</td>
+                <td colspan="3">OUT</td>
+                <td colspan="3">IN</td>
+                <td colspan="3">OUT</td>
+                <td colspan="3">IN</td>
+                <td colspan="3">OUT</td>
+                <td colspan="3">SETTING</td>
+                <td colspan="3">TEMP</td>
             </tr>
+            <tr>
+                <td>Shift</td>
+                <?php
+                $sets = 11;
 
+                for ($i = 0; $i < $sets; $i++) {
+                    for ($j = 1; $j <= 3; $j++) {
+                        echo "<td>" . $j . "</td>";
+                    }
+                }
+            ?>
+            </tr>
         </thead>
 
                 <article>
@@ -225,8 +223,17 @@ $value = 10.50;
                     <tr>
                         <th class="measure2"><?php echo $unit; ?></th>
                         <?php foreach ($field_names as $field) : ?>
-                            <?php $formatted_value = formatValue($article_trane[strtolower(str_replace(' ', '', $unit)) . '_' . $field]); ?>
-                            <td><?php echo $formatted_value; ?></td>
+                            <?php
+                                $fieldName = strtolower(str_replace(' ', '', $unit)) . '_' . $field; 
+                                $formatted_value_trane_1 = formatValue($article_trane_1[$fieldName]);
+                                echo "<td>$formatted_value_trane_1</td>";
+
+                                $formatted_value_trane_2 = formatValue($article_trane_2[$fieldName]);
+                                echo "<td>$formatted_value_trane_2</td>";
+
+                                $formatted_value_trane_3 = formatValue($article_trane_3[$fieldName]);
+                                echo "<td>$formatted_value_trane_3</td>";
+                            ?>
                         <?php endforeach; ?>
                     </tr>
                 <?php endforeach; ?>

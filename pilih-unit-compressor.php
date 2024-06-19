@@ -37,6 +37,7 @@
                     if (selectId === 'option-form-compressor') {
                         location.href = 'form-air-dryer.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedShift=' + encodeURIComponent(selectedShift) + '&selectedLine=' + encodeURIComponent(selectedLine);
                     } 
+                    break;
                 case 'air_receiver_tank':
                     if (selectId === 'option-form-compressor') {
                         location.href = 'form-air-receiver-tank.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedShift=' + encodeURIComponent(selectedShift) + '&selectedLine=' + encodeURIComponent(selectedLine);

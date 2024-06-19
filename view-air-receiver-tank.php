@@ -2,10 +2,10 @@
 
 include 'database.php';
 $tanggal = "" . $_GET['selectedDate'];
+$line = $_GET['selectedLine'];
 $unit = "" . $_GET['selectedUnit'];
 
-include 'request-view.php';
-
+include 'request-view-compressor.php';
 ?>
 
 
@@ -23,8 +23,8 @@ include 'request-view.php';
 <?php include 'header.php'?>
 <main>
 
-    <h2>AIR DRYER LINE</h2>
-    <?php if ($article === null): ?>
+    <h2>AIR DRYER LINE <?php echo $line; ?></h2>
+    <?php if ($article_1 === null && $article_2 === null && $article_3 === null): ?>
             <p>Form ini belum terisi</p>
         <?php else: ?>
 
@@ -35,12 +35,24 @@ include 'request-view.php';
             <th>PARAMETER</th>
             <th>Uom</th>
             <th>STANDARD</th>
-            <th>TANK 1</th>
-            <th>TANK 2</th>
-            <th>TANK 3</th>
-            <th>TANK 5</th>
-            <th>TANK 6</th>
-            <th>TANK 7</th>
+            <th colspan="3">TANK 1</th>
+            <th colspan="3">TANK 2</th>
+            <th colspan="3">TANK 3</th>
+            <th colspan="3">TANK 5</th>
+            <th colspan="3">TANK 6</th>
+            <th colspan="3">TANK 7</th>
+            </tr>
+            <tr>
+                <th colspan="3">Shift</th>
+                <?php
+                $sets = 6;
+
+                for ($i = 0; $i < $sets; $i++) {
+                    for ($j = 1; $j <= 3; $j++) {
+                        echo "<th>" . $j . "</th>";
+                    }
+                }
+            ?>
             </tr>
             </thead>
                 <article>
@@ -60,10 +72,15 @@ include 'request-view.php';
                     echo "<th class='parameter-setting'>" . htmlspecialchars($standard[$index]) . "</th>";
 
                     foreach ($models as $key => $model) {
+                        $fieldName = strtolower(str_replace(" ", "_", $model)) . "_" . $fields[$index];
+                        $formatted_value_1 = formatValue($article_1[$fieldName]);
+                        echo "<td>$formatted_value_1</td>";
 
-                            $fieldName = strtolower(str_replace(" ", "_", $model)) . "_" . $fields[$index];
-                            $formatted_value = formatValue($article[$fieldName]); 
-                            echo "<td>$formatted_value</td>";
+                        $formatted_value_2 = formatValue($article_2[$fieldName]);
+                        echo "<td>$formatted_value_2</td>";
+
+                        $formatted_value_3 = formatValue($article_3[$fieldName]);
+                        echo "<td>$formatted_value_3</td>";
                         }
                             echo "</tr>";
 

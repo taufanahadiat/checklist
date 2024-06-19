@@ -36,7 +36,7 @@ require 'request-chiller.php';
 <?php include 'header.php'; ?>
 <main>
 
-    <h2>CHILLER OPP 6~7 & BOPET</h2>
+    <h2>CHILLER COAT 1~4 & MET 1~2</h2>
     <h4>SHIFT <?php echo $shift;?></h4>
 
     <div id="select-unit-chiller" class="custom-label-sub">
@@ -100,6 +100,9 @@ require 'request-chiller.php';
         <form method="post">
         <tbody>
     <?php
+    require 'database.php';
+    include 'request-view-chiller.php';
+
     $models = array("bitzer31", "clima48", "hitachi30", "hitachi36");
     $categories = array("c1", "c2");
     $modelNames = array("Bitzer 33", "Clima 48", "Hitachi 30", "Hitachi 36");
@@ -136,7 +139,15 @@ require 'request-chiller.php';
             }            
             foreach ($fields as $index => $field) {
                 if ($model === "clima48") {
-                    echo "<td><input type=number step='0.01' class='input-field' name='$model" . "_" . "$field'></td>";
+                    $inputName = $model . "_" . $field;                
+                        if ($existing_record && isset($existing_record[$inputName])) {
+                            echo "<td>";
+                            echo htmlspecialchars(formatValue($existing_record[$inputName]));
+                            echo "<button type='button' class='clear-btn' data-field='$inputName'>X</button>";
+                            echo "</td>";
+                        } else {
+                    echo "<td><input type=number step='0.01' class='input-field' name='$inputName'></td>";
+                        }
                     continue; // Skip the rest of the loop iteration
                 }
                 $fieldName = $model . $category . "_" . $field;
@@ -144,8 +155,15 @@ require 'request-chiller.php';
                 $inputName = ($index !== 0 && $model !== "bitzer31") ? $model . "_" . $field : $fieldName;                
                 if ($model !== "bitzer31" && $category === "c2" && $field !== "disc_press") {
                     continue;
-                }                
+                } 
+                if ($existing_record && isset($existing_record[$inputName])) {
+                    echo "<td $rowSpan>";
+                    echo htmlspecialchars(formatValue($existing_record[$inputName]));
+                    echo "<button type='button' class='clear-btn' data-field='$inputName'>X</button>";
+                    echo "</td>";
+                } else {               
                 echo "<td $rowSpan><input type=number step='0.01' class='input-field' name='$inputName'></td>";
+                }
             }
             echo "</tr><tr>";
         }

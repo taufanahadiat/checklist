@@ -340,27 +340,28 @@ function handleFormSubmit(event, selectId) {
                     if (selectId === 'option-form-compressor' && selectedShift && selectedLine) {
                         location.href = 'form-compressor.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedShift=' + encodeURIComponent(selectedShift) + '&selectedLine=' + encodeURIComponent(selectedLine);
                     } else if (selectId === 'option-view-compressor') {
-                        location.href = 'view-compressor.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedDate=' + encodeURIComponent(selectedDate);
+                        location.href = 'view-compressor.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedDate=' + encodeURIComponent(selectedDate) + '&selectedLine=' + encodeURIComponent(selectedLine);
                     }
                     break;                    
                 case 'air_dryer':
                     if (selectId === 'option-form-compressor' && selectedShift && selectedLine) {
                         location.href = 'form-air-dryer.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedShift=' + encodeURIComponent(selectedShift) + '&selectedLine=' + encodeURIComponent(selectedLine);
                     } else if (selectId === 'option-view-compressor') {
-                        location.href = 'view-air-dryer.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedDate=' + encodeURIComponent(selectedDate);
+                        location.href = 'view-air-dryer.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedDate=' + encodeURIComponent(selectedDate) + '&selectedLine=' + encodeURIComponent(selectedLine);
                     }
+                    break;
                 case 'air_receiver_tank':
                     if (selectId === 'option-form-compressor' && selectedShift && selectedLine) {
                         location.href = 'form-air-receiver-tank.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedShift=' + encodeURIComponent(selectedShift) + '&selectedLine=' + encodeURIComponent(selectedLine);
                     } else if (selectId === 'option-view-compressor') {
-                        location.href = 'view-air-receiver-tank.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedDate=' + encodeURIComponent(selectedDate);
+                        location.href = 'view-air-receiver-tank.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedDate=' + encodeURIComponent(selectedDate) + '&selectedLine=' + encodeURIComponent(selectedLine);
                     }
                     break;                    
                 case 'received_tank':
                     if (selectId === 'option-form-compressor' && selectedShift && selectedLine) {
                         location.href = 'form-received-tank.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedShift=' + encodeURIComponent(selectedShift) + '&selectedLine=' + encodeURIComponent(selectedLine);
                     } else if (selectId === 'option-view-compressor') {
-                        location.href = 'view-received-tank.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedDate=' + encodeURIComponent(selectedDate);
+                        location.href = 'view-received-tank.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedDate=' + encodeURIComponent(selectedDate) + '&selectedLine=' + encodeURIComponent(selectedLine);
                     }
                     break;                    
                     

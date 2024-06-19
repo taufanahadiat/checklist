@@ -1,30 +1,51 @@
 <?php
-//Viewing existing data at Form Entry
- date_default_timezone_set('Asia/Jakarta'); // Replace 'YOUR_TIMEZONE' with the appropriate timez
- // Determine if the current time is between 00:00-08:00
- $currentHour = (int) date('H');
- if ($currentHour >= 0 && $currentHour < 8) {
-     $sql_select = "SELECT * FROM $unit WHERE tanggal = DATE_SUB(CURDATE(), INTERVAL 1 DAY) AND shift LIKE '%{$shift}%' AND line LIKE '%{$line}%'";
- } else {
-     $sql_select = "SELECT * FROM $unit WHERE tanggal = CURDATE() AND shift LIKE '%{$shift}%' AND line LIKE '%{$line}%'";
- }
- $result_select = mysqli_query($conn, $sql_select);
- if (!$result_select) {
-     die("Query failed: " . mysqli_error($conn));
- }      
-$existing_record = mysqli_fetch_assoc($result_select);
+// Viewing existing data at Form Entry
+date_default_timezone_set('Asia/Jakarta'); // Replace 'YOUR_TIMEZONE' with the appropriate timezone
+// Determine if the current time is between 00:00-08:00
+$currentHour = (int) date('H');
 
-//Viewing all data at View Menu
+$shift = isset($shift) ? $shift : NULL;
+$unit = isset($unit) ? $unit : '';
+$line = isset($line) ? $line : '';
+$tanggal = isset($tanggal) ? $tanggal : '';
 
-$sql = "SELECT * FROM $unit WHERE tanggal LIKE '%{$tanggal}%' AND shift LIKE '%{$shift}%' AND line LIKE '%{$line}%'";
-$results = mysqli_query($conn, $sql);
-
-if ($results === false) {
-    echo mysqli_error($conn);
+if ($shift !== NULL) {
+    if ($currentHour >= 0 && $currentHour < 8) {
+        $sql_select = "SELECT * FROM $unit WHERE tanggal = DATE_SUB(CURDATE(), INTERVAL 1 DAY) AND shift LIKE '%{$shift}%' AND line LIKE '%{$line}%'";
+    } else {
+        $sql_select = "SELECT * FROM $unit WHERE tanggal = CURDATE() AND shift LIKE '%{$shift}%' AND line LIKE '%{$line}%'";
+    }
+    $result_select = mysqli_query($conn, $sql_select);
+    if (!$result_select) {
+        die("Query failed: " . mysqli_error($conn));
+    }      
+    $existing_record = mysqli_fetch_assoc($result_select);
 } else {
-    $article = mysqli_fetch_assoc($results);
-}
+    // Viewing all data at View Menu
+    $sql_1 = "SELECT * FROM $unit WHERE tanggal LIKE '%{$tanggal}%' AND shift LIKE 1 AND line LIKE '%{$line}%'";
+    $results_1 = mysqli_query($conn, $sql_1);
+    if ($results_1 === false) {
+        echo mysqli_error($conn);
+    } else {
+        $article_1 = mysqli_fetch_assoc($results_1);
+    }
 
+    $sql_2 = "SELECT * FROM $unit WHERE tanggal LIKE '%{$tanggal}%' AND shift LIKE 2 AND line LIKE '%{$line}%'";
+    $results_2 = mysqli_query($conn, $sql_2);
+    if ($results_2 === false) {
+        echo mysqli_error($conn);
+    } else {
+        $article_2 = mysqli_fetch_assoc($results_2);
+    }
+
+    $sql_3 = "SELECT * FROM $unit WHERE tanggal LIKE '%{$tanggal}%' AND shift LIKE 3 AND line LIKE '%{$line}%'";
+    $results_3 = mysqli_query($conn, $sql_3);
+    if ($results_3 === false) {
+        echo mysqli_error($conn);
+    } else {
+        $article_3 = mysqli_fetch_assoc($results_3);
+    }
+}
 
 // Function to format the value
 function formatValue($value) {
@@ -45,7 +66,8 @@ $value = 10.50;
 ?>
 
 <script>
-        $(document).ready(function() {
+<?php if ($shift !== NULL): ?>
+    $(document).ready(function() {
         $('.clear-btn').click(function() {
             var fieldToClear = $(this).data('field');
             var confirmed = confirm('Are you sure you want to clear this field?');
@@ -71,4 +93,5 @@ $value = 10.50;
             }
         });
     });
+<?php endif; ?>
 </script>

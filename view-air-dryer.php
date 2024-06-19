@@ -2,8 +2,9 @@
 
 include 'database.php';
 $tanggal = "" . $_GET['selectedDate'];
+$line = $_GET['selectedLine'];
 $unit = "" . $_GET['selectedUnit'];
-include 'request-view.php';
+include 'request-view-compressor.php';
 ?>
 
 
@@ -21,8 +22,8 @@ include 'request-view.php';
 <?php include 'header.php'?>
 <main>
 
-    <h2>AIR DRYER LINE</h2>
-    <?php if ($article === null): ?>
+    <h2>AIR DRYER LINE <?php echo $line; ?></h2>
+    <?php if ($article_1 === null && $article_2 === null && $article_3 === null): ?>
             <p>Form ini belum terisi</p>
         <?php else: ?>
 
@@ -33,18 +34,30 @@ include 'request-view.php';
             <th>PARAMETER</th>
             <th>Uom</th>
             <th>STANDARD</th>
-            <th>SULLAIR 22</th>
-            <th>BOGE 01</th>
-            <th>BOGE 02</th>
-            <th>AD. SULLAIR 23</th>
-            <th>AD. SULLAIR 24</th>
-            <th>AD. SULLAIR 27</th>
-            <th>AD. SULLAIR 33</th>
-            <th>AD. AUGUST 28</th>
-            <th>AD. AUGUST 29</th>
-            <th>AD. AUGUST 30</th>
-            <th>AD. AUGUST 31</th>
-            <th>AD. AUGUST 32</th>
+            <th colspan="3">SULLAIR 22</th>
+            <th colspan="3">BOGE 01</th>
+            <th colspan="3">BOGE 02</th>
+            <th colspan="3">AD. SULLAIR 23</th>
+            <th colspan="3">AD. SULLAIR 24</th>
+            <th colspan="3">AD. SULLAIR 27</th>
+            <th colspan="3">AD. SULLAIR 33</th>
+            <th colspan="3">AD. AUGUST 28</th>
+            <th colspan="3">AD. AUGUST 29</th>
+            <th colspan="3">AD. AUGUST 30</th>
+            <th colspan="3">AD. AUGUST 31</th>
+            <th colspan="3">AD. AUGUST 32</th>
+            </tr>
+            <tr>
+                <th colspan="3">Shift</th>
+                <?php
+                $sets = 12;
+
+                for ($i = 0; $i < $sets; $i++) {
+                    for ($j = 1; $j <= 3; $j++) {
+                        echo "<th>" . $j . "</th>";
+                    }
+                }
+            ?>
             </tr>
             </thead>
                 <article>
@@ -65,9 +78,15 @@ include 'request-view.php';
 
                     foreach ($models as $key => $model) {
 
-                            $fieldName = strtolower(str_replace(" ", "_", $model)) . "_" . $fields[$index];
-                            $formatted_value = formatValue($article[$fieldName]); 
-                            echo "<td>$formatted_value</td>";
+                        $fieldName = strtolower(str_replace(" ", "_", $model)) . "_" . $fields[$index];
+                        $formatted_value_1 = formatValue($article_1[$fieldName]);
+                        echo "<td>$formatted_value_1</td>";
+
+                        $formatted_value_2 = formatValue($article_2[$fieldName]);
+                        echo "<td>$formatted_value_2</td>";
+
+                        $formatted_value_3 = formatValue($article_3[$fieldName]);
+                        echo "<td>$formatted_value_3</td>";
                         }
                             echo "</tr>";
 
