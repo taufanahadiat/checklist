@@ -13,6 +13,5 @@
               <option value="compressor">Compressor</option>
               <option value="air_dryer">Air Dryer</option>
               <option value="air_receiver_tank">Air Receiver Tank</option>
-              <option value="received_tank">Received Tank</option>
             </select>
           </div>
