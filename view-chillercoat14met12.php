@@ -90,7 +90,7 @@ include 'request-view-chiller.php';
                 <?php
     $models = array("bitzer31", "clima48", "hitachi30", "hitachi36");
     $categories = array("c1", "c2");
-    $modelNames = array("Bitzer 33", "Clima 48", "Hitachi 30", "Hitachi 36");
+    $modelNames = array("Bitzer", "Clima 48", "Hitachi 30", "Hitachi 36");
     $categoryNames = array("C#1", "C#2");
     
     $fields = array(

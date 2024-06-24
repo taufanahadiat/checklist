@@ -103,9 +103,9 @@ require 'request-chiller.php';
     require 'database.php';
     include 'request-view-chiller.php';
 
-    $models = array("hitachi37", "hitachi38");
+    $models = array("hitachi33", "hitachi37", "hitachi38");
     $categories = array("c1", "c2");
-    $modelNames = array("Hitachi 37", "Hitachi 38");
+    $modelNames = array("Hitachi 33", "Hitachi 37", "Hitachi 38");
     $categoryNames = array("C#1", "C#2");
     
     $fields = array(
