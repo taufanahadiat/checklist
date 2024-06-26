@@ -35,11 +35,13 @@
                         // Skip condition
                     
                         $fieldName = strtolower(str_replace(" ", "_", $model)) . "_" . $fields[$index];
-                        $dataType =  ($index === 5 || $index === 6 || $index === 11) ? "select" : "input";
-                        $dataClass = ($index === 5 || $index === 6 || $index === 11) ? "class='enum'" : "type='number' step='0.01' class='input-field'";
+                        $dataType =  ($index === 4 || $index === 5 || $index === 6 || $index === 11) ? "select" : "input";
+                        $dataClass = ($index === 4 || $index === 5 || $index === 6 || $index === 11) ? "class='enum'" : "type='number' step='0.01' class='input-field'";
                         // Enum options
                         $enum = "";
-                        if ($index === 5 || $index === 6) {
+                        if ($index === 4){
+                            $enum = "<option value='1/4'>1/4</option><option value='1/2'>1/2</option><option value='3/4'>3/4</option>";
+                        } else if ($index === 5 || $index === 6) {
                             $enum = "<option value='H'>H</option><option value='S'>S</option><option value='T'>T</option>";
                         } elseif ($index === 11) {
                             $enum = "<option value='A'>A</option><option value='TA'>TA</option>";
