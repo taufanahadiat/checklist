@@ -73,7 +73,8 @@
         border-radius: 5px;
         margin-top: 15px;
         margin-bottom: 30px;
-        
+        margin-left: auto;
+        margin-right: auto;
     }
     td{
         text-align: center;
@@ -87,7 +88,7 @@
 
     th, td {
         width: auto; /* Let the content dictate the column widths */
-        padding: 5px;
+        padding: 4px;
     }
  
     .measure {
@@ -415,6 +416,25 @@
 
 .label {
     font-weight: bold;
+}
+
+.enum , .input-field, .enum_long{
+    width: 100%;
+    height: 25px;
+    text-align: center;
+    font-weight:700;
+    cursor: pointer;
+}
+.input-field{
+    max-width: 65px;
+    cursor: text;
+}
+.enum_long{
+    max-width: 85px;
+}
+
+.enum{
+    max-width: 65px; 
 }
 
 .clear-btn {

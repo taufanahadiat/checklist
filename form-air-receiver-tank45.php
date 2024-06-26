@@ -61,6 +61,5 @@
 
             </tbody>
         </table>
-        <br>
         <button type="submit" class="btn">SAVE</button>
     </form>

@@ -14,23 +14,7 @@ require 'request-compressor.php';
     <title>Form Checklist</title>
     <link rel="stylesheet" href="style.css">
     <script src="jquery-3.7.1.min.js"></script>
-    <style>
-        td {
-            text-align: center;
-            width: 100px;
-        }
-        .enum, .input-field {
-            width: 100%;
-            max-width: 65px;
-            height: 25px;
-            text-align: center;
-            font-weight:700;
-            cursor: pointer;
-        }
-        .input-field {
-            cursor: text;
-        }
-    </style>
+
 </head>
 <body>
 <?php include 'header.php'; ?>
@@ -49,6 +33,7 @@ require 'request-compressor.php';
             location.href = 'selection.php';
         };
         $(".enum").prop("selectedIndex", -1);
+        $(".enum_long").prop("selectedIndex", -1);
         $(".input-field").val('');
 
     });

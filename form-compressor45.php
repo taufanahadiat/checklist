@@ -27,10 +27,10 @@
                 include 'request-view-compressor.php';
 
                 $models = array("compkaeser19", "compboge01", "boge02", "kaeser22",  "compsullair20", "compsullair21", "compsullair23", "compaugust28", "compaugust29", "compaugust30");
-                $parameters = array("Air Dischrg. Press", "Air Dishrg. Temp", "Separator Δ Press.", "Oil Level (%Botm SG)", "Vibration", "Noise", "Running Hours", "Load Hours", "Δ Voltage", "Current", "Alarm");
-                $uom = array("Bar", "°C", "Bar", "-", "-", "-", "H", "H", "%", "A", "-");
-                $standard = array("6.4 ~ 8.0", "80 ~ 110", "0 ~ 0.8", "1/2 ~ 3/4", "H", "H", "-", "-", "5 ~ 15", "80 ~ 150", "TA");
-                $fields = array("disc_press", "disc_temp", "separator_press", "oil_level", "vibration", "noise", "run_hours", "load_hours", "voltage", "current", "alarm");
+                $parameters = array("Machine Status", "Air Dischrg. Press", "Air Dishrg. Temp", "Separator Δ Press.", "Oil Level (%Botm SG)", "Vibration", "Noise", "Running Hours", "Load Hours", "Δ Voltage", "Current", "Alarm");
+                $uom = array("-", "Bar", "°C", "Bar", "-", "-", "-", "H", "H", "%", "A", "-");
+                $standard = array("-", "6.4 ~ 8.0", "80 ~ 110", "0 ~ 0.8", "1/2 ~ 3/4", "H", "H", "-", "-", "5 ~ 15", "80 ~ 150", "TA");
+                $fields = array("machine_status", "disc_press", "disc_temp", "separator_press", "oil_level", "vibration", "noise", "run_hours", "load_hours", "voltage", "current", "alarm");
 
                 foreach ($parameters as $index => $parameter) {
                     echo "<tr>";
@@ -40,19 +40,19 @@
                 
                     foreach ($models as $key => $model) {
                         // Skip condition
-                        if ((($key === 0 || $key === 1 || $key === 2 || $key === 3) && ($index === 8 || $index === 9))){
+                        if ((($key === 0 || $key === 1 || $key === 2 || $key === 3) && ($index === 9 || $index === 10))){
                             echo "<td></td>";
                             continue;
                         }
                     
                         $fieldName = strtolower(str_replace(" ", "_", $model)) . "_" . $fields[$index];
-                        $dataType = ($index === 4 || $index === 5 || $index === 10) ? "select" : "input";
-                        $dataClass = ($index === 4 || $index === 5 || $index === 10) ? "class='enum'" : "type='number' step='0.01' class='input-field'";
+                        $dataType =  ($index === 5 || $index === 6 || $index === 11) ? "select" : "input";
+                        $dataClass = ($index === 5 || $index === 6 || $index === 11) ? "class='enum'" : "type='number' step='0.01' class='input-field'";
                         // Enum options
                         $enum = "";
-                        if ($index === 4 || $index === 5) {
+                        if ($index === 5 || $index === 6) {
                             $enum = "<option value='H'>H</option><option value='S'>S</option><option value='T'>T</option>";
-                        } elseif ($index === 10) {
+                        } elseif ($index === 11) {
                             $enum = "<option value='A'>A</option><option value='TA'>TA</option>";
                         }
                     
@@ -60,6 +60,12 @@
                             echo "<td>";
                             echo htmlspecialchars(formatValue($existing_record[$fieldName]));
                             echo "<button type='button' class='clear-btn' data-field='$fieldName'>X</button>";
+                            echo "</td>";
+                        } else if ($index === 0){
+                            echo "<td>";
+                            echo "<select class='enum_long' name='{$fieldName}'>"; 
+                            include 'enum-running-standby.php';
+                            echo "</select>";
                             echo "</td>";
                         } else {
                         // Generate input row
@@ -73,6 +79,5 @@
 
             </tbody>
         </table>
-        <br>
         <button type="submit" class="btn">SAVE</button>
     </form>

@@ -13,19 +13,6 @@ require 'request-chiller.php';
     <meta charset="utf-8">
     <link rel="stylesheet" href="style.css">
     <script src="jquery-3.7.1.min.js"></script>
-    <style>
-        .enum , .input-field{
-            width: 100%;
-            max-width: 65px;
-            height: 25px;
-            text-align: center;
-            font-weight:700;
-            cursor: pointer;
-        }
-        .input-field{
-            cursor: text;
-        }
-    </style>
 
 </head>
 <body>
@@ -53,6 +40,7 @@ require 'request-chiller.php';
         <thead>
             <tr>
                 <th rowspan="2">DESCRIPTION</th>
+                <th rowspan="2">MACHINE <br>STATUS</th>
                 <th colspan="2">EVAPORATOR TEMP.</th>
                 <th colspan="2">CONDENSER TEMP.</th>
                 <th colspan="2">EVAPORATOR PRESS.</th>
@@ -78,6 +66,7 @@ require 'request-chiller.php';
         <thead class="head">
             <tr>
                 <td>Uom</td>
+                <td>-</td>
                 <td>°C</td>
                 <td>°C</td>
                 <td>°C</td>
@@ -102,7 +91,7 @@ require 'request-chiller.php';
             );
 
             $field_names = array(
-                "evap_tempcel", "evap_tempcol", "cond_tempin", "cond_tempout",
+                "machine_status", "evap_tempcel", "evap_tempcol", "cond_tempin", "cond_tempout",
                 "evap_pressin", "evap_pressout", "cond_pressin", "cond_pressout",
                 "temp_set", "rla", "approach_temp"
             );
@@ -118,6 +107,12 @@ require 'request-chiller.php';
                             echo "<td>";
                             echo htmlspecialchars(formatValue($existing_record[$inputName]));
                             echo "<button type='button' class='clear-btn' data-field='$inputName'>X</button>";
+                            echo "</td>";
+                        } else if ($field === 'machine_status'){
+                            echo "<td>";
+                            echo "<select class='enum_long' name='{$inputName}'>"; 
+                            include 'enum-running-standby.php';
+                            echo "</select>";
                             echo "</td>";
                         } else {
                         ?>
@@ -136,6 +131,7 @@ require 'request-chiller.php';
             location.href = 'selection.php'
         }
         $(".enum").prop("selectedIndex", -1);
+        $(".enum_long").prop("selectedIndex", -1);
         $(".input-field").val('');
 
         function handleFormSubmit(event, selectId) {

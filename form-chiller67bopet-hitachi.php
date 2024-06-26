@@ -13,23 +13,6 @@ require 'request-chiller.php';
     <meta charset="utf-8">
     <link rel="stylesheet" href="style.css">
     <script src="jquery-3.7.1.min.js"></script>
-    <style>
-        td{
-            text-align: center;
-        }
-        .enum , .input-field{
-            width: 100%;
-            max-width: 65px;
-            height: 25px;
-            text-align: center;
-            font-weight:700;
-            cursor: pointer;
-        }
-        .input-field{
-            cursor: text;
-        }
-    </style>
-
 </head>
 
 <body>
@@ -58,6 +41,7 @@ require 'request-chiller.php';
         <thead>
             <tr>
             <th rowspan="2" colspan="2">DESCRIPTION</th>
+            <th rowspan="2">MACHINE <br>STATUS</th>
             <th>DISCHARGE</th>
             <th colspan="2">EVAPORATOR TEMP.</th>
             <th colspan="2">CONDENSER TEMP.</th>
@@ -84,6 +68,7 @@ require 'request-chiller.php';
         <thead class="head">
             <tr>
                 <td colspan="2">Uom</td>
+                <td>-</td>
                 <td>Mpa</td>
                 <td>°C</td>
                 <td>°C</td>
@@ -108,6 +93,7 @@ require 'request-chiller.php';
     $categoryNames = array("C#1", "C#2");
     
     $fields = array(
+        "machine_status",
         "disc_press",
         "evap_tempcel",
         "evap_tempcol",
@@ -129,9 +115,9 @@ require 'request-chiller.php';
             echo "<th class='parameter-setting'>" . ucfirst($categoryNames[$index]) . "</th>";
             foreach ($fields as $index => $field) {
                 $fieldName = $model  . $category . "_" . $field;
-                $rowSpan = ($index === 5 || $index === 6) ? "rowspan='2'" : "";
-                $inputType = ($index === 5 || $index === 6) ? "number" : "number step='0.01'";
-                $inputName = ($index === 5 || $index === 6) ? $model . "_" . $field : $fieldName;
+                $rowSpan = ($index === 6 || $index === 7) ? "rowspan='2'" : "";
+                $inputType = ($index === 6 || $index === 7) ? "number" : "number step='0.01'";
+                $inputName = ($index === 6 || $index === 7) ? $model . "_" . $field : $fieldName;
                 if ($category === "c2" && ($field === "temp_set" || $field === "onoff_diff")) {
                     continue;
                 }
@@ -140,7 +126,13 @@ require 'request-chiller.php';
                     echo htmlspecialchars(formatValue($existing_record[$inputName]));
                     echo "<button type='button' class='clear-btn' data-field='$inputName'>X</button>";
                     echo    "</td>";
-                    } else {
+                } else if ($field === 'machine_status'){
+                    echo "<td $rowSpan>";
+                    echo "<select class='enum_long' name='{$inputName}'>"; 
+                    include 'enum-running-standby.php';
+                    echo "</select>";
+                    echo "</td>";
+                } else {
                 echo "<td $rowSpan><input type='$inputType' class='input-field' name='$inputName'></td>";
                     }
             }
@@ -160,6 +152,7 @@ require 'request-chiller.php';
             location.href = 'selection.php'
         }
         $(".enum").prop("selectedIndex", -1);
+        $(".enum_long").prop("selectedIndex", -1);
         $(".input-field").val('');
 
         function handleFormSubmit(event, selectId) {

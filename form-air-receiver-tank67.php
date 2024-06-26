@@ -1,6 +1,6 @@
 <h2>AIR RECEIVER TANK LINE OPP <?php echo $line; ?></h2>
     <h4>SHIFT <?php echo $shift;?></h4>
-        <table>
+        <table style="width: 70%;">
         <?php include 'pilih-unit-compressor.php'; ?>
             <thead>
             <tr>
@@ -58,6 +58,5 @@
 
             </tbody>
         </table>
-        <br>
         <button type="submit" class="btn">SAVE</button>
     </form>
