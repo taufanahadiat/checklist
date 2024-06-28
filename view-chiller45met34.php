@@ -33,6 +33,7 @@ include 'request-view-chiller.php';
         <thead>
             <tr>
                 <th rowspan="2">DESCRIPTION</th>
+                <th rowspan="2" colspan="3">MACHINE STATUS</th>
                 <th colspan="6">EVAPORATOR TEMP.</th>
                 <th colspan="6">CONDENSER TEMP.</th>
                 <th colspan="6">EVAPORATOR PRESS.</th>
@@ -58,6 +59,7 @@ include 'request-view-chiller.php';
         <thead class="head">
             <tr>
                 <td>Uom</td>
+                <td colspan="3">-</td>
                 <td colspan="3">°C</td>
                 <td colspan="3">°C</td>
                 <td colspan="3">°C</td>
@@ -73,7 +75,7 @@ include 'request-view-chiller.php';
             <tr>
                 <td>Shift</td>
                 <?php
-                $sets = 11;
+                $sets = 12;
 
                 for ($i = 0; $i < $sets; $i++) {
                     for ($j = 1; $j <= 3; $j++) {
@@ -91,7 +93,7 @@ include 'request-view-chiller.php';
                     );
                 
                     $field_names = array(
-                        "evap_tempcel", "evap_tempcol", "cond_tempin", "cond_tempout",
+                        "machine_status", "evap_tempcel", "evap_tempcol", "cond_tempin", "cond_tempout",
                         "evap_pressin", "evap_pressout", "cond_pressin", "cond_pressout",
                         "temp_set", "rla", "approach_temp"
                     );
@@ -132,6 +134,7 @@ include 'request-view-chiller.php';
     <thead>
             <tr>
             <th rowspan="2" colspan="2">DESCRIPTION</th>
+            <th rowspan="2" colspan="3">MACHINE STATUS</th>
             <th colspan="3">DISCHARGE</th>
             <th colspan="6">EVAPORATOR TEMP.</th>
             <th colspan="6">CONDENSER TEMP.</th>
@@ -159,6 +162,7 @@ include 'request-view-chiller.php';
         <thead class="head">
             <tr>
                 <td colspan="2">Uom</td>
+                <td colspan="3">-</td>
                 <td colspan="3">Mpa</td>
                 <td colspan="3">°C</td>
                 <td colspan="3">°C</td>
@@ -174,7 +178,7 @@ include 'request-view-chiller.php';
             <tr>
                 <td colspan="2">Shift</td>
                 <?php
-                $sets = 11;
+                $sets = 12;
 
                 for ($i = 0; $i < $sets; $i++) {
                     for ($j = 1; $j <= 3; $j++) {
@@ -193,6 +197,7 @@ include 'request-view-chiller.php';
             $categoryNames = array("C#1", "C#2");
 
             $fields = array(
+                "machine_status",
                 "disc_press",
                 "evap_tempcel",
                 "evap_tempcol",
@@ -215,9 +220,9 @@ include 'request-view-chiller.php';
                         <?php foreach ($fields as $index => $field) : ?>
                             <?php
                             $fieldName = $model . $category . "_" . $field;
-                            $rowSpan = ($index !== 0) ? "rowspan='2'" : "";
-                            $inputName = ($index !== 0) ? $model . "_" . $field : $fieldName;                
-                            if ($category === "c2" && $field !== "disc_press") {
+                            $rowSpan = ($index !== 0 && $index !== 1) ? "rowspan='2'" : "";
+                            $inputName = ($index !== 0 && $index !== 1) ? $model . "_" . $field : $fieldName;                
+                            if ($category === "c2" && $field !== "disc_press" && $field !== "machine_status") {
                                 continue;
                             }                
                             ?>

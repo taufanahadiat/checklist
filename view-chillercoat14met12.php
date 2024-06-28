@@ -23,7 +23,7 @@ include 'request-view-chiller.php';
 <main>
 
     <h2>CHILLER COAT1~4 & MET 1~2</h2>
-    <h3>Chiller Hitachi & Clivet</h3>
+    <h3>Chiller Hitachi</h3>
     <?php if ($article_hitachi_1 === null && $article_hitachi_2 === null && $article_hitachi_3 === null): ?>
             <p>Form ini belum terisi</p>
         <?php else: ?>
@@ -33,6 +33,7 @@ include 'request-view-chiller.php';
     <thead>
             <tr>
             <th rowspan="6" colspan="2">DESCRIPTION</th>
+            <th rowspan="6" colspan="2">MACHINE STATUS</th>
             <th colspan="3">DISCHARGE</th>
             <th colspan="6">EVAPORATOR TEMP.</th>
             <th colspan="6">CONDENSER TEMP.</th>
@@ -60,6 +61,7 @@ include 'request-view-chiller.php';
         <thead class="head">
             <tr>
                 <td colspan="2">Uom</td>
+                <td colspan="3">-</td>
                 <td colspan="3">Mpa</td>
                 <td colspan="3">°C</td>
                 <td colspan="3">°C</td>
@@ -75,7 +77,7 @@ include 'request-view-chiller.php';
             <tr>
                 <td colspan="2">Shift</td>
                 <?php
-                $sets = 11;
+                $sets = 12;
 
                 for ($i = 0; $i < $sets; $i++) {
                     for ($j = 1; $j <= 3; $j++) {
@@ -94,6 +96,7 @@ include 'request-view-chiller.php';
     $categoryNames = array("C#1", "C#2");
     
     $fields = array(
+        "machine_status",
         "disc_press",
         "evap_tempcel",
         "evap_tempcol",
@@ -136,9 +139,9 @@ include 'request-view-chiller.php';
                     continue; // Skip the rest of the loop iteration
                 }
                 $fieldName = $model . $category . "_" . $field;
-                $rowSpan = ($index !== 0 && $model !== "bitzer31") ? "rowspan='2'" : "";
-                $inputName = ($index !== 0 && $model !== "bitzer31") ? $model . "_" . $field : $fieldName;                
-                if ($model !== "bitzer31" && $category === "c2" && $field !== "disc_press") {
+                $rowSpan = ($index !== 0 && $index !== 1 && $model !== "bitzer31") ? "rowspan='2'" : "";
+                $inputName = ($index !== 0 && $index !== 1 && $model !== "bitzer31") ? $model . "_" . $field : $fieldName;                
+                if ($model !== "bitzer31" && $category === "c2" && $field !== "disc_press" && $field !== "machine_status") {
                     continue;
                 }
                 $formatted_value_hitachi_1 = formatValue($article_hitachi_1[$inputName]);
@@ -171,6 +174,7 @@ include 'request-view-chiller.php';
     <thead>
             <tr>
                 <th rowspan="2">DESCRIPTION</th>
+                <th rowspan="2" colspan="3">MACHINE STATUS</th>
                 <th colspan="6">EVAPORATOR TEMP.</th>
                 <th colspan="6">CONDENSER TEMP.</th>
                 <th colspan="6">EVAPORATOR PRESS.</th>
@@ -194,7 +198,7 @@ include 'request-view-chiller.php';
             <tr>
                 <td>Shift</td>
                 <?php
-                $sets = 11;
+                $sets = 12;
 
                 for ($i = 0; $i < $sets; $i++) {
                     for ($j = 1; $j <= 3; $j++) {
@@ -213,7 +217,7 @@ include 'request-view-chiller.php';
                     );
                 
                     $field_names = array(
-                        "evap_tempcel", "evap_tempcol", "cond_tempin", "cond_tempout",
+                        "machine_status", "evap_tempcel", "evap_tempcol", "cond_tempin", "cond_tempout",
                         "evap_pressin", "evap_pressout", "cond_pressin", "cond_pressout",
                         "temp_set", "rla", "approach_temp"
                     );
