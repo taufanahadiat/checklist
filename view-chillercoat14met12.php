@@ -33,7 +33,7 @@ include 'request-view-chiller.php';
     <thead>
             <tr>
             <th rowspan="6" colspan="2">DESCRIPTION</th>
-            <th rowspan="6" colspan="2">MACHINE STATUS</th>
+            <th rowspan="6" colspan="3">MACHINE STATUS</th>
             <th colspan="3">DISCHARGE</th>
             <th colspan="6">EVAPORATOR TEMP.</th>
             <th colspan="6">CONDENSER TEMP.</th>
