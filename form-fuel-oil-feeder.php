@@ -132,32 +132,7 @@ require 'request.php';
     }
     $(".enum").prop("selectedIndex", -1);
     $(".input-field").val('');
-    $(document).ready(function() {
-        $('.clear-btn').click(function() {
-            var fieldToClear = $(this).data('field');
-            var confirmed = confirm('Are you sure you want to clear this field?');
 
-            if (confirmed) {
-                // Send an AJAX request to update the field to NULL
-                $.ajax({
-                    url: 'clear_field.php',
-                    method: 'POST',
-                    data: {
-                        field_to_clear: fieldToClear,
-                        unit: '<?php echo $unit; ?>' // Pass the unit parameter
-                    },
-                    success: function(response) {
-                        // Reload the page after clearing the field
-                        location.reload();
-                    },
-                    error: function(xhr, status, error) {
-                        // Handle error
-                        console.error(xhr.responseText);
-                    }
-                });
-            }
-        });
-    });
     function handleFormSubmit(event, selectId) {
     event.preventDefault();
 
