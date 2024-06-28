@@ -85,7 +85,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if ($result_update === false) {
                     echo "<script>alert('Error updating existing record: " . mysqli_error($conn) . "');</script>";
                 } else {
-                    echo "<script>alert('Existing record updated successfully for date: " . $tanggal . " and shift: " . $shift . "');</script>";
+                    echo "<script>alert('Existing record updated successfully for date: " . $tanggal . " and shift: " . $shift . "');
+                            window.location.href = window.location.href;
+                    </script>";
                 }
             } else {
                 // No existing record found, perform an INSERT
@@ -99,7 +101,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if ($result_insert === false) {
                     echo "<script>alert('Error inserting new record: " . mysqli_error($conn) . "');</script>";
                 } else {
-                    echo "<script>alert('New record submitted successfully for date: " . $tanggal . " and shift: " . $shift . "');</script>";
+                    echo "<script>alert('New record submitted successfully for date: " . $tanggal . " and shift: " . $shift . "');
+                            window.location.href = window.location.href;
+                    </script>";
                 }
             }
         }

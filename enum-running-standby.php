@@ -1,10 +1,10 @@
 <?php
 $options = array(
-    'RUNNING' => 'RUNNING',
-    'STANDBY' => 'STANDBY',
-    'UNLOAD' => 'UNLOAD',
-    'STOP' => 'STOP',
-    'BREAKDOWN' => 'BREAKDOWN'
+    'RUN' => 'RUNNING',
+    'SBY' => 'STANDBY',
+    'U/L' => 'UNLOAD',
+    'ST' => 'STOP',
+    'B/D' => 'BREAKDOWN'
 );
 
 foreach ($options as $value => $label) {
