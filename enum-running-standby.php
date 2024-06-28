@@ -1,8 +1,10 @@
 <?php
 $options = array(
-    'running' => 'RUNNING',
-    'standby' => 'STANDBY',
-    'unload' => 'UNLOAD'
+    'RUNNING' => 'RUNNING',
+    'STANDBY' => 'STANDBY',
+    'UNLOAD' => 'UNLOAD',
+    'STOP' => 'STOP',
+    'BREAKDOWN' => 'BREAKDOWN'
 );
 
 foreach ($options as $value => $label) {
