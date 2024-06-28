@@ -52,8 +52,7 @@
 
                     foreach ($models as $key => $model) {
                         // Skip condition
-                        if ((($key === 0 || $key === 1 || $key === 2 || $key === 3 || $key === 13) && ($index === 8 || $index === 9)) || 
-                            (($key !== 4 && $key !== 8 && $key !== 9) && ($index === 10)) || (($key === 13) && ($index === 6 || $index === 7))){
+                        if ((($key === 0 || $key === 1 || $key === 2 || $key === 3) && ($index === 9 || $index === 10))){
                             echo "<td class='blank'></td>";
                             echo "<td class='blank'></td>";
                             echo "<td class='blank'></td>";

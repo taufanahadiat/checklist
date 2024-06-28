@@ -30,7 +30,7 @@
                 <article>
                 <tbody>
                 <?php
-                $models = array("compkaeser19", "compboge01", "boge02", "kaeser22",  "compsullair20", "compsullair21", "compsullair23", "compaugust28", "compaugust29", "compaugust30");
+                $models = array("compsullair18", "compsullair24", "compsullair25");
                 $parameters = array("Machine Status", "Air Dischrg. Press", "Air Dishrg. Temp", "Separator Δ Press.", "Oil Level (%Botm SG)", "Vibration", "Noise", "Running Hours", "Load Hours", "Δ Voltage", "Current", "Alarm");
                 $uom = array("-", "Bar", "°C", "Bar", "-", "-", "-", "H", "H", "%", "A", "-");
                 $standard = array("-", "6.4 ~ 8.0", "80 ~ 110", "0 ~ 0.8", "1/2 ~ 3/4", "H", "H", "-", "-", "5 ~ 15", "80 ~ 150", "TA");
@@ -44,15 +44,6 @@
                     echo "<th class='parameter-setting'>" . htmlspecialchars($standard[$index]) . "</th>";
 
                     foreach ($models as $key => $model) {
-                        // Skip condition
-                        if ((($key === 0 || $key === 1 || $key === 2 || $key === 3 || $key === 13) && ($index === 8 || $index === 9)) || 
-                            (($key !== 4 && $key !== 8 && $key !== 9) && ($index === 10)) || (($key === 13) && ($index === 6 || $index === 7))){
-                            echo "<td class='blank'></td>";
-                            echo "<td class='blank'></td>";
-                            echo "<td class='blank'></td>";
-                            continue;
-                        }
-
                             $fieldName = strtolower(str_replace(" ", "_", $model)) . "_" . $fields[$index];
                                 $formatted_value_1 = formatValue($article_1[$fieldName]);
                                 echo "<td>$formatted_value_1</td>";
