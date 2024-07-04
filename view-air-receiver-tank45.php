@@ -1,29 +1,5 @@
-<?php
-
-include 'database.php';
-$tanggal = "" . $_GET['selectedDate'];
-$line = $_GET['selectedLine'];
-$unit = "" . $_GET['selectedUnit'];
-
-include 'request-view-compressor.php';
-?>
-
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Checklist</title>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="style.css">
-
-
-</head>
-
-<body>
-<?php include 'header.php'?>
-<main>
-
     <h2>AIR DRYER LINE <?php echo $line; ?></h2>
+    <?php include 'pilih-tanggal.php'; ?>
     <?php if ($article_1 === null && $article_2 === null && $article_3 === null): ?>
             <p>Form ini belum terisi</p>
         <?php else: ?>

@@ -28,6 +28,7 @@ include 'request-view.php';
 <main>
 
     <h2>Common Unit</h2>
+    <?php include 'pilih-tanggal.php'; ?>
     <?php if ($article === null): ?>
             <p>Form ini belum terisi</p>
         <?php else: ?>

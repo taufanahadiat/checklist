@@ -23,6 +23,7 @@ include 'request-view-chiller.php';
 <main>
 
     <h2>CHILLER OPP 4~5 & MET 3~4</h2>
+    <?php include 'pilih-tanggal.php'; ?>
     <h3>Chiller Trane & Clivet</h3>
     <?php if ($article_trane_1 === null && $article_trane_2 === null && $article_trane_3 === null): ?>
             <p>Form ini belum terisi</p>

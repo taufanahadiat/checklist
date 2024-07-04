@@ -23,6 +23,7 @@ include 'request-view-chiller.php';
 <main>
 
     <h2>CHILLER COAT1~4 & MET 1~2</h2>
+    <?php include 'pilih-tanggal.php'; ?>
     <h3>Chiller Hitachi</h3>
     <?php if ($article_hitachi_1 === null && $article_hitachi_2 === null && $article_hitachi_3 === null): ?>
             <p>Form ini belum terisi</p>

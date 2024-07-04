@@ -28,6 +28,7 @@ include 'request-view-compressor.php';
 <main>
 
     <h2>AIR DRYER LINE <?php echo $line; ?></h2>
+    <?php include 'pilih-tanggal.php'; ?>
     <?php if ($article_1 === null && $article_2 === null && $article_3 === null): ?>
             <p>Form ini belum terisi</p>
         <?php else: ?>
