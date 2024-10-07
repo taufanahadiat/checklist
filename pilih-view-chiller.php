@@ -1,9 +1,8 @@
-          <div >
-            <label for="line">Line:</label>
-            <select class="selection-line" name="line" id="option-view-chiller">
-              <option value="" disabled selected hidden>Pilih Line</option>
-              <option value="chiller_trane_67bopet">OPP 6-7 & BOPET</option>
-              <option value="chiller_trane_45met34">OPP 4-5 & Met 3-4</option>
-              <option value="chiller_trane_coat14met12">Coat 1-4 & Met 1-2</option>
+          <div class="unitfield">
+            <label for="from">Form:</label>
+            <select class="selection-genset" name="form" id="option-view-chiller" onchange="toggleSelections()">
+              <option value="" disabled selected hidden>Pilih Form</option>
+              <option value="all_chiller">Checklist Chiller</option>
+              <option value="konsumsi_air" id="view-report-air">Report Konsumsi Air</option>
             </select>
           </div>

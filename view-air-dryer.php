@@ -5,6 +5,7 @@ $tanggal = "" . $_GET['selectedDate'];
 $line = $_GET['selectedLine'];
 $unit = "" . $_GET['selectedUnit'];
 include 'request-view-compressor.php';
+
 ?>
 
 
@@ -14,6 +15,8 @@ include 'request-view-compressor.php';
     <title>Checklist</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="../../img/icon.ico">
+    <link rel="stylesheet" href="fontawesome/css/all.css">
 
 
 </head>
@@ -21,6 +24,7 @@ include 'request-view-compressor.php';
 <body>
 <?php include 'header.php'?>
 <main>
+<?php include 'switch-to-form.php'?>
 <?php
     if($line === '4&5'){
         include 'view-air-dryer45.php';
@@ -32,7 +36,7 @@ include 'request-view-compressor.php';
     <script>
         document.getElementById("exit").onclick=function (){
             location.href = 'selection.php'
-        }
+        }        
     </script>
 
 </body>

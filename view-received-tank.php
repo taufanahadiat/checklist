@@ -15,6 +15,7 @@ include 'request-view-compressor.php';
     <title>Checklist</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="../../img/icon.ico">
     <style>
         td {
             text-align: center;

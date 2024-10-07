@@ -44,9 +44,10 @@
                         } elseif ($index === 2 || $index === 3) {
                             $enum = "<option value='A'>A</option><option value='TA'>TA</option>";
                         }
+                        include 'indicator-air-receiver-tank.php';
                         // Generate input row
                         if ($existing_record && isset($existing_record[$fieldName])) {
-                            echo "<td>";
+                            echo "<td $style>";
                             echo htmlspecialchars(formatValue($existing_record[$fieldName]));
                             echo "<button type='button' class='clear-btn' data-field='$fieldName'>X</button>";
                             echo "</td>";
@@ -58,8 +59,44 @@
                     echo "</tr>";
                 }
             ?>
+            <tr>
+                <th class="measure2" colspan="3">Entry By</th>
+               <?php 
+                if ($existing_record && isset($existing_record['pic'])){
+                    echo "<td colspan='10'style='text-align:left; color:grey; padding: 5px 10px'>";
+                    echo htmlspecialchars(formatValue($existing_record['pic']));
+                    echo "&nbsp&nbsp";
+                    echo htmlspecialchars(formatValue($existing_record['time']));
+                    echo "</td>";
+                }
+                else{
+                    echo "<td colspan='10'></td>";
+                }
+                echo "<input type='hidden' name='pic' value='" . htmlspecialchars($baris[0]) . "'>";
+                echo '<input type="hidden" name="time" value="' . date('d/m/Y H:i') . '">';
+                ?>
+            </tr>  
+
+            <tr>
+            <th class="measure2" colspan="3">Notes
+            </th>
+
+            <?php 
+            $current_note = '';
+            if ($existing_record && isset($existing_record['note'])) {
+                $current_note = $existing_record['note']; // Set current_note to the existing note
+                echo "<td colspan='10' id='note-container' style='text-align:left; padding: 5px 10px'>";
+                echo htmlspecialchars(formatValue($existing_record['note']));
+                echo "<button type='button' class='clear-btn' data-field='note'>X</button>";
+                echo "<button type='button' class='edit-btn' data-current-note='" . htmlspecialchars($current_note, ENT_QUOTES) . "'>EDIT</button>";
+                echo "</td>";
+            } else {
+                echo "<td colspan='10' style='text-align:left; padding: 4px 0.8%;'><textarea name='note' id='note-textarea' style='height:30px;width:90%;padding:4px;'></textarea></td>";
+            }
+            ?>
+            </tr>
 
             </tbody>
         </table>
-        <button type="submit" class="btn">SAVE</button>
+        <button type="submit" class="btn" id="save-button">SAVE</button>
     </form>

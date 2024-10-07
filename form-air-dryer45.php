@@ -8,16 +8,16 @@
             <th>PARAMETER</th>
             <th>Uom</th>
             <th>STANDARD</th>
-            <th>AD. SULLAIR 23</th>
-            <th>AD. SULLAIR 24</th>
-            <th>AD. SULLAIR 27</th>
-            <th>AD. SULLAIR 33</th>
-            <th>AD. SULLAIR 34</th>
-            <th>AD. AUGUST 28</th>
-            <th>AD. AUGUST 29</th>
-            <th>AD. AUGUST 30</th>
-            <th>AD. AUGUST 31</th>
-            <th>AD. AUGUST 32</th>
+            <th style="font-size:13px">AD. SULLAIR 23</th>
+            <th style="font-size:13px">AD. SULLAIR 24</th>
+            <th style="font-size:13px">AD. SULLAIR 27</th>
+            <th style="font-size:13px">AD. SULLAIR 33</th>
+            <th style="font-size:13px">AD. SULLAIR 34</th>
+            <th style="font-size:13px">AD. AUGUST 28</th>
+            <th style="font-size:13px">AD. AUGUST 29</th>
+            <th style="font-size:13px">AD. AUGUST 30</th>
+            <th style="font-size:13px">AD. AUGUST 31</th>
+            <th style="font-size:13px">AD. AUGUST 32</th>
             </tr>
             </thead>
             <form method="post">
@@ -42,6 +42,7 @@
                         $fieldName = strtolower(str_replace(" ", "_", $model)) . "_" . $fields[$index];
                         $dataType = ($index === 1 || $index === 2) ? "input" : "select";
                         $dataClass = ($index === 1 || $index === 2) ? "type='number' step='0.01' class='input-field'" : "class='enum'";
+                        include 'indicator-air-dryer.php';
                         // Enum options
                         $enum = "";
                         if ($index === 3 || $index === 4) {
@@ -52,7 +53,7 @@
                             $enum = "<option value='H'>H</option><option value='S'>S</option><option value='T'>T</option>";
                         }
                         if ($existing_record && isset($existing_record[$fieldName])) {
-                            echo "<td>";
+                            echo "<td $style>";
                             echo htmlspecialchars(formatValue($existing_record[$fieldName]));
                             echo "<button type='button' class='clear-btn' data-field='$fieldName'>X</button>";
                             echo "</td>";
@@ -71,10 +72,44 @@
                     echo "</tr>";
                 }
             ?>
+            <tr>
+                <th class="measure2" colspan="3">Entry By</th>
+               <?php 
+                if ($existing_record && isset($existing_record['pic'])){
+                    echo "<td colspan='10'style='text-align:left; color:grey; padding: 5px 10px'>";
+                    echo htmlspecialchars(formatValue($existing_record['pic']));
+                    echo "&nbsp&nbsp";
+                    echo htmlspecialchars(formatValue($existing_record['time']));
+                    echo "</td>";
+                }
+                else{
+                    echo "<td colspan='10'></td>";
+                }
+                echo "<input type='hidden' name='pic' value='" . htmlspecialchars($baris[0]) . "'>";
+                echo '<input type="hidden" name="time" value="' . date('d/m/Y H:i') . '">';
+                ?>
+            </tr>  
+
+            <tr>
+            <th class="measure2" colspan="3">Notes
+            </th>
+
+            <?php 
+            $current_note = '';
+            if ($existing_record && isset($existing_record['note'])) {
+                $current_note = $existing_record['note']; // Set current_note to the existing note
+                echo "<td colspan='10' id='note-container' style='text-align:left; padding: 5px 10px'>";
+                echo htmlspecialchars(formatValue($existing_record['note']));
+                echo "<button type='button' class='clear-btn' data-field='note'>X</button>";
+                echo "<button type='button' class='edit-btn' data-current-note='" . htmlspecialchars($current_note, ENT_QUOTES) . "'>EDIT</button>";
+                echo "</td>";
+            } else {
+                echo "<td colspan='10' style='text-align:left; padding: 4px 0.8%;'><textarea name='note' id='note-textarea' style='height:30px;width:90%;padding:4px;'></textarea></td>";
+            }
+            ?>
+            </tr>
 
             </tbody>
         </table>
-        <br>
-        <button type="submit" class="btn">SAVE</button>
+        <button type="submit" class="btn" id="save-button">SAVE</button>
     </form>
-</main>

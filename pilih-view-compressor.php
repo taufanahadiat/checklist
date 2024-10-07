@@ -2,7 +2,7 @@
             <label for="line">Line:</label>
             <select class="selection-line" name="line" id="option-line-compressor">
               <option value="" disabled selected hidden>Pilih Line</option>
-              <option value="4&5">OPP 4-5</option>
+              <option value="4&5">OPP 4,5,8 & BOPET</option>
               <option value="6&7">OPP 6-7</option>
             </select>
           </div>

@@ -1,6 +1,14 @@
 <?php
 require 'database.php';
 
+if (session_id() == '') {
+    session_start();
+  }
+  if (empty($_SESSION['loggedin'])) {
+      header("Refresh: 0; url=../");
+      exit();
+  }
+
 $unit = $_GET['selectedUnit']; // Get the 'unit' parameter from the query string
 $shift = $_GET['selectedShift'];
 $line = $_GET['selectedLine'];

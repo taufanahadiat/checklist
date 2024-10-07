@@ -14,6 +14,8 @@ include 'request-view.php';
     <title>Checklist</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="../../img/icon.ico">
+    <link rel="stylesheet" href="fontawesome/css/all.css">
     <style>
         td {
             text-align: center;
@@ -31,8 +33,7 @@ include 'request-view.php';
     <?php if ($article === null): ?>
             <p>Form ini belum terisi</p>
         <?php else: ?>
-
-    
+            <?php include 'verification-form.php'?>
         <table>
             <thead>
             <tr>
@@ -78,6 +79,26 @@ include 'request-view.php';
                     }
                     echo "</tr>";
                 } ?>
+                <tr>
+                <th class="measure2" colspan="3">Entry By</th>
+                            <td class='pic'><?php echo $article['pic_8']?><br><?php echo $article['time_8']?></td>    
+                            <td class='pic'><?php echo $article['pic_10']?><br><?php echo $article['time_10']?></td>    
+                            <td class='pic'><?php echo $article['pic_12']?><br><?php echo $article['time_12']?></td>    
+                            <td class='pic'><?php echo $article['pic_14']?><br><?php echo $article['time_14']?></td>    
+                            <td class='pic'><?php echo $article['pic_16']?><br><?php echo $article['time_16']?></td>    
+                            <td class='pic'><?php echo $article['pic_18']?><br><?php echo $article['time_18']?></td>    
+                            <td class='pic'><?php echo $article['pic_20']?><br><?php echo $article['time_20']?></td>    
+                            <td class='pic'><?php echo $article['pic_22']?><br><?php echo $article['time_22']?></td>    
+                            <td class='pic'><?php echo $article['pic_0']?><br><?php echo $article['time_0']?></td>    
+                            <td class='pic'><?php echo $article['pic_2']?><br><?php echo $article['time_2']?></td>    
+                            <td class='pic'><?php echo $article['pic_4']?><br><?php echo $article['time_4']?></td>    
+                            <td class='pic'><?php echo $article['pic_6']?><br><?php echo $article['time_6']?></td>    
+                </tr>
+
+                <tr>
+                    <th class="measure2" style="border-right:none" colspan="3">Notes</th>                            
+                    <td colspan="12" class="note" style="height:32px;"><?php echo $article['note']?></td>
+                </tr>
 
                 </tbody>
                 </article>

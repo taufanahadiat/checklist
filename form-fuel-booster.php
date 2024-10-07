@@ -2,6 +2,18 @@
 $unit = $_GET['selectedUnit']; // Get the 'unit' parameter from the query string
 require 'database.php';
 require 'request.php';
+
+// The allowed IP address
+$allowed_ip = array('131.107.7.210', '131.107.109.42');
+// Get the user's IP address
+$user_ip = $_SERVER['REMOTE_ADDR'];
+
+// Check if the user's IP matches the allowed IP
+if ($_SESSION["type_user"] !== '2' && !in_array($user_ip, $allowed_ip)) {
+    // If not, set an error message and redirect to selection.php
+    echo "<script>alert('Anda sedang tidak terhubung dengan WiFi di area Genset. Pastikan koneksi WiFi anda tidak terputus'); window.location.href = './selection.php';</script>";
+    exit();
+}
 ?>
 
 
@@ -11,7 +23,9 @@ require 'request.php';
     <title>Form Checklist</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="../../img/icon.ico">
     <script src="jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="fontawesome/css/all.css">
     <style>
         td{
             text-align: center;
@@ -27,18 +41,7 @@ require 'request.php';
         .input-field{
             cursor: text;
         }
-        .clear-btn {
-            float: right;
-            background: none;
-            border: none;
-            color: red;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        .clear-btn:hover {
-            border: 1px solid red;
-            border-radius: 4px;
-        }
+ 
     </style>
 
 </head>
@@ -50,17 +53,7 @@ require 'request.php';
     <h2>Fuel Booster Unit</h2>
 
     <table>
-    <form name="select-form-genset" onsubmit="handleFormSubmit(event, 'option-form-genset')">
-        <div class="custom-label-form"> 
-        <label for="unit-genset">Change Unit:</label>
-          <div class="unitfield-form">
-            <select class="selection-genset" name="unit-genset" id="option-form-genset">
-              <?php include 'pilih-unit-genset.php' ?>
-            </select>
-          </div>
-          <input style="margin-top: 20px" class="btn-form" type="submit" value="SUBMIT">
-          </div>
-      </form>
+<?php include 'pilih-unit-genset.php' ?>
         <thead>
             <th colspan="3">Time</th>
             <th>08.00</th>
@@ -319,11 +312,56 @@ require 'request.php';
                                 }
                         }
                     ?>
-                </tr>                                                                                                
+                </tr>
+                <tr>
+                <th class="measure2" colspan="3">Entry By</th>
+                <?php
+                $pic_fields = array('pic_8', 'pic_10', 'pic_12', 'pic_14', 'pic_16', 'pic_18', 'pic_20', 'pic_22', 'pic_0', 'pic_2', 'pic_4', 'pic_6');
+                $time_fields = array('time_8', 'time_10', 'time_12', 'time_14', 'time_16', 'time_18', 'time_20', 'time_22', 'time_0', 'time_2', 'time_4', 'time_6');
+
+                foreach ($pic_fields as $pic_field) {
+                    // Determine the corresponding time field
+                    $time_field = str_replace('pic_', 'time_', $pic_field);
+                    
+                    echo "<td class='pic'>";
+                    
+                    // Display the pic field value
+                    if ($existing_record && isset($existing_record[$pic_field])) {
+                        echo "<div>" . htmlspecialchars(formatValue($existing_record[$pic_field])) . "</div>";
+                    }
+                    
+                    // Display the time field value if it exists
+                    if ($existing_record && isset($existing_record[$time_field])) {
+                        echo "<div>" . htmlspecialchars(formatValue($existing_record[$time_field])) . "</div>";
+                    }
+                    
+                    echo "</td>";
+                }
+                ?>
+
+            </tr>  
+            
+            <tr>
+                <th class="measure2" colspan="3">Notes</th>
+
+                <?php 
+            $current_note = '';
+            if ($existing_record && isset($existing_record['note'])) {
+                $current_note = $existing_record['note']; // Set current_note to the existing note
+                echo "<td colspan='12' id='note-container' style='text-align:left; padding: 5px 10px'>";
+                echo htmlspecialchars(formatValue($existing_record['note']));
+                echo "<button type='button' class='clear-btn' data-field='note'>X</button>";
+                echo "<button type='button' class='edit-btn' data-current-note='" . htmlspecialchars($current_note, ENT_QUOTES) . "'>EDIT</button>";
+                echo "</td>";
+            } else {
+                echo "<td colspan='12' style='text-align:left; padding: 4px 0.8%;'><textarea name='note' id='note-textarea' style='height:30px;width:90%;padding:4px;'></textarea></td>";
+            }
+            ?>
+            </tr>
             </tbody>
     </table>
     <br>
-    <button class="btn">SAVE</button>
+    <button class="btn" id="save-button">SAVE</button>
     </form>
 </main>
 <script>
@@ -333,56 +371,6 @@ require 'request.php';
         $(".enum").prop("selectedIndex", -1);
         $(".input-field").val('');
 
-    function handleFormSubmit(event, selectId) {
-    event.preventDefault();
-
-    var selectElement = document.getElementById(selectId);
-    var selectedUnit = selectElement.value;    
-              
-            console.log('Selected <select> ID:', selectId);
-            console.log('Selected Value:', selectedUnit);
-
-            switch (selectedUnit) {
-                case 'fuel_transfer_pump_unit':
-                case 'hfo_separator_pump_unit':
-                case 'hfo_unloading_pump_unit':
-                case 'lfo_unloading_pump_unit':
-                    if (selectId === 'option-form-genset') {
-                        location.href = 'form-hfo-lfo-fuel.php?selectedUnit=' + encodeURIComponent(selectedUnit);
-                    } break;
-                case 'common_unit':
-                    if (selectId === 'option-form-genset') {
-                        location.href = 'form-common-unit.php?selectedUnit=' + encodeURIComponent(selectedUnit);
-                    } break;
-                case 'fuel_booster':
-                    if (selectId === 'option-form-genset') {
-                        location.href = 'form-fuel-booster.php?selectedUnit=' + encodeURIComponent(selectedUnit);
-                    } break;     
-                  case 'fuel_oil_feeder':
-                    if (selectId === 'option-form-genset') {
-                        location.href = 'form-fuel-oil-feeder.php?selectedUnit=' + encodeURIComponent(selectedUnit);
-                    } break;                                   
-                case 'heater_oil':
-                    if (selectId === 'option-form-genset') {
-                        location.href = 'form-heater-oil.php?selectedUnit=' + encodeURIComponent(selectedUnit);
-                    } break;
-                case 'genset_man':
-                    if (selectId === 'option-form-genset') {
-                        location.href = 'form-genset-man.php?selectedUnit=' + encodeURIComponent(selectedUnit);
-                    } break;                  
-                case 'genset_wartsila_01':
-                case 'genset_wartsila_02':
-                    if (selectId === 'option-form-genset') {
-                        location.href = 'form-genset.php?selectedUnit=' + encodeURIComponent(selectedUnit);
-                    } break;
-                case 'kebocoran_fuel_tank':
-                    if (selectId === 'option-form-genset') {
-                        location.href = 'form-kebocoran-fuel-tank.php?selectedUnit=' + encodeURIComponent(selectedUnit);
-                    } break;
-                default:
-                    break;
-            }
-        }
     </script>
 </body>
 </html>

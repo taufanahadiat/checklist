@@ -2,16 +2,16 @@
         <div class="custom-label-form"> 
         <label for="unit-compressor">Change Unit: </label>
           <div class="unitfield-form">
-            <select class="selection-compressor" name="unit-compressor" id="option-form-compressor">
+            <select class="selection-compressor" name="unit-compressor" id="option-form-compressor" onchange="handleFormSubmit(event, 'option-form-compressor')">
             <option value="" disabled selected hidden>Pilih Unit</option>
               <option value="compressor">Compressor</option>
               <option value="air_dryer">Air Dryer</option>
               <option value="air_receiver_tank">Air Receiver Tank</option>
             </select>
           </div>
-          <input style="margin-top: 20px" class="btn-form" type="submit" value="SUBMIT">
           </div>
       </form>
+      <br>
 
       <script>
     function handleFormSubmit(event, selectId) {

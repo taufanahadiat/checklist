@@ -3,6 +3,19 @@ $unit = $_GET['selectedUnit']; // Get the 'unit' parameter from the query string
 $shift = $_GET['selectedShift'];
 require 'database.php';
 require 'request-chiller.php';
+
+// The allowed IP address
+$allowed_ip = array('131.107.7.214', '131.107.7.211');
+
+// Get the user's IP address
+$user_ip = $_SERVER['REMOTE_ADDR'];
+
+// Check if the user's IP matches the allowed IP
+if ($_SESSION["type_user"] !== '2' && !in_array($user_ip, $allowed_ip)) {
+    // If not, set an error message and redirect to selection.php
+    echo "<script>alert('Anda sedang tidak terhubung dengan WiFi di area Chiller 6&7 & BOPET. Pastikan koneksi WiFi anda tidak terputus'); window.location.href = './selection.php';</script>";
+    exit();
+}
 ?>
 
 
@@ -12,7 +25,9 @@ require 'request-chiller.php';
     <title>Form Checklist</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="../../img/icon.ico">
     <script src="jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="fontawesome/css/all.css">
 </head>
 
 <body>
@@ -141,10 +156,46 @@ require 'request-chiller.php';
         echo "</tr>";
     }
     ?>
+            <tr>
+                <th class="measure2" colspan="2">Entry By</th>
+               <?php 
+                if ($existing_record && isset($existing_record['pic'])){
+                    echo "<td colspan='12'style='text-align:left; color:grey; padding: 5px 10px'>";
+                    echo htmlspecialchars(formatValue($existing_record['pic']));
+                    echo "&nbsp&nbsp";
+                    echo htmlspecialchars(formatValue($existing_record['time']));
+                    echo "</td>";
+                }
+                else{
+                    echo "<td colspan='12'></td>";
+                }
+                echo "<input type='hidden' name='pic' value='" . htmlspecialchars($baris[0]) . "'>";
+                echo '<input type="hidden" name="time" value="' . date('d/m/Y H:i') . '">';
+                ?>
+            </tr>  
+
+            <tr>
+            <th class="measure2" colspan="2">Notes
+            </th>
+
+            <?php 
+            $current_note = '';
+            if ($existing_record && isset($existing_record['note'])) {
+                $current_note = $existing_record['note']; // Set current_note to the existing note
+                echo "<td colspan='12' id='note-container' style='text-align:left; padding: 5px 10px'>";
+                echo htmlspecialchars(formatValue($existing_record['note']));
+                echo "<button type='button' class='clear-btn' data-field='note'>X</button>";
+                echo "<button type='button' class='edit-btn' data-current-note='" . htmlspecialchars($current_note, ENT_QUOTES) . "'>EDIT</button>";
+                echo "</td>";
+            } else {
+                echo "<td colspan='12' style='text-align:left; padding: 4px 0.8%;'><textarea name='note' id='note-textarea' style='height:30px;width:90%;padding:4px;'></textarea></td>";
+            }
+            ?>
+            </tr>
 </tbody>
     </table>
     <br>
-    <button class="btn">SAVE</button>
+    <button class="btn" id="save-button">SAVE</button>
     </form>
 </main>
 <script>
@@ -172,7 +223,10 @@ require 'request-chiller.php';
                         break;
                 case 'chiller_hitachi_67bopet':
                         location.href = 'form-chiller67bopet-hitachi.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedShift=' + encodeURIComponent(selectedShift);
-                    break;      
+                    break;     
+                case 'chiller_trane_67pc':
+                        location.href = 'form-chiller67-tranepc.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedShift=' + encodeURIComponent(selectedShift);
+                    break;       
                 default:
                     break;
                 }
