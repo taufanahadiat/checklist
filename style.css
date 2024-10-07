@@ -752,7 +752,8 @@
     width: 13px;
     height: 13px;
     transform: scale(1.5); 
-    margin: 5px; 
+    margin: 5px;
+    cursor: pointer; 
 }
 .medium-checkbox {
     width: 12px;

@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }else{
     // Start constructing the SQL query
     $sql_update = "UPDATE $unit SET $field_to_clear = NULL WHERE tanggal = CURDATE()";
-    }
+    } 
     
     // Append conditions based on presence of shift and line
     if (!empty($shift)) {

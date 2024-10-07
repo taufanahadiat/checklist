@@ -251,22 +251,28 @@ $mysqli = new mysqli('localhost', 'root','akpidev3','checklistnew_24');
 
 
 <div id="select-form-electric" style="display: none;">
-      <form name="select-form-electric" onsubmit="handleFormSubmit(event, 'option-form-trafo')">
+      <form name="select-form-electric" onsubmit="setFormSubmitHandler(event)">
         <div class="custom-label"> 
         <div class="form-row">
           <div class="unitfield">
           <label for="check-electric">Check Sheet:</label>
-            <select class="selection-genset" name="unit-trafo" id="option-form-electric">
+            <select class="selection-genset" name="unit-trafo" id="option-form-electric" onchange="toggleSelections()">
             <option value="" disabled selected hidden>Pilih Sheet</option>
             <option value="trafo">Trafo</option>
             <option value="panel">Panel Low Voltage</option>
             <option value="capbank">Capacitor Bank</option>
             </select>
           </div>
-          <div class="unitfield">
+          <div class="unitfield" id="line-trafo-form" style="display:none;">
           <label for="unit-trafo">Line:</label>
             <select class="selection-genset" name="unit-trafo" id="option-form-trafo">
               <?php include 'pilih-unit-trafo.php' ?>
+            </select>
+          </div>
+          <div class="unitfield" id="line-capbank-form" style="display:none;">
+          <label for="unit-trafo">Line:</label>
+            <select class="selection-genset" name="unit-trafo" id="option-form-capbank">
+              <?php include 'pilih-unit-capbank.php' ?>
             </select>
           </div>
           </div>
@@ -449,6 +455,8 @@ $mysqli = new mysqli('localhost', 'root','akpidev3','checklistnew_24');
     const lineContainer = document.getElementById('line-container');
     const lineBoilerContainer = document.getElementById('line-boiler-container');
     const lineBoilerView = document.getElementById('line-boiler-view');
+    const lineTrafoForm = document.getElementById('line-trafo-form');
+    const lineCapbankForm = document.getElementById('line-capbank-form');
 
     const tanggalGensetDay = document.getElementById('tanggal-genset-day');
     const tanggalBoilerDay = document.getElementById('tanggal-boiler-day');
@@ -457,6 +465,7 @@ $mysqli = new mysqli('localhost', 'root','akpidev3','checklistnew_24');
     const tanggalChillerMonth = document.getElementById('tanggal-chiller-month');
 
     const viewSelectChiller = document.getElementById('option-view-chiller');
+    const formSelectElectric = document.getElementById('option-form-electric');
 
     
     if (monitorBBMGensetCheckbox.checked) {
@@ -504,6 +513,14 @@ $mysqli = new mysqli('localhost', 'root','akpidev3','checklistnew_24');
         tanggalChillerDay.style.display = 'block';
         tanggalChillerMonth.style.display = 'none';
     }
+
+    if (formSelectElectric.value === 'trafo') {
+        lineCapbankForm.style.display = 'none';
+        lineTrafoForm.style.display = 'block';
+    } else if (formSelectElectric.value === 'capbank') {
+        lineCapbankForm.style.display = 'block';
+        lineTrafoForm.style.display = 'none';
+    }
   }
 
   function setFormSubmitHandler(event) {
@@ -514,6 +531,7 @@ $mysqli = new mysqli('localhost', 'root','akpidev3','checklistnew_24');
     const reportCheckboxAir = document.getElementById('option-report-air');
     const reportCheckboxGas = document.getElementById('option-report-gas');
     const ViewCheckboxGas = document.getElementById('view-report-gas');
+    const formElectricSelect = document.getElementById('option-form-electric');
         
     if (monitorBBMGensetCheckbox.checked) {
         handleFormSubmit(event, 'option-report-genset');
@@ -544,8 +562,13 @@ $mysqli = new mysqli('localhost', 'root','akpidev3','checklistnew_24');
     } else {
         handleFormSubmit(event, 'option-view-boiler');
     }
-}
 
+    if (formElectricSelect.value === 'trafo') {
+        handleFormSubmit(event, 'option-form-trafo');
+    } else {
+        handleFormSubmit(event, 'option-form-capbank');
+    }
+  }
 
 
 function handleFormSubmit(event, selectId) {
@@ -806,7 +829,99 @@ function handleFormSubmit(event, selectId) {
                     } else if (selectId === 'option-view-trafo' && selectedUnit && selectedDate) {
                         location.href = 'view-trafo-daily-line7.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedDate=' + encodeURIComponent(selectedDate);
                     }
-                    break;   
+                    break; 
+              //Capacitor Bank
+              case 'capbank_lvdp3':
+                    if (selectId === 'option-form-capbank' && selectedUnit) {
+                        location.href = 'form-capbank-lvdp3.php?selectedUnit=' + encodeURIComponent(selectedUnit);
+                    } else if (selectId === 'option-view-capbank' && selectedUnit && selectedDate) {
+                        location.href = 'view-capbank-lvdp3.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedDate=' + encodeURIComponent(selectedDate);
+                    }
+                    break;                   
+              case 'capbank_lvdp4_prod':
+                    if (selectId === 'option-form-capbank' && selectedUnit) {
+                        location.href = 'form-capbank-lvdp4prod.php?selectedUnit=' + encodeURIComponent(selectedUnit);
+                    } else if (selectId === 'option-view-capbank' && selectedUnit && selectedDate) {
+                        location.href = 'view-capbank-lvdp4prod.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedDate=' + encodeURIComponent(selectedDate);
+                    }
+                    break;                   
+              case 'capbank_lvdp4_uty':
+                    if (selectId === 'option-form-capbank' && selectedUnit) {
+                        location.href = 'form-capbank-lvdp4uty.php?selectedUnit=' + encodeURIComponent(selectedUnit);
+                    } else if (selectId === 'option-view-capbank' && selectedUnit && selectedDate) {
+                        location.href = 'view-capbank-lvdp4uty.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedDate=' + encodeURIComponent(selectedDate);
+                    }
+                    break;                   
+              case 'capbank_trafo5':
+                    if (selectId === 'option-form-capbank' && selectedUnit) {
+                        location.href = 'form-capbank-trafo5.php?selectedUnit=' + encodeURIComponent(selectedUnit);
+                    } else if (selectId === 'option-view-capbank' && selectedUnit && selectedDate) {
+                        location.href = 'view-capbank-trafo5.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedDate=' + encodeURIComponent(selectedDate);
+                    }
+                    break;                   
+              case 'capbank_trafo6':
+                    if (selectId === 'option-form-capbank' && selectedUnit) {
+                        location.href = 'form-capbank-trafo6.php?selectedUnit=' + encodeURIComponent(selectedUnit);
+                    } else if (selectId === 'option-view-capbank' && selectedUnit && selectedDate) {
+                        location.href = 'view-capbank-trafo6.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedDate=' + encodeURIComponent(selectedDate);
+                    }
+                    break;                   
+              case 'capbank_trafo7':
+                    if (selectId === 'option-form-capbank' && selectedUnit) {
+                        location.href = 'form-capbank-trafo7.php?selectedUnit=' + encodeURIComponent(selectedUnit);
+                    } else if (selectId === 'option-view-capbank' && selectedUnit && selectedDate) {
+                        location.href = 'view-capbank-trafo7.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedDate=' + encodeURIComponent(selectedDate);
+                    }
+                    break;                   
+              case 'capbank_lvdp8':
+                    if (selectId === 'option-form-capbank' && selectedUnit) {
+                        location.href = 'form-capbank-lvdp8.php?selectedUnit=' + encodeURIComponent(selectedUnit);
+                    } else if (selectId === 'option-view-capbank' && selectedUnit && selectedDate) {
+                        location.href = 'view-capbank-lvdp8.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedDate=' + encodeURIComponent(selectedDate);
+                    }
+                    break;                   
+              case 'capbank_trafopet_prod':
+                    if (selectId === 'option-form-capbank' && selectedUnit) {
+                        location.href = 'form-capbank-trafopetprod.php?selectedUnit=' + encodeURIComponent(selectedUnit);
+                    } else if (selectId === 'option-view-capbank' && selectedUnit && selectedDate) {
+                        location.href = 'view-capbank-trafopetprod.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedDate=' + encodeURIComponent(selectedDate);
+                    }
+                    break;                   
+              case 'capbank_trafopet_uty':
+                    if (selectId === 'option-form-capbank' && selectedUnit) {
+                        location.href = 'form-capbank-trafopetuty.php?selectedUnit=' + encodeURIComponent(selectedUnit);
+                    } else if (selectId === 'option-view-capbank' && selectedUnit && selectedDate) {
+                        location.href = 'view-capbank-trafopetuty.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedDate=' + encodeURIComponent(selectedDate);
+                    }
+                    break;                   
+              case 'capbank_lvdpmet2':
+                    if (selectId === 'option-form-capbank' && selectedUnit) {
+                        location.href = 'form-capbank-lvdpmet2.php?selectedUnit=' + encodeURIComponent(selectedUnit);
+                    } else if (selectId === 'option-view-capbank' && selectedUnit && selectedDate) {
+                        location.href = 'view-capbank-lvdpmet2.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedDate=' + encodeURIComponent(selectedDate);
+                    }
+                    break;                   
+              case 'capbank_lvdpmet3':
+                    if (selectId === 'option-form-capbank' && selectedUnit) {
+                        location.href = 'form-capbank-lvdpmet3.php?selectedUnit=' + encodeURIComponent(selectedUnit);
+                    } else if (selectId === 'option-view-capbank' && selectedUnit && selectedDate) {
+                        location.href = 'view-capbank-lvdpmet3.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedDate=' + encodeURIComponent(selectedDate);
+                    }
+                    break;                   
+              case 'capbank_lvdpoffice':
+                    if (selectId === 'option-form-capbank' && selectedUnit) {
+                        location.href = 'form-capbank-lvdpoffice.php?selectedUnit=' + encodeURIComponent(selectedUnit);
+                    } else if (selectId === 'option-view-capbank' && selectedUnit && selectedDate) {
+                        location.href = 'view-capbank-lvdpoffice.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedDate=' + encodeURIComponent(selectedDate);
+                    }
+                    break;                   
+              case 'capbank_lvdpcpp':
+                    if (selectId === 'option-form-capbank' && selectedUnit) {
+                        location.href = 'form-capbank-lvdpcpp.php?selectedUnit=' + encodeURIComponent(selectedUnit);
+                    } else if (selectId === 'option-view-capbank' && selectedUnit && selectedDate) {
+                        location.href = 'view-capbank-lvdpcpp.php?selectedUnit=' + encodeURIComponent(selectedUnit) + '&selectedDate=' + encodeURIComponent(selectedDate);
+                    }
+                    break;                   
                 default:
                     break;
             }
