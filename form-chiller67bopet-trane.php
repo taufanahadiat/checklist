@@ -11,7 +11,7 @@ $allowed_ip = array('131.107.7.214', '131.107.7.211');
 $user_ip = $_SERVER['REMOTE_ADDR'];
 
 // Check if the user's IP matches the allowed IP
-if ($_SESSION["type_user"] !== '2' && !in_array($user_ip, $allowed_ip)) {
+if ($_SESSION["id"] !== '1' && !in_array($user_ip, $allowed_ip)) {
     // If not, set an error message and redirect to selection.php
     echo "<script>alert('Anda sedang tidak terhubung dengan WiFi di area Chiller 6&7 & BOPET. Pastikan koneksi WiFi anda tidak terputus'); window.location.href = './selection.php';</script>";
     exit();
@@ -50,7 +50,8 @@ if ($_SESSION["type_user"] !== '2' && !in_array($user_ip, $allowed_ip)) {
         </form>
     </div>
     
-    <table>
+                
+<table>
         <thead>
             <tr>
                 <th rowspan="2">DESCRIPTION</th>
@@ -75,10 +76,25 @@ if ($_SESSION["type_user"] !== '2' && !in_array($user_ip, $allowed_ip)) {
                 <td>SETTING</td>
                 <td>TEMP</td>
             </tr>
+            <tr class="head">
+                <td>Standard</td>
+                <td></td>
+                <td>&lt;20</td>
+                <td>6~13</td>
+                <td>27~37</td>
+                <td>32~42</td>
+                <td>4~7</td>
+                <td>3.5~6</td>
+                <td>1~3</td>
+                <td>0.5~2.5</td>
+                <td>6~10</td>
+                <td>60~100</td>
+                <td>0~7</td>
+            </tr>
 
         </thead>
         <thead class="head">
-            <tr>
+        <tr style="background-color:dimgray">
                 <td>Uom</td>
                 <td>-</td>
                 <td>°C</td>
@@ -116,8 +132,9 @@ if ($_SESSION["type_user"] !== '2' && !in_array($user_ip, $allowed_ip)) {
                     <?php foreach ($field_names as $field) : ?>
                         <?php $inputName = strtolower(str_replace(' ', '', $unit)) . '_' . $field; ?>
                     <?php
+                    include 'indicator-chiller67trane.php';
                     if ($existing_record && isset($existing_record[$inputName])) {
-                        echo "<td>";
+                        echo "<td $style>";
                         echo htmlspecialchars(formatValue($existing_record[$inputName]));
                         echo "<button type='button' class='clear-btn' data-field='$inputName'>X</button>";
                         echo "</td>";

@@ -1,7 +1,8 @@
     <h2>COMPRESSOR LINE OPP 4,5,8 & BOPET</h2>
     <h4>SHIFT <?php echo $shift;?></h4>
 
-        <table>
+                    
+<table>
         <?php include 'pilih-unit-compressor.php'; ?>
             <thead>
             <tr>
@@ -118,5 +119,6 @@
             </tr>
             </tbody>
         </table>
+        <span class="legalDoc" style="margin-top: -25px;">H1-CMC-21-24R0</span><br><br>
         <button type="submit" class="btn" id="save-button">SAVE</button>
     </form>

@@ -1,14 +1,13 @@
 <?php
-
+$unit = 'trafo_daily_bopet';
 include 'database.php';
 $tanggal = "" . $_GET['selectedDate'];
-$unit = "" . $_GET['selectedUnit'];
 
 include 'request-view-trafo.php';
 
 ?>
 
-
+<?php if(isset($_GET['selectedUnit'])):?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,16 +28,30 @@ include 'request-view-trafo.php';
 <?php include 'header.php'?>
 <main>
 
+<?php endif;?>
+
 <h2>PENGAMANAN TRAFO AREA BOPET</h2>
-    <?php include 'pilih-tanggal.php'; ?>
+    <?php 
+    if(isset($_GET['selectedUnit'])){
+        include 'pilih-tanggal.php';
+    }?>
 
     <?php if ($article === null): ?>
             <p>Form ini belum terisi</p>
         <?php else: ?>
 
-            <?php include 'verification-form.php'?>
+            <?php 
+                if (isset($_GET['selectedUnit'])){
+                    $area = 'trafo';
+                    echo '<br><br>';
+                    echo '<div class="verif">';
+                     include 'verification-show.php';
+                     echo '</div>';
+                }
+            ?>    
     
-            <table style="width: 55%;">
+                        
+<table >
             <thead>
         <tr>
             <th style="width:3%;">No</th>
@@ -89,7 +102,7 @@ include 'request-view-trafo.php';
                     'kunci_gembok_pintu1', 'kunci_gembok_pintu2', 'kunci_gembok_pintu3', 'kunci_gembok_pintu4', '',
                     'trafo_9_utility', 'trafo_10_produksi', '', 'panel_mvdp', 'panel_lvdp',
                     'panel_capacitor_bank', 'panel_lighting_dan_power', '', 'tray_cable', 'grounding',
-                    'exhaust_fan', 'lampu-lampu', 'stop_kontak', '', 'sapu', 'alat_pel', 'kemoceng',
+                    'exhaust_fan', 'lampu', 'stop_kontak', '', 'sapu', 'alat_pel', 'kemoceng',
                     'pengki', 'tempat_sampah', 'papan_aktivitas_5r', '', 'level_oli_tr9_igbt', 
                     'level_oli_tr9_tank', 'level_oli_tr10_igbt', 'level_oli_tr20_tank'
                 );
@@ -145,9 +158,8 @@ include 'request-view-trafo.php';
         </tbody>
         </article>
         </table>
-
         <?php endif; ?>
-
+        <span class="legalDoc" style="margin-top: -15px;">H1-ETB-41-24R0</span><br><br>
         </main>
     <script>
         document.getElementById("exit").onclick=function (){

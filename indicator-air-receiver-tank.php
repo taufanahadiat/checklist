@@ -3,14 +3,14 @@
                         $lt = 1.05;
                         $ut = 0.95;
 
-                        if (isset($existing_record) && isset($existing_record[$fieldName])) {
-                            $std = $existing_record[$fieldName];
-                        } elseif (isset($article_1) && isset($article_1[$fieldName])) {
+                        if (isset($_GET['selectedDate']) && isset($article_1) && isset($article_1[$fieldName])) {
                             $std = $article_1[$fieldName];
-                        } elseif (isset($article_2) && isset($article_2[$fieldName])) {
+                        } elseif (isset($_GET['selectedDate']) && isset($article_2) && isset($article_2[$fieldName])) {
                             $std = $article_2[$fieldName];
-                        } elseif (isset($article_3) && isset($article_3[$fieldName])) {
+                        } elseif (isset($_GET['selectedDate']) && isset($article_3) && isset($article_3[$fieldName])) {
                             $std = $article_3[$fieldName];
+                        } elseif (isset($existing_record) && isset($existing_record[$fieldName])){
+                            $std = $existing_record[$fieldName];
                         }
                         
                         if ((isset($existing_record) && isset($existing_record[$fieldName])) || (isset($article_1) && isset($article_1[$fieldName])) || (isset($article_2) && isset($article_2[$fieldName])) || (isset($article_3) && isset($article_3[$fieldName]))) {                            
@@ -33,9 +33,9 @@
                         }
                         // Set the style based on the indicator
                         $style = "";
-                        if ($indicator === 2) {
+                        if ($indicator == 2) {
                             $style = "style='color: red;'";//red
-                        } elseif ($indicator === 1) {
+                        } elseif ($indicator == 1) {
                             $style = "style='color: #FFBF00'";//yellow
 
                         }

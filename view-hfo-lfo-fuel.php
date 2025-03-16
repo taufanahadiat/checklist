@@ -1,48 +1,40 @@
 <?php
+$unit_pass = $hfo_lfo_fuel;
 
-require 'database.php';
+    $article = null;
 
-$tanggal = "" . $_GET['selectedDate'];
-$unit = "" . $_GET['selectedUnit'];
+if ($unit_pass == 'hfo_unloading_pump_unit' && isset($article_hfoUnload)) {
+    $article = $article_hfoUnload;
+}
 
-include 'request-view.php';
-?>
+if ($unit_pass == 'fuel_transfer_pump_unit' && isset($article_fuel)) {
+    $article = $article_fuel;
+}
 
+if ($unit_pass == 'hfo_separator_pump_unit' && isset($article_hfoSeparator)) {
+    $article = $article_hfoSeparator;
+}
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Checklist</title>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/x-icon" href="../../img/icon.ico">
-    <link rel="stylesheet" href="fontawesome/css/all.css">
+if ($unit_pass == 'lfo_unloading_pump_unit' && isset($article_lfoUnloading)) {
+    $article = $article_lfoUnloading;
+}
 
-</head>
-
-<body>
-<?php include 'header.php'; ?>    
-<?php
-$unit_headings = array(
-    "hfo_unloading_pump_unit" => "HFO Unloading Pump Unit",
-    "fuel_transfer_pump_unit" => "Fuel Transfer Pump Unit",
-    "hfo_separator_pump_unit"=> "HFO Separator Pump Unit",
-    "lfo_unloading_pump_unit"=> "LFO Unloading Pump Unit"
-);
-
-if (array_key_exists($unit, $unit_headings)):
     ?>
-    <h2><?php echo $unit_headings[$unit]; ?></h2>
-<?php endif; ?>
 
-<?php require 'pilih-tanggal.php'; ?>
-
-    <main>
         <?php if ($article === null): ?>
             <p>Form ini belum terisi</p>
         <?php else: ?>
-            <?php include 'verification-form.php'?>
-            <table>
+            <?php 
+                if (isset($_GET['selectedUnit'])){
+                    $unit = 'genset_man';
+                    echo '<br><br>';
+                    echo '<div class="verif">';
+                     include 'verification-show.php';
+                     echo '</div>';
+                }
+            ?>
+                        
+<table>
                 <thead>
                     <th colspan="3">Time</th>
                     <th>08.00</th>
@@ -131,14 +123,17 @@ if (array_key_exists($unit, $unit_headings)):
                 </tbody>
                 </article>
         </table>
-
+        <span class="legalDoc" style="margin-top: -25px;">
+            <?php if ($unit_pass == 'hfo_unloading_pump_unit'){
+                echo 'H1-GHUP-27-24R0';
+            } elseif ($unit_pass == 'fuel_transfer_pump_unit'){
+                echo 'H1-GFTP-28-24R0';
+            } elseif ($unit_pass == 'hfo_separator_pump_unit'){
+                echo 'H1-HFSP-36-24R0';
+            } elseif ($unit_pass == 'lfo_unloading_pump_unit'){
+                echo 'H1-LUUP-37-24R0';
+            } 
+        ?></span>
+        <br>
         <?php endif; ?>
-    </main>
-    <script>
-        document.getElementById("exit").onclick=function (){
-            location.href = 'selection.php'
-        }
-    </script>
 
-</body>
-</html>

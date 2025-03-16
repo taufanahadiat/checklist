@@ -1,0 +1,19 @@
+verif
+boiler 45-a
+chiller 67bopet
+compressor 45
+genset genset_man
+crane	line 4 crane 21 singlegirder
+	line 5 crane 39 singlegirder
+	line 6 crane 53ab doublegirder
+	line 7 crane 73ab doublegirder
+	line 8 crane 86ab doublegirder
+	bopet crane 30ab doublegirder
+	metz crane 45 monorail
+	coating crane 46 monoreail
+	smallslit crane 14 singlegirder
+trafo office
+pmTrafo
+lvdp
+capbank
+grounding

@@ -1,5 +1,4 @@
 <?php
-
 if (session_id() == '') {
   session_start();
 }
@@ -10,8 +9,8 @@ if (empty($_SESSION['loggedin'])) {
 
 include "../include/db.php";
 $query = "SELECT first_name,ID,typeUser FROM user WHERE email = '$_SESSION[sesi_user]'";				
-$hasil = mysql_query($query,$consql);
-$baris = mysql_fetch_row($hasil);
+$hasil = mysqli_query($consql, $query);
+$baris = mysqli_fetch_row($hasil);
 $_SESSION['name_user'] = $baris[0];
 $_SESSION['id'] = $baris[1];
 $_SESSION['type_user'] = $baris[2];
@@ -49,6 +48,7 @@ $currentTimestamp = time(); // Get the current server timestamp
 #browser-warning p {
     margin: 0;
 }
+
 </style>
 
 <div class="header-img">
@@ -56,9 +56,6 @@ $currentTimestamp = time(); // Get the current server timestamp
   <img id="exit" src="css/exit.png" alt="Exit"><br>
 </div>
 
-<div id="browser-warning" class="hidden">
-        <p>Your browser is not compatible with this page. Please use a modern browser like Google Chrome, Mozilla Firefox, or Microsoft Edge.</p>
-</div>
 
 <header>
   <h1>ONLINE CHECKLIST</h1>
@@ -67,9 +64,12 @@ $currentTimestamp = time(); // Get the current server timestamp
     <p class="sideinfo" style="color: #314775; font-weight: 650">
     &nbsp;<i class="fa-solid fa-user"></i>&nbsp;<?php echo "$baris[0]"; ?>&nbsp;|&nbsp;
 </p>
-
   </div>
+
 </header>
+<button id="scrollToTopBtn" onclick="scrollToTop()">
+            <i class="fa-solid fa-angles-up"></i>
+        </button>
 
 <script src="js/crypto-js.min.js"></script>
 <script>
@@ -106,7 +106,7 @@ $currentTimestamp = time(); // Get the current server timestamp
 
   function showPasswordModal() {
     // Check if the session ID is 13107
-    if (<?php echo $_SESSION['id']; ?> === 13107 || <?php echo $_SESSION['id']; ?> === 14201) {
+    //if (<?php //echo $_SESSION['id']; ?> === 13107 || <?php //echo $_SESSION['id']; ?> === 14201) {
         var form = document.getElementById("verificationForm");
         var formData = new FormData(form);
 
@@ -127,19 +127,20 @@ $currentTimestamp = time(); // Get the current server timestamp
             console.error('Error:', error);
             alert("An error occurred. Please try again.");
         });
-    } else {
-        // Show the password modal if session ID is not 13107
-        document.getElementById("passwordModal").style.display = "block";
-        var passwordInput = document.getElementById("passwordInput");
-        passwordInput.focus(); // Automatically focus on the password input field
-
-        document.getElementById("passwordInput").addEventListener("keypress", function(event) {
-            if (event.key === "Enter") {
-                event.preventDefault(); // Prevent the default form submission behavior
-                verifyPassword(); // Trigger the verifyPassword function
-            }
-        });
-    }
+    //} 
+    //else {
+    //    // Show the password modal if session ID is not 13107
+    //    document.getElementById("passwordModal").style.display = "block";
+    //    var passwordInput = document.getElementById("passwordInput");
+    //    passwordInput.focus(); // Automatically focus on the password input field
+//
+    //    document.getElementById("passwordInput").addEventListener("keypress", function(event) {
+    //        if (event.key === "Enter") {
+    //            event.preventDefault(); // Prevent the default form submission behavior
+    //            verifyPassword(); // Trigger the verifyPassword function
+    //        }
+    //    });
+    //}
 }
 
 
@@ -204,15 +205,53 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function toggleLegend() {
-        const legendTable = document.getElementById('legendTable');
-        const legendBtn = document.getElementById('legendBtn');
-        if (legendTable.style.display === 'none' || legendTable.style.display === '') {
-            legendTable.style.display = 'block';
-            legendBtn.textContent = 'Hide Legend';
-        } else {
-            legendTable.style.display = 'none';
-            legendBtn.textContent = 'Show Legend';
+    const legendTable = document.getElementById('legendTable');
+    const monthTable = document.getElementById('monthTable');
+    const legendBtn = document.getElementById('legendBtn');
+    
+    // Check if 'selectedUnit' exists in the URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const hasSelectedUnit = urlParams.has('selectedUnit');
+
+    if ((legendTable.style.display === 'none' || legendTable.style.display === '') && hasSelectedUnit) {
+        legendTable.style.display = 'block';
+        legendBtn.textContent = 'Hide Legend';
+    } else if (hasSelectedUnit){
+        legendTable.style.display = 'none';
+        legendBtn.textContent = 'Show Legend';
+    } else if (legendTable.style.display === 'none' || legendTable.style.display === ''){
+        legendTable.style.display = 'block';
+        if (monthTable){
+            monthTable.style.display = 'block';
         }
+        legendBtn.textContent = 'Hide Checker';  
+    } else {
+        legendTable.style.display = 'none';
+        if (monthTable){
+        monthTable.style.display = 'none';
         }
+        legendBtn.textContent = 'Show Checker';
+    }
+}
+
+
+        
+            // Show the button when scrolling down
+    window.addEventListener('scroll', () => {
+      const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+      if (window.scrollY > 200) {
+        scrollToTopBtn.style.display = 'flex'; // Use flex for centering the icon
+      } else {
+        scrollToTopBtn.style.display = 'none';
+      }
+    });
+
+    // Function to scroll to top of the body
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth' // Smooth scrolling effect
+      });
+    }
 
 </script>

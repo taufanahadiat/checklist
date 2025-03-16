@@ -1,15 +1,17 @@
 <?php
 
 include 'database.php';
+$unit = 'crane_single_girder';
 $tanggal = "" . $_GET['selectedMonth'];
-$line = "" . $_GET['selectedLine'];
-$unit = "" . $_GET['selectedUnit'];
-
-include 'request-view-crane.php';
-
+$bulan = $tanggal;
+if(!isset($_GET['selectedLineAll'])){
+    $line = "" . $_GET['selectedLine'];
+    $unit = "" . $_GET['selectedUnit'];   
+}
+include 'request-view-crane.php'; 
 ?>
 
-
+<?php if (!isset($_GET['selectedLineAll'])):?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,7 +31,7 @@ include 'request-view-crane.php';
 <body>
 <?php include 'header.php'?>
 <main>
-
+<?php endif;?>
 <h2>
     <strong>CRANE SINGLE GIRDER</strong>
     <br>
@@ -58,16 +60,73 @@ include 'request-view-crane.php';
 
     echo $formattedUnit;
 ?></h4>
-    <?php include 'pilih-tanggal.php'; ?>
+    <?php 
+    if(!isset($_GET['selectedLineAll'])){
+        include 'pilih-tanggal.php'; 
+    } else {
+        if ($key === $firstKey) {
+$area = 'crane_' . $_GET['selectedLineAll'];           
+include 'verification-form.php';
+        }
+    }
+    ?>
 
     <h3>Datasheet Preventive Maintenance</h3>
     <?php if ($article === null): ?>
             <p>Form ini belum terisi</p>
         <?php else: ?>
 
-            <?php include 'verification-form.php'?>
-    
-            <table>
+            <?php 
+                if (!isset($_GET['selectedLineAll'])){
+                    $areaCrane = $_GET['selectedArea'];
+                    switch ($areaCrane){
+                        case 'line4':
+                            $unit = 'crane_single_girder';
+                            $line = 'crane_21,die,line_4';
+                            break;
+                        case 'line5':
+                            $unit = 'crane_single_girder';
+                            $line = 'crane_39,die,line_5';
+                            break;
+                        case 'line6':
+                            $unit = 'crane_double_girder';
+                            $line = 'crane_53ab,proses,line_6'; 
+                            break;
+                        case 'line7':
+                            $unit = 'crane_double_girder';
+                            $line = 'crane_73ab,proses,line_7'; 
+                            break;
+                        case 'line8':
+                            $unit = 'crane_double_girder';
+                            $line = 'crane_86ab,big_slitter_cc,line_8'; 
+                            break;
+                        case 'line_bopet':
+                            $unit = 'crane_double_girder';
+                            $line = 'crane_30ab,big_slitter_ta,line_bopet'; 
+                            break;
+                        case 'metalize':
+                            $unit = 'crane_monorail';
+                            $line = 'crane_45,proses,metalize_1'; 
+                            break;
+                        case 'coating':
+                            $unit = 'crane_monorail';
+                            $line = 'crane_26,pvdc,coating_1'; 
+                            break;
+                        case 'small_slitter':
+                            $unit = 'crane_single_girder';
+                            $line = 'crane_14,ex_slitter_c,line_3'; 
+                            break;
+                    }
+                                        $area = "crane_" . $areaCrane;
+echo '<div class="verif">';
+                     include 'verification-show.php';
+                     echo '</div>';
+                     $unit = "" . $_GET['selectedUnit'];   
+                     $line = "" . $_GET['selectedLine'];
+                }
+            ?>    
+                        
+<table>
         <thead>
             <tr>
                 <th style="width:2%;">No</th>
@@ -102,7 +161,7 @@ include 'request-view-crane.php';
                 "Tegangan (V)", "Arus Motor Fast (A)", "Arus Motor Slow (A)", "Brake System",
                 "Tegangan (V)", "Arus Motor Fast (A)", "Arus Motor Slow (A)", "Brake System",
                 "Tegangan (V)", "Arus Motor Fast (A)", "Arus Motor Slow (A)", "Brake System",
-                "Perika & Cleaning", "Periksa & Kencangkan", "Push Button", "Kabel"
+                "Periksa & Cleaning", "Periksa & Kencangkan", "Push Button", "Kabel"
             );
         // Keterangan fields array
         $notes = array(
@@ -112,7 +171,6 @@ include 'request-view-crane.php';
         );
 
         $fieldIndex = 0;
-
         // Loop through each description
         foreach ($desc as $index => $description) {
             // Determine whether to start a new group (Hoist/Cross/etc.)
@@ -138,7 +196,6 @@ include 'request-view-crane.php';
                     echo '<th class="parameter" rowspan="2">6</th>';
                     echo '<th class="measure2" rowspan="2">Pendant Switch</th>';
                 } 
-
             }
 
             // Add the description and corresponding fields
@@ -190,7 +247,8 @@ include 'request-view-crane.php';
         </article>
         </table>
         <h3>Pengecekan Kondisi Crane</h3>
-        <table style="width: 80%; margin-left:0; margin-right:0; float:left;">
+                    
+<table style="width: 80%; margin-left:0; margin-right:0; float:left;">
         <thead>
             <tr>
                 <th style="width:15%;">Hoisting Unit</th>
@@ -356,10 +414,13 @@ include 'request-view-crane.php';
                 echo "</td>";
             ?>
             </tr>
+                </tbody>
+        </article>
+</table>
 
         <?php endif; ?>
-
-        </main>
+<?php if (!isset($_GET['selectedLineAll'])):?>
+            </main>
     <script>
         document.getElementById("exit").onclick=function (){
             location.href = 'selection.php'
@@ -368,3 +429,4 @@ include 'request-view-crane.php';
 
 </body>
 </html>
+<?php endif;?>

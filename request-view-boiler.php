@@ -16,7 +16,7 @@ $existing_record = mysqli_fetch_assoc($result_select);
 
 //Viewing all data at View Menu
 
-$sql = "SELECT * FROM boiler WHERE line LIKE '%{$line}%' AND tanggal LIKE '%{$tanggal}%'";
+$sql = "SELECT * FROM boiler WHERE line LIKE '$line' AND tanggal LIKE '$tanggal'";
 $results = mysqli_query($conn, $sql);
 
 if ($results === false) {
@@ -35,30 +35,8 @@ if ($result && mysqli_num_rows($result) > 0) {
 }
 
 
-// Function to format the value
-function formatValue($value) {
-    if (is_numeric($value)) {
-        // If the value is a float and has .00 as decimals, return it as an integer
-        if (floor($value) == $value) {
-            return number_format(intval($value));
-        } else {
-            // Return the value formatted with commas but preserving its decimal part
-            return number_format($value, 2);
-        }
-    } else {
-        // Otherwise, return the original value
-        return $value;
-    }
-}
 
-// Example usage:
-$value = 10.00;
-//echo formatValue($value); // Output: 10
-
-$value = 10.50;
-//echo formatValue($value); // Output: 10.5
 ?>
-
 <script>
         $(document).ready(function() {
         $('.clear-btn').click(function() {

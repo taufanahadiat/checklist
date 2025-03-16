@@ -1,4 +1,12 @@
 <?php
+if (!isset($_GET['selectedUnit'])) {
+    $article_trane_1 = null;
+    $article_trane_2 = null;
+    $article_trane_3 = null;
+    $article_hitachi_1 = null;
+    $article_hitachi_2 = null;
+    $article_hitachi_3 = null;
+    }
 // For view-all-chiller.php
 // For Trane articles
 if (isset($article_45met34_trane_1)) {
@@ -32,7 +40,15 @@ if (isset($article_45met34_hitachi_3)) {
     <?php if ($article_trane_1 === null && $article_trane_2 === null && $article_trane_3 === null): ?>
             <p>Form ini belum terisi</p>
         <?php else: ?>
-    <table>
+            <?php 
+                if (isset($_GET['selectedUnit'])){
+                    $unit_trane = 'chiller_trane_67bopet';
+                    echo '<div class="verif">';
+                     include 'verification-show.php';
+                     echo '</div>';
+                }
+            ?>                
+<table>
         <thead>
             <tr>
                 <th rowspan="2">DESCRIPTION</th>
@@ -58,9 +74,25 @@ if (isset($article_45met34_hitachi_3)) {
                 <td colspan="3">TEMP</td>
             </tr>
 
+            <tr class="head">
+                <td>Standard</td>
+                <td colspan="3"></td>
+                <td colspan="3">&lt;20</td>
+                <td colspan="3">6~13</td>
+                <td colspan="3">27~37</td>
+                <td colspan="3">32~42</td>
+                <td colspan="3">3~5</td>
+                <td colspan="3">2.5~4.5</td>
+                <td colspan="3">1~3</td>
+                <td colspan="3">0.5~2.5</td>
+                <td colspan="3">5~10</td>
+                <td colspan="3">50~100</td>
+                <td colspan="3">1~7</td>
+            </tr>
+
         </thead>
         <thead class="head">
-            <tr>
+            <tr style="background-color:dimgray">
                 <td>Uom</td>
                 <td colspan="3">-</td>
                 <td colspan="3">°C</td>
@@ -108,14 +140,17 @@ if (isset($article_45met34_hitachi_3)) {
                         <?php foreach ($field_names as $field) : ?>
                             <?php
                             $fieldName = strtolower(str_replace(' ', '', $unit)) . '_' . $field; 
+                            include 'indicator-chiller45trane.php';
                             $formatted_value_trane_1 = isset($article_trane_1[$fieldName]) ? formatValue($article_trane_1[$fieldName]) : '';
-                            echo "<td style='width:20px; padding: 2px;'>$formatted_value_trane_1</td>";
-                            
+                            echo "<td $style>$formatted_value_trane_1</td>";
+                            $article_trane_1[$fieldName] = null;
+                            include 'indicator-chiller45trane.php';
                             $formatted_value_trane_2 = isset($article_trane_2[$fieldName]) ? formatValue($article_trane_2[$fieldName]) : '';
-                            echo "<td style='width:20px; padding: 2px;'>$formatted_value_trane_2</td>";
-                            
+                            echo "<td $style>$formatted_value_trane_2</td>";
+                            $article_trane_2[$fieldName] = null;
+                            include 'indicator-chiller45trane.php';                            
                             $formatted_value_trane_3 = isset($article_trane_3[$fieldName]) ? formatValue($article_trane_3[$fieldName]) : '';
-                            echo "<td style='width:20px; padding: 2px;'>$formatted_value_trane_3</td>";                            
+                            echo "<td $style>$formatted_value_trane_3</td>";                            
                             ?>
                         <?php endforeach; ?>
                     </tr>
@@ -160,13 +195,15 @@ if (isset($article_45met34_hitachi_3)) {
                 </tbody>
                 </article>
         </table>
+        <span class="legalDoc" style="margin-top: -25px;">H1-OCCT-15-24R0</span><br><br>
         <?php endif; ?>
         <h3> Chiller Hitachi</h3>
         <?php if ($article_hitachi_1 === null && $article_hitachi_2 === null && $article_hitachi_3 === null): ?>
             <p>Form ini belum terisi</p>
         <?php else: ?>
     
-    <table>
+                
+<table>
     <thead>
             <tr>
             <th rowspan="2" colspan="2">DESCRIPTION</th>
@@ -194,9 +231,25 @@ if (isset($article_45met34_hitachi_3)) {
                 <td colspan="3">OUT</td>
             </tr>
 
+            <tr class="head">
+                <td colspan="2">Standard</td>
+                <td colspan="3"></td>
+                <td colspan="3">&lt;2.45</td>
+                <td colspan="3">&lt;20</td>
+                <td colspan="3">5~13</td>
+                <td colspan="3">27~37</td>
+                <td colspan="3">32~42</td>
+                <td colspan="3">5~10</td>
+                <td colspan="3">1~2</td>
+                <td colspan="3">3~5</td>
+                <td colspan="3">2.5~4.5</td>
+                <td colspan="3">1~3</td>
+                <td colspan="3">0.2~2.5</td>
+            </tr>
+
         </thead>
         <thead class="head">
-            <tr>
+        <tr style="background-color:dimgray">
                 <td colspan="2">Uom</td>
                 <td colspan="3">-</td>
                 <td colspan="3">Mpa</td>
@@ -263,14 +316,17 @@ if (isset($article_45met34_hitachi_3)) {
                             }                
                             ?>
                             <?php
+                            include 'indicator-chiller45hitachi.php';
                                 $formatted_value_hitachi_1 = isset($article_hitachi_1[$inputName]) ? formatValue($article_hitachi_1[$inputName]) : '';
-                                echo "<td $rowSpan style='width:20px; padding: 2px;'>$formatted_value_hitachi_1</td>";
-
+                                echo "<td $rowSpan $style>$formatted_value_hitachi_1</td>";
+                                $article_hitachi_1[$inputName] = null;
+                                include 'indicator-chiller45hitachi.php';
                                 $formatted_value_hitachi_2 = isset($article_hitachi_2[$inputName]) ? formatValue($article_hitachi_2[$inputName]) : '';
-                                echo "<td $rowSpan style='width:20px; padding: 2px;'>$formatted_value_hitachi_2</td>";
-
+                                echo "<td $rowSpan $style>$formatted_value_hitachi_2</td>";
+                                $article_hitachi_2[$inputName] = null;
+                                include 'indicator-chiller45hitachi.php';
                                 $formatted_value_hitachi_3 = isset($article_hitachi_3[$inputName]) ? formatValue($article_hitachi_3[$inputName]) : '';
-                                echo "<td $rowSpan style='width:20px; padding: 2px;'>$formatted_value_hitachi_3</td>";
+                                echo "<td $rowSpan $style>$formatted_value_hitachi_3</td>";
 
                             ?>
                         <?php endforeach; ?>
@@ -319,4 +375,5 @@ if (isset($article_45met34_hitachi_3)) {
                 </tbody>
                 </article>
         </table>
+        <span class="legalDoc" style="margin-top: -25px;">H1-OCCH-18-24R0</span><br><br>
         <?php endif; ?>

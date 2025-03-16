@@ -1,15 +1,17 @@
 <?php
 
 include 'database.php';
+$unit = 'crane_double_girder';
 $tanggal = "" . $_GET['selectedMonth'];
-$line = "" . $_GET['selectedLine'];
-$unit = "" . $_GET['selectedUnit'];
-
-include 'request-view-crane.php';
-
+$bulan = $tanggal;
+if(!isset($_GET['selectedLineAll'])){
+    $line = "" . $_GET['selectedLine'];
+    $unit = "" . $_GET['selectedUnit'];   
+}
+include 'request-view-crane.php'; 
 ?>
 
-
+<?php if (!isset($_GET['selectedLineAll'])):?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,7 +31,7 @@ include 'request-view-crane.php';
 <body>
 <?php include 'header.php'?>
 <main>
-
+<?php endif;?>
 <h2>
     <strong>CRANE DOUBLE GIRDER</strong>
     <br>
@@ -58,16 +60,73 @@ include 'request-view-crane.php';
 
     echo $formattedUnit;
 ?></h4>
-    <?php include 'pilih-tanggal.php'; ?>
-
+    <?php 
+    if(!isset($_GET['selectedLineAll'])){
+        include 'pilih-tanggal.php'; 
+    } else {
+        if ($key === $firstKey) {
+$area = 'crane_' . $_GET['selectedLineAll'];           
+include 'verification-form.php';
+        }
+    }
+    ?>
     <h3>Datasheet Preventive Maintenance</h3>
     <?php if ($article === null): ?>
             <p>Form ini belum terisi</p>
         <?php else: ?>
 
-            <?php include 'verification-form.php'?>
+            <?php 
+                if (!isset($_GET['selectedLineAll'])){
+                    $areaCrane = $_GET['selectedArea'];
+                    switch ($areaCrane){
+                        case 'line4':
+                            $unit = 'crane_single_girder';
+                            $line = 'crane_21,die,line_4';
+                            break;
+                        case 'line5':
+                            $unit = 'crane_single_girder';
+                            $line = 'crane_39,die,line_5';
+                            break;
+                        case 'line6':
+                            $unit = 'crane_double_girder';
+                            $line = 'crane_53ab,proses,line_6'; 
+                            break;
+                        case 'line7':
+                            $unit = 'crane_double_girder';
+                            $line = 'crane_73ab,proses,line_7'; 
+                            break;
+                        case 'line8':
+                            $unit = 'crane_double_girder';
+                            $line = 'crane_86ab,big_slitter_cc,line_8'; 
+                            break;
+                        case 'line_bopet':
+                            $unit = 'crane_double_girder';
+                            $line = 'crane_30ab,big_slitter_ta,line_bopet'; 
+                            break;
+                        case 'metalize':
+                            $unit = 'crane_monorail';
+                            $line = 'crane_45,proses,metalize_1'; 
+                            break;
+                        case 'coating':
+                            $unit = 'crane_monorail';
+                            $line = 'crane_26,pvdc,coating_1'; 
+                            break;
+                        case 'small_slitter':
+                            $unit = 'crane_single_girder';
+                            $line = 'crane_14,ex_slitter_c,line_3'; 
+                            break;
+                    }
+                                        $area = "crane_" . $areaCrane;
+echo '<div class="verif">';
+                     include 'verification-show.php';
+                     echo '</div>';
+                     $unit = "" . $_GET['selectedUnit'];   
+                     $line = "" . $_GET['selectedLine'];
+                }
+            ?>    
     
-            <table>
+                        
+<table>
         <thead>
             <tr>
                 <th style="width:2%;">No</th>
@@ -110,7 +169,7 @@ include 'request-view-crane.php';
                 "Tegangan (V)", "Arus Motor Fast (A)", "Arus Motor Slow (A)", "Brake System",
                 "Tegangan (V)", "Arus Motor Fast (A)", "Arus Motor Slow (A)", "Brake System",
                 "Tegangan (V)", "Arus Motor Fast (A)", "Arus Motor Slow (A)", "Brake System",
-                "Perika & Cleaning", "Periksa & Kencangkan", "Push Button", "Kabel"
+                "Periksa & Cleaning", "Periksa & Kencangkan", "Push Button", "Kabel"
             );
         // Keterangan fields array
         $notes = array(
@@ -130,24 +189,29 @@ include 'request-view-crane.php';
                 // Set the first column as "Hoist" or "Cross"
                 if ($index == 0) {
                     echo '<th class="parameter" rowspan="4">1</th>';
-                    echo '<th class="measure2" rowspan="4">Hoist</th>';
+                    echo '<th class="measure2" rowspan="4">Hoist A</th>';
                 } elseif ($index == 4) {
                     echo '<th class="parameter" rowspan="4">2</th>';
-                    echo '<th class="measure2" rowspan="4">Cross</th>';
+                    echo '<th class="measure2" rowspan="4">Hoist B</th>';
                 } elseif ($index == 8) {
                     echo '<th class="parameter" rowspan="4">3</th>';
+                    echo '<th class="measure2" rowspan="4">Cross Travel A</th>';
+                } elseif ($index == 12) {
+                    echo '<th class="parameter" rowspan="4">4</th>';
+                    echo '<th class="measure2" rowspan="4">Cross Travel B</th>';
+                } elseif ($index == 16) {
+                    echo '<th class="parameter" rowspan="4">5</th>';
                     echo '<th class="measure2" rowspan="4">Long Travel</th>';
-                } elseif ($index == 12){
-                    echo '<th class="parameter">4</th>';
+                } elseif ($index == 20){
+                    echo '<th class="parameter">6</th>';
                     echo '<th class="measure2">Kontaktor</th>';
-                } elseif ($index == 13){
-                    echo '<th class="parameter">5</th>';
+                } elseif ($index == 21){
+                    echo '<th class="parameter">7</th>';
                     echo '<th class="measure2">Koneksi Panel</th>';
-                } elseif ($index == 14){
-                    echo '<th class="parameter" rowspan="2">6</th>';
+                } elseif ($index == 22){
+                    echo '<th class="parameter" rowspan="2">8</th>';
                     echo '<th class="measure2" rowspan="2">Pendant Switch</th>';
                 } 
-
             }
 
             // Add the description and corresponding fields
@@ -199,7 +263,8 @@ include 'request-view-crane.php';
         </article>
         </table>
         <h3>Pengecekan Kondisi Crane</h3>
-        <table style="width: 80%; margin-left:0; margin-right:0; float:left;">
+                    
+<table style="width: 80%; margin-left:0; margin-right:0; float:left;">
         <thead>
             <tr>
                 <th>Hoisting Unit A</th>
@@ -285,7 +350,7 @@ include 'request-view-crane.php';
                 "&nbsp;&nbsp;&nbsp;a. Rectifier", "&nbsp;&nbsp;&nbsp;b. Brake Coil", "&nbsp;&nbsp;&nbsp;c. Brake Disc",
                 "&nbsp;&nbsp;&nbsp;d. Bearings", "&nbsp;&nbsp;&nbsp;e. Fan & Cover", "3. End Carriage Frame Condition",
                 "4. Bridge Driving Wheel", "&nbsp;&nbsp;&nbsp;a. Bearings", "&nbsp;&nbsp;&nbsp;b. Wheel",
-                "4. Bridge Idle Wheel", "&nbsp;&nbsp;&nbsp;a. Bearings", "&nbsp;&nbsp;&nbsp;b. Wheel"
+                "5. Bridge Idle Wheel", "&nbsp;&nbsp;&nbsp;a. Bearings", "&nbsp;&nbsp;&nbsp;b. Wheel"
             );
 
             $structure_field = array (
@@ -314,13 +379,13 @@ include 'request-view-crane.php';
 
             $max_row1 = max(count($hoista_desc), count($hoistb_desc), count($trolleya_desc), count($trolleyb_desc));
 
-    for ($i = 0; $i < $max_rows; $i++) {
+    for ($i = 0; $i < $max_row1; $i++) {
         echo '<tr>';
 
         if (isset($hoista_desc[$i])) {
             echo '<th class="measure" style="text-align:left">' . $hoista_desc[$i] . '</th>';
                 echo "<td>";
-                if($hoista_desc[$i] !== "11. Hoisting Gearbox" && $hoista_desc[$i] !== "12. Hoisting Motor"){
+                if($hoista_desc[$i] !== "8. Hoisting Gearbox" && $hoista_desc[$i] !== "9. Hoisting Motor"){
                 echo htmlspecialchars(formatValue($article[$hoista_field[$i]]));
                 }
                 echo "</td>";
@@ -331,7 +396,7 @@ include 'request-view-crane.php';
         if (isset($hoistb_desc[$i])) {
             echo '<th class="measure" style="text-align:left">' . $hoistb_desc[$i] . '</th>';
                 echo "<td>";
-                if($hoistb_desc[$i] !== "11. Hoisting Gearbox" && $hoistb_desc[$i] !== "12. Hoisting Motor"){
+                if($hoistb_desc[$i] !== "8. Hoisting Gearbox" && $hoistb_desc[$i] !== "9. Hoisting Motor"){
                 echo htmlspecialchars(formatValue($article[$hoistb_field[$i]]));
                 }
                 echo "</td>";
@@ -339,17 +404,47 @@ include 'request-view-crane.php';
             echo '<td></td><td></td>';
         }
 
-        if (isset($trolley_desc[$i])) {
-            echo '<th class="measure" style="text-align:left">' . $trolley_desc[$i] . '</th>';
+        if (isset($trolleya_desc[$i])) {
+            echo '<th class="measure" style="text-align:left">' . $trolleya_desc[$i] . '</th>';
                 echo "<td>";
-                if($trolley_desc[$i] !== "1. Trolley Gearbox" && $trolley_desc[$i] !== "2. Trolley Motor"  && $trolley_desc[$i] !== "4. Trolley Driving Wheel"  && $trolley_desc[$i] !== "5. Trolley Idle Wheel"){
-                echo htmlspecialchars(formatValue($article[$trolley_field[$i]]));
+                if($trolleya_desc[$i] !== "1. Trolley Gearbox" && $trolleya_desc[$i] !== "2. Trolley Motor"  && $trolleya_desc[$i] !== "4. Trolley Driving Wheel"  && $trolleya_desc[$i] !== "5. Trolley Idle Wheel"){
+                echo htmlspecialchars(formatValue($article[$trolleya_field[$i]]));
                 }
                 echo "</td>";
-        } else {
+            } else {
             echo '<td></td><td></td>';
         }
 
+        if (isset($trolleyb_desc[$i])) {
+            echo '<th class="measure" style="text-align:left">' . $trolleyb_desc[$i] . '</th>';
+                echo "<td>";
+                if($trolleyb_desc[$i] !== "1. Trolley Gearbox" && $trolleyb_desc[$i] !== "2. Trolley Motor"  && $trolleyb_desc[$i] !== "4. Trolley Driving Wheel"  && $trolleyb_desc[$i] !== "5. Trolley Idle Wheel"){
+                    echo htmlspecialchars(formatValue($article[$trolleyb_field[$i]]));
+                }
+                echo "</td>";
+            } else {
+            echo '<td></td><td></td>';
+        }
+
+        echo '</tr>';
+    }
+        ?>
+        <thead>
+            <tr>
+                <th>Bridge Unit</th>
+                <td>Check</td>
+                <th>Structure</th>
+                <td>Check</td>
+                <th>Electrical System</th>
+                <td>Check</td>
+                <td colspan="2"></td>
+            </tr>
+        </thead>
+
+        <?php
+    $max_row2 = max(count($bridge_desc), count($structure_desc), count($electrical_desc));
+    for ($i = 0; $i < $max_row2; $i++) {
+        echo '<tr>';
         if (isset($bridge_desc[$i])) {
             echo '<th class="measure" style="text-align:left">' . $bridge_desc[$i] . '</th>';
                 echo "<td>";
@@ -357,7 +452,7 @@ include 'request-view-crane.php';
                 echo htmlspecialchars(formatValue($article[$bridge_field[$i]]));
                 }
                 echo "</td>";
-        } else {
+            } else {
             echo '<td></td><td></td>';
         }
 
@@ -366,24 +461,25 @@ include 'request-view-crane.php';
                 echo "<td>";
                 echo htmlspecialchars(formatValue($article[$structure_field[$i]]));
                 echo "</td>";
-        } else {
+            } else {
             echo '<td></td><td></td>';
         }
 
         if (isset($electrical_desc[$i])) {
             echo '<th class="measure" style="text-align:left">' . $electrical_desc[$i] . '</th class="measure" style="text-align:left">';
                 echo "<td>";
-                if($electrical_desc[$i] !== "3. Contactors" && $electrical_desc[$i] !== "7. Inverters"){
+                if($electrical_desc[$i] !== "3. Contactors" && $electrical_desc[$i] !== "6. Inverters" && $electrical_desc[$i] !== "9. Festoon System"){
                 echo htmlspecialchars(formatValue($article[$electrical_field[$i]]));
                 }
                 echo "</td>";
-        } else {
+            } else {
             echo '<td></td><td></td>';
         }
-
+        echo '<td colspan="2"></td>';
         echo '</tr>';
     }
         ?>
+
                     <tr>
                 <th class="parameter" colspan="2">Entry By</th>
                <?php 
@@ -404,10 +500,14 @@ include 'request-view-crane.php';
                 echo "</td>";
             ?>
             </tr>
+            </tbody>
+        </article>
+</table>
 
         <?php endif; ?>
 
-        </main>
+        <?php if (!isset($_GET['selectedLineAll'])):?>
+            </main>
     <script>
         document.getElementById("exit").onclick=function (){
             location.href = 'selection.php'
@@ -416,3 +516,4 @@ include 'request-view-crane.php';
 
 </body>
 </html>
+<?php endif;?>

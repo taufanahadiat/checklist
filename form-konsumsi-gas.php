@@ -3,18 +3,6 @@ $unit = $_GET['selectedUnit']; // Get the 'unit' parameter from the query string
 require_once 'database.php';
 require 'request-konsumsi-gas.php';
 
-// The allowed IP address
-$allowed_ip = array('131.107.7.210', '131.107.109.42');
-// Get the user's IP address
-$user_ip = $_SERVER['REMOTE_ADDR'];
-
-// Check if the user's IP matches the allowed IP
-if ($_SESSION["type_user"] !== '2' && !in_array($user_ip, $allowed_ip)) {
-    // If not, set an error message and redirect to selection.php
-    echo "<script>alert('Anda sedang tidak terhubung dengan WiFi di area Genset. Pastikan koneksi WiFi anda tidak terputus'); window.location.href = './selection.php';</script>";
-    exit();
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -48,7 +36,10 @@ if ($_SESSION["type_user"] !== '2' && !in_array($user_ip, $allowed_ip)) {
 <?php include 'header.php'; ?>
 <main>
     <h2>FORM REPORT KONSUMSI GAS<br>Bulan: <?php echo $monthName; ?></h2>
-    <table style="overflow-x: auto; display: block; width: 100%; max-height: 700px; overflow-y: auto; table-layout: auto;">
+
+    <button class="btn" style="float:left; margin:0;" onclick="exportTableToExcel('tableGas', 'data_report', <?php echo $daysInMonth; ?>);">Export to Excel</button>
+                
+<table id="tableGas" style="overflow-x: auto; display: block; width: 100%; max-height: 700px; overflow-y: auto; table-layout: auto;">
     <form method="post">
         <thead>
             <tr>
@@ -197,7 +188,7 @@ $columns = array(
 
 foreach ($columns as $column => $header) {
     echo "<tr>";
-    echo "<th style='font-size:13px;'>$header</th>";
+    echo "<th class='measure' style='font-size:13px;'>$header</th>";
 
     for ($i = 1; $i <= $daysInMonth; $i++) {
         $currentDate = date('Y-m-') . str_pad($i, 2, '0', STR_PAD_LEFT); // Format the day as 'YYYY-MM-DD'
@@ -271,7 +262,7 @@ echo "<script>
 ?>
 
 <tr>
-    <th style="font-size:13px;">Data Harian Widar</th>
+    <th class='measure' style="font-size:13px;">Data Harian Widar</th>
     <?php
     for ($i = 1; $i <= $daysInMonth; $i++) {
         $currentDate = date('Y-m-') . str_pad($i, 2, '0', STR_PAD_LEFT); // Format the day as 'YYYY-MM-DD'
@@ -292,20 +283,20 @@ echo "<script>
     ?>
 </tr>
 <tr>
-    <th style="font-size:13px;">Selisih Sm³</th>
+    <th class='measure' style="font-size:13px;">Selisih Sm³</th>
     <?php
     for ($i = 1; $i <= $daysInMonth; $i++) {
         $currentDate = date('Y-m-') . str_pad($i, 2, '0', STR_PAD_LEFT); // Format the day as 'YYYY-MM-DD'
 
         // Fetch the existing value from the database
-        $query = "SELECT selisih_sm3 FROM konsumsi_gas WHERE tanggal = '$currentDate'";
+        $query = "SELECT * FROM konsumsi_gas WHERE tanggal = '$currentDate'";
         $result = mysqli_query($conn, $query);
         $row = mysqli_fetch_assoc($result);
 
         // Display the selisih_sm3 value if it exists, otherwise display a placeholder
-        if (isset($row['selisih_sm3'])) {
-            $existingSelisihSm3 = htmlspecialchars($row['selisih_sm3']); // Sanitize output
-            echo '<td>' . $existingSelisihSm3 . '</td>';
+        if (isset($row['data_harian_widar'])) {
+            $selisihSm3 = $row['data_harian_widar'] - $row['total_pemakaian_sm3']; // Sanitize output
+            echo '<td>' . $selisihSm3 . '</td>';
         } else {
             echo '<td>-</td>'; // Display 'N/A' if no value exists
         }
@@ -313,7 +304,7 @@ echo "<script>
     ?>
 </tr>
 <tr>
-    <th style="font-size:13px;">MMBTU Widar</th>
+    <th class='measure' style="font-size:13px;">MMBTU Widar</th>
     <?php
     for ($i = 1; $i <= $daysInMonth; $i++) {
         $currentDate = date('Y-m-') . str_pad($i, 2, '0', STR_PAD_LEFT); // Format the day as 'YYYY-MM-DD'
@@ -334,20 +325,20 @@ echo "<script>
     ?>
 </tr>
 <tr>
-    <th style="font-size:13px;">Selisih MMBTU</th>
+    <th class='measure' style="font-size:13px;">Selisih MMBTU</th>
     <?php
     for ($i = 1; $i <= $daysInMonth; $i++) {
         $currentDate = date('Y-m-') . str_pad($i, 2, '0', STR_PAD_LEFT); // Format the day as 'YYYY-MM-DD'
 
         // Fetch the existing value from the database
-        $query = "SELECT selisih_mmbtu FROM konsumsi_gas WHERE tanggal = '$currentDate'";
+        $query = "SELECT * FROM konsumsi_gas WHERE tanggal = '$currentDate'";
         $result = mysqli_query($conn, $query);
         $row = mysqli_fetch_assoc($result);
 
-        // Display the selisih_mmbtu value if it exists, otherwise display a placeholder
-        if (isset($row['selisih_mmbtu'])) {
-            $existingSelisihMMBTU = htmlspecialchars($row['selisih_mmbtu']); // Sanitize output
-            echo '<td>' . $existingSelisihMMBTU . '</td>';
+        // Display the selisih_sm3 value if it exists, otherwise display a placeholder
+        if (isset($row['mmbtu_widar'])) {
+            $selisihMMBTU = $row['mmbtu_widar'] - $row['mmbtu']; // Sanitize output
+            echo '<td>' . $selisihMMBTU . '</td>';
         } else {
             echo '<td>-</td>'; // Display 'N/A' if no value exists
         }
@@ -360,6 +351,7 @@ echo "<script>
 
     </form>
 </main>
+<script src="js/exceljs.min.js"></script>
 <script>
 document.getElementById("exit").onclick = function() {
     location.href = 'selection.php';
@@ -374,6 +366,64 @@ function goToViewBoiler(selectedLine, selectedMonth) {
     var selectedDate = selectedMonth + '-01';
     // Redirect to the specified URL
     location.href = 'view-boiler.php?selectedUnit=boiler&selectedLine=' + encodeURIComponent(selectedLine) + '&selectedDate=' + encodeURIComponent(selectedDate);
+}
+
+async function exportTableToExcel(tableID, filename, daysInMonth) {
+    // Determine the correct template based on daysInMonth
+    let templateFile;
+    switch (daysInMonth) {
+        case 31:
+            templateFile = "Template/konsumsiGas31.xlsx";
+            break;
+        case 30:
+            templateFile = "Template/konsumsiGas30.xlsx";
+            break;
+        case 29:
+            templateFile = "Template/konsumsiGas29.xlsx";
+            break;
+        case 28:
+            templateFile = "Template/konsumsiGas28.xlsx";
+            break;
+        default:
+            console.error("Invalid daysInMonth value!");
+            return;
+    }
+
+    // Load ExcelJS Workbook
+    const workbook = new ExcelJS.Workbook();
+    await workbook.xlsx.load(fetch(templateFile).then(res => res.arrayBuffer()));
+
+    const worksheet = workbook.getWorksheet('Sheet1');
+    if (!worksheet) {
+        console.error("Worksheet tidak ditemukan!");
+        return;
+    }
+
+    const table = document.getElementById(tableID);
+    const rows = table.querySelectorAll("tr");
+
+    let startRow = 3;
+    let startCol = 2;
+    rows.forEach((row) => {
+        const cells = row.querySelectorAll("td");
+        cells.forEach((cell, cellIndex) => {
+            let excelCell = worksheet.getCell(startRow, startCol + cellIndex);
+            excelCell.value = cell.innerText;
+        });
+
+        startRow++;
+    });
+
+    const buffer = await workbook.xlsx.writeBuffer();
+    const blob = new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+    
+    // Create download link and trigger download
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = filename + ".xlsx";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 }
 
 function editCell(td, date, column) {

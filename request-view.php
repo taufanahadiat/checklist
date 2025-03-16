@@ -50,6 +50,7 @@ function formatValue($value) {
     }
 }
 
+
 // Example usage:
 //$value = 10.00;
 //echo formatValue($value); // Output: 10

@@ -37,20 +37,12 @@ require 'request-trafo.php';
 <body>
 <?php include 'header.php'; ?>
 <main>
-<table style="width:55%;"> 
+            
+<table> 
     <h2>PENGAMANAN TRAFO AREA MET 2</h2>
 
-    <form name="select-form-trafo" onsubmit="handleFormSubmit(event, 'option-form-trafo')">
-        <div class="custom-label-form"> 
-        <label for="unit-trafo">Change Line:</label>
-          <div class="unitfield-form">
-            <select class="selection-genset" name="unit-trafo" id="option-form-trafo">
               <?php include 'pilih-unit-trafo.php' ?>
-            </select>
-          </div>
-          <input style="margin-top: 20px" class="btn-form" type="submit" value="SUBMIT">
-          </div>
-      </form>
+
         <thead>
         <tr>
             <th style="width:3%;">No</th>
@@ -92,7 +84,7 @@ require 'request-trafo.php';
                 );
 
                 $fields = array('kunci_1', '', 'trafo_6', 'panel_mvdp', 'panel_lvdp', 'panel_capacitor_bank', '',
-                'tray_cable', 'grounding', 'exhaust_fan', 'lampu-lampu', 'stop_kontak', '',
+                'tray_cable', 'grounding', 'exhaust_fan', 'lampu_lampu', 'stop_kontak', '',
                 'sapu', 'alat_pel', 'kemoceng', 'pengki', 'tempat_sampah', '',
                 'level_oli_tr6_igbt', 'level_oli_tr6_tank');
             
@@ -103,7 +95,7 @@ require 'request-trafo.php';
                 );
 
                 $dec = array(2, 5);
-                $enum = array(21, 22);
+                $enum = array(19, 20);
 
                 foreach ($description as $index => $desc) {
                     if ($desc == "") {
@@ -189,44 +181,6 @@ require 'request-trafo.php';
         $(".enum").prop("selectedIndex", -1);
         $(".input-field").val('');
 
-    function handleFormSubmit(event, selectId) {
-    event.preventDefault();
-
-    var selectElement = document.getElementById(selectId);
-    var selectedUnit = selectElement.value;    
-              
-            console.log('Selected <select> ID:', selectId);
-            console.log('Selected Value:', selectedUnit);
-
-            switch (selectedUnit) {
-                case 'trafo_daily_office':
-                    if (selectId === 'option-form-trafo' && selectedUnit) {
-                        location.href = 'form-trafo-daily-office.php?selectedUnit=' + encodeURIComponent(selectedUnit);
-                    } 
-                    break;                   
-                case 'trafo_daily_coating':
-                    if (selectId === 'option-form-trafo' && selectedUnit) {
-                        location.href = 'form-trafo-daily-coating.php?selectedUnit=' + encodeURIComponent(selectedUnit);
-                    } 
-                case 'trafo_daily_bopet':
-                    if (selectId === 'option-form-trafo' && selectedUnit) {
-                        location.href = 'form-trafo-daily-bopet.php?selectedUnit=' + encodeURIComponent(selectedUnit);
-                    } 
-                    break;    
-                case 'trafo_daily_met2':
-                    if (selectId === 'option-form-trafo' && selectedUnit) {
-                        location.href = 'form-trafo-daily-met2.php?selectedUnit=' + encodeURIComponent(selectedUnit);
-                    } 
-                    break;    
-                case 'trafo_daily_met34':
-                    if (selectId === 'option-form-trafo' && selectedUnit) {
-                        location.href = 'form-trafo-daily-met34.php?selectedUnit=' + encodeURIComponent(selectedUnit);
-                    } 
-                    break;    
-                default:
-                    break;
-            }
-        }
-    </script>
+   </script>
 </body>
 </html>

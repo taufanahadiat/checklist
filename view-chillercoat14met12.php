@@ -1,4 +1,12 @@
 <?php
+if (!isset($_GET['selectedUnit'])) {
+    $article_trane_1 = null;
+    $article_trane_2 = null;
+    $article_trane_3 = null;
+    $article_hitachi_1 = null;
+    $article_hitachi_2 = null;
+    $article_hitachi_3 = null;
+    }
 // For view-all-chiller.php
 // For Trane articles
 if (isset($article_coat14met12_trane_1)) {
@@ -30,8 +38,18 @@ if (isset($article_coat14met12_hitachi_3)) {
     <h3>Chiller Hitachi</h3>
     <?php if ($article_hitachi_1 === null && $article_hitachi_2 === null && $article_hitachi_3 === null): ?>
             <p>Form ini belum terisi</p>
-        <?php else: ?>    
-    <table>
+        <?php else: ?> 
+            <?php 
+                if (isset($_GET['selectedUnit'])){
+                    $unit_trane = 'chiller_trane_67bopet';
+                    echo '<div class="verif">';
+                     include 'verification-show.php';
+                     echo '</div>';
+                }
+            ?>
+   
+                
+<table>
     <thead>
             <tr>
             <th rowspan="6" colspan="2">DESCRIPTION</th>
@@ -199,12 +217,14 @@ if (isset($article_coat14met12_hitachi_3)) {
                 </tbody>
                 </article>
         </table>
+        <span class="legalDoc" style="margin-top: -25px;">H1-OCCH-19-24R0</span><br><br>
         <?php endif; ?>
         <h3>Chiller Trane</h3>
         <?php if ($article_trane_1 === null && $article_trane_2 === null && $article_trane_3 === null): ?>
             <p>Form ini belum terisi</p>
         <?php else: ?>    
-    <table>
+                
+<table>
     <thead>
             <tr>
                 <th rowspan="2">DESCRIPTION</th>
@@ -329,4 +349,5 @@ if (isset($article_coat14met12_hitachi_3)) {
                 </tbody>
                 </article>
         </table>
+        <span class="legalDoc" style="margin-top: -25px;">H1-OCCT-16-24R0</span><br><br>
         <?php endif; ?>

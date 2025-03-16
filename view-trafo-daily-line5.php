@@ -1,13 +1,13 @@
 <?php
-
+$unit = 'trafo_daily_line5';
 include 'database.php';
 $tanggal = "" . $_GET['selectedDate'];
-$unit = "" . $_GET['selectedUnit'];
 
 include 'request-view-trafo.php';
 
 ?>
 
+<?php if(isset($_GET['selectedUnit'])):?>
 
 <!DOCTYPE html>
 <html>
@@ -28,17 +28,31 @@ include 'request-view-trafo.php';
 <body>
 <?php include 'header.php'?>
 <main>
+<?php endif;?>
 
-<h2>PENGAMANAN TRAFO AREA LINE 6</h2>
-    <?php include 'pilih-tanggal.php'; ?>
+<h2>PENGAMANAN TRAFO AREA LINE 5</h2>
+
+<?php 
+    if(isset($_GET['selectedUnit'])){
+        include 'pilih-tanggal.php';
+    }?>
 
     <?php if ($article === null): ?>
             <p>Form ini belum terisi</p>
         <?php else: ?>
 
-            <?php include 'verification-form.php'?>
+            <?php 
+                if (isset($_GET['selectedUnit'])){
+                    $area = 'trafo';
+                    echo '<br><br>';
+                    echo '<div class="verif">';
+                     include 'verification-show.php';
+                     echo '</div>';
+                }
+            ?>    
     
-            <table style="width: 55%;">
+                        
+<table >
             <thead>
         <tr>
             <th style="width:3%;">No</th>
@@ -156,9 +170,8 @@ include 'request-view-trafo.php';
         </tbody>
         </article>
         </table>
-
         <?php endif; ?>
-
+        <span class="legalDoc" style="margin-top: -15px;">H1-ETL5-45-24R0</span><br><br>
         </main>
     <script>
         document.getElementById("exit").onclick=function (){

@@ -10,7 +10,7 @@ $allowed_ip = array('131.107.7.215', '131.107.7.210');
 $user_ip = $_SERVER['REMOTE_ADDR'];
 
 // Check if the user's IP matches the allowed IP
-if ($_SESSION["type_user"] !== '2' && !in_array($user_ip, $allowed_ip)) {
+if ($_SESSION["id"] !== '1' && !in_array($user_ip, $allowed_ip)) {
     // If not, set an error message and redirect to selection.php
     echo "<script>alert('Anda sedang tidak terhubung dengan WiFi di area Genset & MET3~4. Pastikan koneksi WiFi anda tidak terputus'); window.location.href = './selection.php';</script>";
     exit();
@@ -51,7 +51,8 @@ if ($_SESSION["type_user"] !== '2' && !in_array($user_ip, $allowed_ip)) {
     </div>
 
     
-    <table>
+                
+<table>
         <thead>
             <tr>
             <th rowspan="2" colspan="2">DESCRIPTION</th>
@@ -77,10 +78,25 @@ if ($_SESSION["type_user"] !== '2' && !in_array($user_ip, $allowed_ip)) {
                 <td>IN</td>
                 <td>OUT</td>
             </tr>
+            <tr class="head">
+                <td colspan="2">Standard</td>
+                <td></td>
+                <td>&lt;2.45</td>
+                <td>&lt;20</td>
+                <td>5~13</td>
+                <td>27~37</td>
+                <td>32~42</td>
+                <td>5~10</td>
+                <td>1~2</td>
+                <td>3~5</td>
+                <td>2.5~4.5</td>
+                <td>1~3</td>
+                <td>0.2~2.5</td>
+            </tr>
 
         </thead>
         <thead class="head">
-            <tr>
+        <tr style="background-color:dimgray">
                 <td colspan="2">Uom</td>
                 <td>-</td>
                 <td>Mpa</td>
@@ -134,8 +150,9 @@ if ($_SESSION["type_user"] !== '2' && !in_array($user_ip, $allowed_ip)) {
                 if ($category === "c2" && ($field !== "disc_press" && $field !== "machine_status")) {
                     continue;
                 }
+                include 'indicator-chiller45hitachi.php';
                 if ($existing_record && isset($existing_record[$inputName])) {
-                    echo    "<td $rowSpan>";
+                    echo "<td $rowSpan $style>";
                     echo htmlspecialchars(formatValue($existing_record[$inputName]));
                     echo "<button type='button' class='clear-btn' data-field='$inputName'>X</button>";
                     echo    "</td>";

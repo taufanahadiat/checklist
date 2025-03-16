@@ -35,7 +35,8 @@ require 'database.php';
 <?php include 'header.php'; ?>
 <main>
     <h2>MONITORING FUEL DAY TANK GENSET WARTSILA</h2>
-    <table>
+                
+<table>
         <thead>
             <tr>
                 <th rowspan="3">No</th>
@@ -105,6 +106,7 @@ require 'database.php';
 
             </tbody>
     </table>
+    <span class="legalDoc" style="margin-top: -25px;">H1-RMBG-38-24R0</span><br><br>
 </main>
 <script>
 document.getElementById("exit").onclick = function() {

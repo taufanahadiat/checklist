@@ -4,20 +4,62 @@ include 'database.php';
 
 $tanggal = $_GET['selectedDate'];
 $unit = htmlspecialchars($_GET['selectedUnit']);
+$area = 'boiler';
 $line = $_GET['selectedLine'];
 include 'request-view-boiler.php';
+// Function to format the value
+function formatValue($value) {
+    if (is_numeric($value)) {
+        // If the value is a float and has .00 as decimals, return it as an integer
+        if (floor($value) == $value) {
+            return number_format(intval($value));
+        } else {
+            // Return the value formatted with commas but preserving its decimal part
+            return number_format($value, 2);
+        }
+    } else {
+        // Otherwise, return the original value
+        return $value;
+    }
+}
 
+// Example usage:
+$value = 10.00;
+//echo formatValue($value); // Output: 10
+
+$value = 10.50;
+//echo formatValue($value); // Output: 10.5
 ?>
 
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Checklist</title>
+    <title>View Checklist Boiler</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/x-icon" href="../../img/icon.ico">
     <link rel="stylesheet" href="fontawesome/css/all.css">
+    <style>
+            table {
+      width: 100%;
+      height: 1000px; /* Set the height of the scrollable area */
+      overflow-y: auto; /* Enable vertical scrolling */
+    }
+
+    thead{
+      position: sticky; /* Make the header sticky */
+      top: 0; /* Stick to the top of the container */
+      z-index: 2; /* Ensure the header is above the body content */
+    }
+
+    tbody th {
+      position: sticky; /* Make the first column sticky */
+      left: 0; /* Stick to the left of the container */
+      z-index: 1; /* Lower z-index for the first column */
+    }
+
+    </style>
 
 </head>
 <body>
@@ -31,7 +73,8 @@ include 'request-view-boiler.php';
 
     <!-- Legend Table -->
     <div class="legend-table" id="legendTable">
-        <table>
+                    
+<table>
             <thead>
                 <tr>
                     <th>Collumn</th>
@@ -55,17 +98,29 @@ include 'request-view-boiler.php';
     </div>
 </div>
 
-    <h2><?php echo strtoupper("BOILER GAS LINE OPP $line"); ?></h2>
+    <h2><?php echo strtoupper("BOILER GAS LINE $line"); ?></h2>
     <?php include 'pilih-tanggal.php'; ?>
 
         <?php if ($article === null): ?>
             <p>Form ini belum terisi</p>
         <?php else: ?>
-            <?php include 'verification-form.php';?>
-            <table>
+            <?php 
+                if (isset($_GET['selectedUnit'])){
+                    $unit = 'boiler';
+                    $line = '4&5-a';
+                    echo '<br><br>';
+                    echo '<div class="verif">';
+                     include 'verification-show.php';
+                     echo '</div>';
+                }
+                $line = $_GET['selectedLine'];
+            ?>
+
+                        
+<table>
             <thead>
                 <tr>
-                    <th rowspan="3"style="width:5%">Time</th>
+                    <th rowspan="3"style="width:5%; padding: 2px 10px">Time</th>
                     <th colspan="3">Oil Temp (°C)</th>
                 <?php if ($line == 'coating-a' || $line == 'coating-b' || $line == 'coating-c' || $line == 'coating-d' || $line == 'bopet-a' || $line == 'bopet-b') :?>
                     <th rowspan="2">Chimney Temp (°C)</th>
@@ -78,8 +133,8 @@ include 'request-view-boiler.php';
                     <th colspan="2">Differential Pressure (Bar)</th>
                     <th colspan="2">Oil Level (%)</th>
                     <th colspan="2">Rembesan Oli</th>
-                    <th rowspan="3" style="width:8%">NOTE</th>
-                    <th rowspan="3" style="width:8%">PIC</th>
+                    <th rowspan="3" style="width:8%; padding: 2px 20px">NOTE</th>
+                    <th rowspan="3" style="width:8%; padding: 2px 45px">PIC</th>
                 </tr>
                 <tr>
                     <th>Inlet</th>
@@ -102,9 +157,9 @@ include 'request-view-boiler.php';
                 </tr>
                 <tr>
                 <?php if ($line == '4&5-a' || $line == '4&5-b'): ?>
-                    <th>260±5</th>
-                    <th>270±5</th>
-                    <th>270±5</th>
+                    <th>260±10</th>
+                    <th>270±10</th>
+                    <th>270±10</th>
                     <th>min 70%</th>
                     <th>10-100%</th>
                     <th>>0</th>
@@ -125,12 +180,20 @@ include 'request-view-boiler.php';
                     <th>35-85%</th>
                     <th>&gt;0</th>
                     <th>4~7</th>
-                <?php elseif ($line == 'bopet-a' || $line == 'bopet-b'): ?>
+                <?php elseif ($line == 'bopet-a'): ?>
                     <th>295±5</th>
                     <th>305±5</th>
                     <th>305±5</th>
                     <th>&lt;400</th>
                     <th>30-55%</th>
+                    <th>1~2</th>
+                    <th>5~7</th>
+                <?php elseif ($line == 'bopet-b'): ?>
+                    <th>295±5</th>
+                    <th>308±5</th>
+                    <th>308±5</th>
+                    <th>&lt;400</th>
+                    <th>20-70%</th>
                     <th>1~2</th>
                     <th>5.5~7</th>
                 <?php elseif ($line == '6&7-central'): ?>
@@ -142,7 +205,11 @@ include 'request-view-boiler.php';
                     <th>&gt;0</th>
                     <th>4~7</th>
                 <?php elseif ($line == '6' || $line == '7'): ?>
+                    <?php if ($line == '7'): ?>
+                    <th>250±5</th>
+                    <?php else: ?>
                     <th>246±5</th>
+                    <?php endif; ?>
                     <th>260±5</th>
                     <th>260±5</th>
                     <th>min 70%</th>
@@ -219,7 +286,34 @@ include 'request-view-boiler.php';
                 </tbody>
                 </article>
         </table>
-
+        <span class="legalDoc" style="margin-top: -20px;">
+            <?php if ($line == 'coating-a'){
+                echo 'H1-OCB-02-24R0';
+            } elseif ($line == 'coating-b'){
+                echo 'H1-OCB-01-24R0';
+            } elseif ($line == 'coating-c'){
+                echo 'H1-OCB-01-24R0';
+            } elseif ($line == 'coating-d'){
+                echo 'H1-OCB-04-24R0';
+            } elseif ($line == '4&5-a'){
+                echo 'H1-OCB-04-24R0';
+            } elseif ($line == '4&5-b'){
+                echo 'H1-OCB-06-24R0';
+            } elseif ($line == '6'){
+                echo 'H1-OCB-07-24R0';
+            } elseif ($line == '7'){
+                echo 'H1-OCB-08-24R0';
+            } elseif ($line == '6&7-central'){
+                echo 'H1-OCB-09-24R0';
+            } elseif ($line == '8'){
+                echo 'H1-OCB-10-24R0';
+            } elseif ($line == 'bopet-a'){
+                echo 'H1-OCB-10-24R0';
+            } elseif ($line == 'bopet-b'){
+                echo 'H1-OCB-12-24R0';
+            }
+        ?></span>
+<br><br>
         <?php endif; ?>
     </main>
     <script>

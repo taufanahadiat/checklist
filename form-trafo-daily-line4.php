@@ -37,20 +37,12 @@ require 'request-trafo.php';
 <body>
 <?php include 'header.php'; ?>
 <main>
-<table style="width:55%;"> 
+            
+<table> 
     <h2>PENGAMANAN TRAFO AREA LINE 4</h2>
 
-    <form name="select-form-trafo" onsubmit="handleFormSubmit(event, 'option-form-trafo')">
-        <div class="custom-label-form"> 
-        <label for="unit-trafo">Change Line:</label>
-          <div class="unitfield-form">
-            <select class="selection-genset" name="unit-trafo" id="option-form-trafo">
               <?php include 'pilih-unit-trafo.php' ?>
-            </select>
-          </div>
-          <input style="margin-top: 20px" class="btn-form" type="submit" value="SUBMIT">
-          </div>
-      </form>
+
         <thead>
         <tr>
             <th style="width:3%;">No</th>
@@ -109,7 +101,7 @@ require 'request-trafo.php';
                 $fields = array('kunci_gembok_pintu1', 'kunci_gembok_pintu2', 'kunci_gembok_pintu3', 
                     'kunci_gembok_pintu4', 'kunci_gembok_pintu5', '', 'ruangan', 'trafo_13', 'trafo_14', 
                     'trafo_7', 'trafo_4', 'trg_3', 'trg_4', 'trg_5', 'panel_mvdp', 'panel_lvdp', 
-                    'panel_capacitor_bank', '', 'tray_cable', 'grounding', 'exhaust_fan', 'lampu-lampu', 
+                    'panel_capacitor_bank', '', 'tray_cable', 'grounding', 'exhaust_fan', 'lampu_lampu', 
                     'stop_kontak', '', 'level_oli_tr_igbt_4', 'level_oli_tr_igbt_7', 'level_oli_tr_igbt_13', 'level_oli_tr_igbt_14', 
                     'level_oli_tr_tank_4', 'level_oli_tr_tank_7', 'level_oli_trg_igbt_3', 'level_oli_trg_igbt_4', 
                     'level_oli_trg_igbt_5', 'level_oli_trg_tank_3', 'level_oli_trg_tank_4', 'level_oli_trg_tank_5'
@@ -118,8 +110,8 @@ require 'request-trafo.php';
             
                 
                 $note = array('note_1', 'note_2', 'note_3', 'note_4', 'note_5', '', 'note_6', 'note_7', 
-                    'note_8', 'note_9', 'note_10', 'note_11', 'note_12', 'note_13', 'note_14', 'note_15', '',
-                    'note_16', 'note_17', 'note_18', 'note_19', 'note_20', '', 'note_21', 'note_22', 'note_23',
+                    'note_8', 'note_9', 'note_10', 'note_11', 'note_12', 'note_13', 'note_14', 'note_15',
+                    'note_16', '', 'note_17', 'note_18', 'note_19', 'note_20', 'note_21', '', 'note_22', 'note_23',
                     'note_24', 'note_25', 'note_26', 'note_27', 'note_28', 'note_29', 'note_30', 'note_31', 'note_32', 'note_33'
                 );
 
@@ -210,54 +202,6 @@ require 'request-trafo.php';
         $(".enum").prop("selectedIndex", -1);
         $(".input-field").val('');
 
-    function handleFormSubmit(event, selectId) {
-    event.preventDefault();
-
-    var selectElement = document.getElementById(selectId);
-    var selectedUnit = selectElement.value;    
-              
-            console.log('Selected <select> ID:', selectId);
-            console.log('Selected Value:', selectedUnit);
-
-            switch (selectedUnit) {
-                case 'trafo_daily_office':
-                    if (selectId === 'option-form-trafo' && selectedUnit) {
-                        location.href = 'form-trafo-daily-office.php?selectedUnit=' + encodeURIComponent(selectedUnit);
-                    } 
-                    break;                   
-                case 'trafo_daily_coating':
-                    if (selectId === 'option-form-trafo' && selectedUnit) {
-                        location.href = 'form-trafo-daily-coating.php?selectedUnit=' + encodeURIComponent(selectedUnit);
-                    } 
-                case 'trafo_daily_bopet':
-                    if (selectId === 'option-form-trafo' && selectedUnit) {
-                        location.href = 'form-trafo-daily-bopet.php?selectedUnit=' + encodeURIComponent(selectedUnit);
-                    } 
-                    break;    
-                case 'trafo_daily_met2':
-                    if (selectId === 'option-form-trafo' && selectedUnit) {
-                        location.href = 'form-trafo-daily-met2.php?selectedUnit=' + encodeURIComponent(selectedUnit);
-                    } 
-                    break;    
-                case 'trafo_daily_met34':
-                    if (selectId === 'option-form-trafo' && selectedUnit) {
-                        location.href = 'form-trafo-daily-met34.php?selectedUnit=' + encodeURIComponent(selectedUnit);
-                    } 
-                    break;    
-                case 'trafo_daily_line4':
-                    if (selectId === 'option-form-trafo' && selectedUnit) {
-                        location.href = 'form-trafo-daily-line4.php?selectedUnit=' + encodeURIComponent(selectedUnit);
-                    } 
-                    break;    
-                case 'trafo_daily_line5':
-                    if (selectId === 'option-form-trafo' && selectedUnit) {
-                        location.href = 'form-trafo-daily-line5.php?selectedUnit=' + encodeURIComponent(selectedUnit);
-                    } 
-                    break;    
-                default:
-                    break;
-            }
-        }
-    </script>
+     </script>
 </body>
 </html>

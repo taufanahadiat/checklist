@@ -4,7 +4,8 @@
 
     <!-- Legend Table -->
     <div class="legend-table" id="legendTable">
-        <table>
+                    
+<table>
             <thead>
                 <tr>
                     <th>Collumn</th>

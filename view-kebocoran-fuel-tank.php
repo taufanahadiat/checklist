@@ -1,40 +1,25 @@
-<?php
+<?php 
+    $article = null;
 
-include 'database.php';
-$tanggal = "" . $_GET['selectedDate'];
-$unit = "" . $_GET['selectedUnit'];
-
-include 'request-view.php';
+if (isset($article_kebocoranFuel)) {
+    $article = $article_kebocoranFuel;
+}
 ?>
 
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Checklist</title>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/x-icon" href="../../img/icon.ico">
-    <link rel="stylesheet" href="fontawesome/css/all.css">
-    <style>
-        td {
-            text-align: center;
-            width: 300px;
-        }
-    </style>
-</head>
-
-<body>
-<?php include 'header.php'?>
-<main>
-
-    <h2>Kebocoran Fuel Tank</h2>
-    <?php include 'pilih-tanggal.php'; ?>
-    <?php if ($article === null): ?>
+<?php if ($article === null): ?>
             <p>Form ini belum terisi</p>
         <?php else: ?>
-            <?php include 'verification-form.php'?>
-        <table>
+            <?php 
+                if (isset($_GET['selectedUnit'])){
+                    $unit = 'genset_man';
+                    echo '<br><br>';
+                    echo '<div class="verif">';
+                     include 'verification-show.php';
+                     echo '</div>';
+                }
+            ?>
+                    
+<table>
             <thead>
             <tr>
                     <th colspan="3">Time</th>
@@ -103,14 +88,6 @@ include 'request-view.php';
                 </tbody>
                 </article>
         </table>
+        <span class="legalDoc" style="margin-top: -25px;">H1-GKFT-35-24R0</span><br>
+        
         <?php endif; ?>
-
-    </main>
-    <script>
-        document.getElementById("exit").onclick=function (){
-            location.href = 'selection.php'
-        }
-    </script>
-
-</body>
-</html>

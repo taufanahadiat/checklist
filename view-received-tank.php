@@ -35,7 +35,8 @@ include 'request-view-compressor.php';
         <?php else: ?>
 
     
-        <table>
+                    
+<table>
             <thead>
             <tr>
             <th>PARAMETER</th>

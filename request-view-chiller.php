@@ -1,4 +1,7 @@
 <?php
+if (session_id() == '') {
+    session_start();
+  }
 //Viewing existing data at Form Entry
  date_default_timezone_set('Asia/Jakarta'); // Replace 'YOUR_TIMEZONE' with the appropriate timez
  // Determine if the current time is between 00:00-08:00

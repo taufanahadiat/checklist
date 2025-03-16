@@ -1,7 +1,8 @@
     <h2>AIR DRYER LINE OPP <?php echo $line; ?></h2>
     <h4>SHIFT <?php echo $shift;?></h4>
 
-        <table>
+                    
+<table>
         <?php include 'pilih-unit-compressor.php'; ?>
             <thead>
             <tr>
@@ -13,6 +14,7 @@
             <th style="font-size:13px">AD. SULLAIR 27</th>
             <th style="font-size:13px">AD. SULLAIR 33</th>
             <th style="font-size:13px">AD. SULLAIR 34</th>
+            <th style="font-size:13px">AD. SULLAIR 36</th>
             <th style="font-size:13px">AD. AUGUST 28</th>
             <th style="font-size:13px">AD. AUGUST 29</th>
             <th style="font-size:13px">AD. AUGUST 30</th>
@@ -25,10 +27,10 @@
             <?php
                 require 'database.php';
                 include 'request-view-compressor.php';
-                $models = array("adsullair23", "adsullair24", "adsullair27", "adsullair33", "adsullair34", "adaugust28", "adaugust29", "adaugust30", "adaugust31", "adaugust32");
+                $models = array("adsullair23", "adsullair24", "adsullair27", "adsullair33", "adsullair34", "adsullair36", "adaugust28", "adaugust29", "adaugust30", "adaugust31", "adaugust32");
                 $parameters = array("Machine Status", "Dew Point Temp.", "Ref. Low Press", "Pre Filter", "After Filter", "Auto Drain Solenoid", "Vibration");
                 $uom = array("-", "°C", "Bar", "-", "-", "-", "-");
-                $standard = array("-", "2 ~ 10", "4 ~ 10", "HJ", "HJ", "B", "H ~ S");
+                $standard = array("-", "2 ~ 10", "4 ~ 20", "HJ", "HJ", "B", "H ~ S");
                 $fields = array("machine_status", "dewpoint_temp", "reflow_press", "pre_filter", "after_filter", "autodrain_solenoid", "vibration");
 
                 foreach ($parameters as $index => $parameter) {
@@ -58,12 +60,40 @@
                             echo "<button type='button' class='clear-btn' data-field='$fieldName'>X</button>";
                             echo "</td>";
                         } else if ($index === 0){
-                            echo "<td>";
-                            echo "<select class='enum_long' name='{$fieldName}'>"; 
-                            include 'enum-running-standby.php';
-                            echo "</select>";
-                            echo "</td>";
-                        } else {
+                            if ($key === 0){
+                                echo "<td>";
+                                echo "<select class='enum_stop' name='{$fieldName}'>"; 
+                                $options = array(
+                                    'ST' => 'STOP',
+                                    'RUN' => 'RUNNING',
+                                    'SBY' => 'STANDBY',
+                                    'U/L' => 'UNLOAD',
+                                    'B/D' => 'BREAKDOWN'
+                                );
+                                
+                                foreach ($options as $value => $label) {
+                                    echo "<option value=\"$value\">$label</option>";
+                                }                                
+                                echo "</select>";
+                                echo "</td>";
+                            } else {
+                                echo "<td>";
+                                echo "<select class='enum_long' name='{$fieldName}'>"; 
+                                include 'enum-running-standby.php';
+                                echo "</select>";
+                                echo "</td>";                            
+                            }
+                        } else if ($index == 2){
+                            if ($key === 3 || $key === 4 || $key === 5 || $key === 6 || $key === 7 || $key === 8 || $key === 9 || $key === 10){
+                                echo "<td>";
+                                echo "<input type='number' step='0.01' class='input-field psi-input' name='$fieldName'>";
+                                echo "<button type='button' class='btn convert-btn' style='padding: 2px 1px; margin-bottom: 0px; margin-top: 2px; font-size: 10px' onclick='convertToBar(this)' style='margin-left: 5px;'>Konversi PSI ke Bar</button>";
+                                echo "</td>";
+                            } else {
+                                $inputrow = "<$dataType $dataClass name='$fieldName'>$enum</$dataType>";
+                                echo "<td>$inputrow</td>";        
+                            }
+                        }else {
                         // Generate input row
                         $inputrow = "<$dataType $dataClass name='$fieldName'>$enum</$dataType>";
                         echo "<td>$inputrow</td>";
@@ -76,14 +106,14 @@
                 <th class="measure2" colspan="3">Entry By</th>
                <?php 
                 if ($existing_record && isset($existing_record['pic'])){
-                    echo "<td colspan='10'style='text-align:left; color:grey; padding: 5px 10px'>";
+                    echo "<td colspan='13'style='text-align:left; color:grey; padding: 5px 10px'>";
                     echo htmlspecialchars(formatValue($existing_record['pic']));
                     echo "&nbsp&nbsp";
                     echo htmlspecialchars(formatValue($existing_record['time']));
                     echo "</td>";
                 }
                 else{
-                    echo "<td colspan='10'></td>";
+                    echo "<td colspan='13'></td>";
                 }
                 echo "<input type='hidden' name='pic' value='" . htmlspecialchars($baris[0]) . "'>";
                 echo '<input type="hidden" name="time" value="' . date('d/m/Y H:i') . '">';
@@ -98,18 +128,19 @@
             $current_note = '';
             if ($existing_record && isset($existing_record['note'])) {
                 $current_note = $existing_record['note']; // Set current_note to the existing note
-                echo "<td colspan='10' id='note-container' style='text-align:left; padding: 5px 10px'>";
+                echo "<td colspan='13' id='note-container' style='text-align:left; padding: 5px 10px'>";
                 echo htmlspecialchars(formatValue($existing_record['note']));
                 echo "<button type='button' class='clear-btn' data-field='note'>X</button>";
                 echo "<button type='button' class='edit-btn' data-current-note='" . htmlspecialchars($current_note, ENT_QUOTES) . "'>EDIT</button>";
                 echo "</td>";
             } else {
-                echo "<td colspan='10' style='text-align:left; padding: 4px 0.8%;'><textarea name='note' id='note-textarea' style='height:30px;width:90%;padding:4px;'></textarea></td>";
+                echo "<td colspan='13' style='text-align:left; padding: 4px 0.8%;'><textarea name='note' id='note-textarea' style='height:30px;width:90%;padding:4px;'></textarea></td>";
             }
             ?>
             </tr>
 
             </tbody>
         </table>
+        <span class="legalDoc" style="margin-top: -25px;">H1-CAD-22-24R0</span><br><br>
         <button type="submit" class="btn" id="save-button">SAVE</button>
     </form>

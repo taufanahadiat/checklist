@@ -3,12 +3,12 @@ $unit = $_GET['selectedUnit']; // Get the 'unit' parameter from the query string
 require 'database.php';
 require 'request.php';
 
-$allowed_ip = array('131.107.7.210', '131.107.109.42');
+$allowed_ip = array('131.107.7.210');
 // Get the user's IP address
 $user_ip = $_SERVER['REMOTE_ADDR'];
 
 // Check if the user's IP matches the allowed IP
-if ($_SESSION["type_user"] !== '2' && !in_array($user_ip, $allowed_ip)) {
+if ($_SESSION["id"] !== '1' && !in_array($user_ip, $allowed_ip)) {
     // If not, set an error message and redirect to selection.php
     echo "<script>alert('Anda sedang tidak terhubung dengan WiFi di area Genset. Pastikan koneksi WiFi anda tidak terputus'); window.location.href = './selection.php';</script>";
     exit();
@@ -64,7 +64,8 @@ if (array_key_exists($unit, $unit_headings)):
     <h2><?php echo $unit_headings[$unit]; ?></h2>
 <?php endif; ?>
 
-    <table>
+                
+<table>
 <?php include 'pilih-unit-genset.php' ?>
     
         <thead>
@@ -226,6 +227,17 @@ if (array_key_exists($unit, $unit_headings)):
             </tr>
             </tbody>
     </table>
+    <span class="legalDoc" style="margin-top: -25px;">
+            <?php if ($unit == 'hfo_unloading_pump_unit'){
+                echo 'H1-GHUP-27-24R0';
+            } elseif ($unit == 'fuel_transfer_pump_unit'){
+                echo 'H1-GFTP-28-24R0';
+            } elseif ($unit == 'hfo_separator_pump_unit'){
+                echo 'H1-HFSP-36-24R0';
+            } elseif ($unit == 'lfo_unloading_pump_unit'){
+                echo 'H1-LUUP-37-24R0';
+            } 
+        ?></span>
     <br>
     <button class="btn" id="save-button">SAVE</button>
     </form>

@@ -56,6 +56,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $columns = array();
         $values = array();
 
+        $unitCOnvertPSItoBar = array(
+            'adsullair23_reflow_press',
+            'adsullair33_reflow_press',
+            'adsullair34_reflow_press',
+            'adsullair35_reflow_press',
+            'adsullair36_reflow_press',
+            'adaugust28_reflow_press',
+            'adaugust29_reflow_press',
+            'adaugust30_reflow_press',
+            'adaugust31_reflow_press',
+            'adaugust32_reflow_press',
+            'boge01_reflow_press',
+            'boge02_reflow_press'
+        );
+
+
         foreach ($_POST as $key => $value) {
             $escaped_key = mysqli_real_escape_string($conn, $key);
             $escaped_value = mysqli_real_escape_string($conn, $value);
@@ -64,7 +80,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($escaped_value === "" || ctype_space($escaped_value)) {
                 $escaped_value = "NULL";
             } else {
-                $escaped_value = "'" . $escaped_value . "'";
+                // Check if the key is in the PSI-to-Bar conversion array
+                if (in_array($escaped_key, $unitCOnvertPSItoBar)) {
+                    // Check if the value is greater than 50 before converting
+                    if (floatval($escaped_value) > 50) {
+                        // Convert from PSI to Bar
+                        $converted_value = floatval($escaped_value) / 14.5038; // Perform the conversion
+                        $escaped_value = "'" . round($converted_value, 4) . "'"; // Round to 4 decimal places
+                    } else {
+                        // Use the original value if not greater than 50
+                        $escaped_value = "'" . $escaped_value . "'";
+                    }
+                } else {
+                    $escaped_value = "'" . $escaped_value . "'";
+                }
             }
             
             // Store the escaped key and value

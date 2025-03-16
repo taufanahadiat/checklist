@@ -1,11 +1,54 @@
-    <h2>COMPRESSOR LINE 4,5,8 & BOPET</h2>
-    <?php include 'pilih-tanggal.php'; ?>
-    <?php if ($article_1 === null && $article_2 === null && $article_3 === null): ?>
+<?php
+
+$article_1 = null;
+$article_2 = null;
+$article_3 = null;
+
+if (isset($article_comp45_1)) {
+    $article_1 = $article_comp45_1;
+}
+
+if (isset($article_comp45_2)) {
+    $article_2 = $article_comp45_2;
+}
+
+if (isset($article_comp45_3)) {
+    $article_3 = $article_comp45_3;
+}
+// For verifikasi_1 query
+if(!isset($_GET['selectedLine'])){
+    $unit = 'compressor';
+    $line = '4&5';
+    
+
+    $query = "SELECT verifikasi_1 FROM compressor WHERE line = '4&5' AND tanggal = '$tanggal' LIMIT 1";
+    $result = mysqli_query($conn, $query);
+
+    $isVerified = false;
+    if ($result && mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+        $isVerified = $row['verifikasi_1'];
+    }    
+    include 'verification-form.php';
+}
+
+?>
+
+<?php if ($article_1 === null && $article_2 === null && $article_3 === null): ?>
             <p>Form ini belum terisi</p>
         <?php else: ?>
-            <?php include 'legend-compressor.php'?>
-            <?php include 'verification-form.php'?>
-        <table>
+            <?php 
+                if (isset($_GET['selectedLine'])){
+                    $area = 'compressor';
+                    echo '<br><br>';
+                    echo '<div class="verif">';
+                     include 'verification-show.php';
+                     echo '</div>';
+                }
+            ?>
+
+                    
+<table style="overflow-x: auto; display: block; width:100%; table-layout: auto;">
             <thead>
             <tr>
             <th>PARAMETER</th>
@@ -61,14 +104,16 @@
                         }
 
                             $fieldName = strtolower(str_replace(" ", "_", $model)) . "_" . $fields[$index];
-                            include 'indicator-compressor.php';
-                                $formatted_value_1 = formatValue($article_1[$fieldName]);
+                                include 'indicator-compressor.php';
+                                $formatted_value_1 = isset($article_1[$fieldName]) && $article_1[$fieldName] !== null ? formatValue($article_1[$fieldName]) : '';                    
                                 echo "<td $style>$formatted_value_1</td>";
-
-                                $formatted_value_2 = formatValue($article_2[$fieldName]);
+                                $article_1[$fieldName] = null;
+                                include 'indicator-compressor.php';
+                                $formatted_value_2 = isset($article_2[$fieldName]) && $article_2[$fieldName] !== null ? formatValue($article_2[$fieldName]) : '';                    
                                 echo "<td $style>$formatted_value_2</td>";
-
-                                $formatted_value_3 = formatValue($article_3[$fieldName]);
+                                $article_2[$fieldName] = null;
+                                include 'indicator-compressor.php';
+                                $formatted_value_3 = isset($article_3[$fieldName]) && $article_3[$fieldName] !== null ? formatValue($article_3[$fieldName]) : '';                    
                                 echo "<td $style>$formatted_value_3</td>";
                         
                         }
@@ -84,30 +129,41 @@
                             
                 </tr>
                 <tr>
-                    <td colspan="5" style="height:32px;" class="pic"><?php echo $article_1['pic']?><br><?php echo $article_1['time']?></td>
-                    <td colspan="5" style="height:32px;" class="pic"><?php echo $article_2['pic']?><br><?php echo $article_2['time']?></td>
-                    <td colspan="5" style="height:32px;" class="pic"><?php echo $article_3['pic']?><br><?php echo $article_3['time']?></td>
+                <td colspan="5" style="height:32px;" class="pic">
+                    <?php echo isset($article_1['pic']) && $article_1['pic'] !== null ? $article_1['pic'] : ''; ?>
+                    <br>
+                    <?php echo isset($article_1['time']) && $article_1['time'] !== null ? $article_1['time'] : ''; ?>
+                </td>
+                <td colspan="5" style="height:32px;" class="pic">
+                    <?php echo isset($article_2['pic']) && $article_2['pic'] !== null ? $article_2['pic'] : ''; ?>
+                    <br>
+                    <?php echo isset($article_2['time']) && $article_2['time'] !== null ? $article_2['time'] : ''; ?>
+                </td>
+                <td colspan="5" style="height:32px;" class="pic">
+                    <?php echo isset($article_3['pic']) && $article_3['pic'] !== null ? $article_3['pic'] : ''; ?>
+                    <br>
+                    <?php echo isset($article_3['time']) && $article_3['time'] !== null ? $article_3['time'] : ''; ?>
+                </td>
+
                     <td colspan="21" class="blank"></td>
                 </tr>
                 <tr>
                 <th class="measure2" colspan="3">Notes</th>
-                            <td colspan="5" style="height:32px;" class="note"><?php echo $article_1['note']?></td>
-                            <td colspan="5" style="height:32px;" class="note"><?php echo $article_2['note']?></td>
-                            <td colspan="5" style="height:32px;" class="note"><?php echo $article_3['note']?></td>
+                <td colspan="5">
+                    <?php echo isset($article_1['note']) && $article_1['note'] !== null ? $article_1['note'] : ''; ?>
+                </td>
+                <td colspan="5">
+                    <?php echo isset($article_2['note']) && $article_2['note'] !== null ? $article_2['note'] : ''; ?>
+                </td>
+                <td colspan="5">
+                    <?php echo isset($article_3['note']) && $article_3['note'] !== null ? $article_3['note'] : ''; ?>
+                </td>
+
                             <td colspan="21" class="blank"></td>
                 </tr>
 
                 </tbody>
                 </article>
         </table>
+        <span class="legalDoc" style="margin-top: -25px;">H1-CMC-21-24R0</span><br><br>
         <?php endif; ?>
-
-    </main>
-    <script>
-        document.getElementById("exit").onclick=function (){
-            location.href = 'selection.php'
-        }
-    </script>
-
-</body>
-</html>

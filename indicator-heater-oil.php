@@ -69,9 +69,9 @@
                         }
                         // Set the style based on the indicator
                         $style = "";
-                        if ($indicator === 2) {
+                        if ($indicator == 2) {
                             $style = "style='color: red;'";//red
-                        } elseif ($indicator === 1) {
+                        } elseif ($indicator == 1) {
                             $style = "style='color: #FFBF00'";//yellow
 
                         }

@@ -38,7 +38,8 @@ require 'request-compressor.php';
 <main>
     <h2>RECEIVED TANK LINE OPP <?php echo $line; ?></h2>
     <h4>SHIFT <?php echo $shift;?></h4>
-        <table>
+                    
+<table>
         <?php include 'pilih-unit-compressor.php'; ?>
             <thead>
             <tr>

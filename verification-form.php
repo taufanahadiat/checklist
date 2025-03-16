@@ -1,19 +1,41 @@
+<?php
+$tanggalTables = array('chiller', 'compressor', 'genset', 'boiler', 'trafo');
+$bulanTables = array(
+    'trafo_pm', 
+    'panel_lvdp', 
+    'capbank_lvdp', 
+    'crane_line4',
+    'crane_line5',
+    'crane_line6',
+    'crane_line7',
+    'crane_line8',
+    'crane_bopet',
+    'crane_metalize',
+    'crane_coating',
+    'crane_small_slitter'
+);
+if (in_array($area, $tanggalTables)) {
+    $table = 'verifreport_daily';
+} elseif (in_array($area, $bulanTables)) {
+    $table = 'verifreport_monthly';
+}
+?>
+
+
 <!-- Verification Form -->
 <div class="verif">
     <form id="verificationForm" method="POST" action="verifikasi.php">
-        <input type="hidden" name="tanggal" value="<?php echo htmlspecialchars($tanggal); ?>">
+        <?php if (isset($bulan)): ?>
+            <input type="hidden" name="bulan" value="<?php echo htmlspecialchars($bulan); ?>">
+        <?php else: ?>
+            <input type="hidden" name="tanggal" value="<?php echo htmlspecialchars($tanggal); ?>">
+        <?php endif; ?>
+
         <input type="hidden" name="name" value="<?php echo htmlspecialchars($baris[0]); ?>">
         <input type="hidden" name="time" value="<?php echo date('d/m/Y H:i'); ?>">
 
-        <?php if (isset($line)): ?>
-            <input type="hidden" name="line" value="<?php echo htmlspecialchars($line); ?>">
-        <?php endif; ?>
-
-        <?php if (isset($unit_trane)): ?>
-            <input type="hidden" name="unit" value="<?php echo htmlspecialchars($unit_trane); ?>">
-        <?php else: ?>
-            <input type="hidden" name="unit" value="<?php echo htmlspecialchars($unit); ?>">
-        <?php endif; ?>
+        <input type="hidden" name="table" value="<?php echo htmlspecialchars($table); ?>">
+        <input type="hidden" name="area" value="<?php echo htmlspecialchars($area); ?>">
 
         <?php 
         $showCheckButton = true;
@@ -21,12 +43,10 @@
         $verificationDetails = "";
 
         for ($i = 1; $i <= 4; $i++) {
-            if (isset($line)) {
-                $query = "SELECT verifikasi_name_$i, verifikasi_time_$i FROM `$unit` WHERE line = '$line' AND tanggal = '$tanggal' LIMIT 1";
-            } else if (isset($unit_trane)) {
-                $query = "SELECT verifikasi_name_$i, verifikasi_time_$i FROM `$unit_trane` WHERE tanggal = '$tanggal' LIMIT 1";
+            if (isset($bulan)){
+                $query = "SELECT verifikasi_name_$i, verifikasi_time_$i FROM `$table` WHERE bulan = '$bulan' AND area = '$area' LIMIT 1";
             } else {
-                $query = "SELECT verifikasi_name_$i, verifikasi_time_$i FROM `$unit` WHERE tanggal = '$tanggal' LIMIT 1";
+                $query = "SELECT verifikasi_name_$i, verifikasi_time_$i FROM `$table` WHERE tanggal = '$tanggal' AND area = '$area' LIMIT 1";
             }
             $result = mysqli_query($conn, $query);
             if ($result && mysqli_num_rows($result) > 0) {
@@ -37,13 +57,13 @@
                 if ($verifikasi_name) {
                     $latestVerifiedStage = $i;
                     $verificationDetails = "
-                    <div style='margin-top: -20px;'>
+                    <div style='margin-top: -15px;'>
                     <br>
-                    <p>
+                    <p style='display:inline;'>
                         " . 
                             "<i class='fas fa-check-circle'></i>". "
-                        &nbsp;Checked by&nbsp;<span style='color:black;'>$verifikasi_name</span>&nbsp;at $verifikasi_time
-                    </p></div>" . $verificationDetails;  // Prepend to build reverse order
+                        &nbsp;Checked by&nbsp;<span style='color:black;'>$verifikasi_name</span></p>&nbsp;<div class='verifShowTime'><p style='display:inline;'>at $verifikasi_time </p></div>
+                    </div>" . $verificationDetails;  // Prepend to build reverse order
                 } else {
                     $showCheckButton = true;
                     break; // Stop loop to show the Check button for the next unverified stage
@@ -61,6 +81,15 @@
 //        " . 
 //                                    "<i class='fas fa-check-circle'></i>") . "
 
+
+$userAgent = $_SERVER['HTTP_USER_AGENT'];
+
+if (strpos($userAgent, 'Firefox') !== false) {
+    echo '<br><br>';
+}
+
+
+
         echo "<div style='margin-top: -90px; align-self: flex-end;'>";
         echo $verificationDetails;
         echo "</div>";
@@ -69,8 +98,7 @@
 
         <?php if ($latestVerifiedStage < 4): ?>
             <div class="verif-btn">
-            <br>
-            <button style="float:right; margin-top:-10px;" type="button" id="verifikasiButton" 
+            <button style="float:right; margin-top:10px;" type="button" id="verifikasiButton" 
                 <?php 
                 if (
                     (isset($_SESSION['sesi_user']) && $_SESSION['sesi_user'] === 'guest') || 

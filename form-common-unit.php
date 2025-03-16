@@ -4,12 +4,12 @@ require 'database.php';
 require 'request.php';
 
 // The allowed IP address
-$allowed_ip = array('131.107.7.210', '131.107.109.42');
+$allowed_ip = array('131.107.7.210');
 // Get the user's IP address
 $user_ip = $_SERVER['REMOTE_ADDR'];
 
 // Check if the user's IP matches the allowed IP
-if ($_SESSION["type_user"] !== '2' && !in_array($user_ip, $allowed_ip)) {
+if ($_SESSION["id"] !== '1' && !in_array($user_ip, $allowed_ip)) {
     // If not, set an error message and redirect to selection.php
     echo "<script>alert('Anda sedang tidak terhubung dengan WiFi di area Genset. Pastikan koneksi WiFi anda tidak terputus'); window.location.href = './selection.php';</script>";
     exit();
@@ -48,7 +48,8 @@ if ($_SESSION["type_user"] !== '2' && !in_array($user_ip, $allowed_ip)) {
 <?php include 'header.php'; ?>
 <main>
     <h2>Common Unit</h2>
-    <table>
+                
+<table>
 <?php include 'pilih-unit-genset.php' ?>
         <thead>
             <tr>
@@ -167,6 +168,7 @@ if ($_SESSION["type_user"] !== '2' && !in_array($user_ip, $allowed_ip)) {
             </tr>
             </tbody>
     </table>
+    <span class="legalDoc" style="margin-top: -25px;">H1-GCU-32-24R0</span><br>
     <br>
     <button class="btn" id="save-button">SAVE</button>
     </form>

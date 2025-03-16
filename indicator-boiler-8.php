@@ -3,12 +3,12 @@
                         $lt = 1.01;
                         $ut = 0.99;
 
-                        if (isset($existing_record) && isset($existing_record[$fieldName])) {
-                            $std = $existing_record[$fieldName];
-                        } elseif (isset($article) && isset($article[$fieldName])) {
+                        if (isset($_GET['selectedDate'])) {
                             $std = $article[$fieldName];
+                        } else{
+                            $std = $existing_record[$fieldName];
                         }
-                        if ((isset($existing_record) && isset($existing_record[$fieldName])) || (isset($article_1) && isset($article_1[$fieldName])) || (isset($article_2) && isset($article_2[$fieldName])) || (isset($article_3) && isset($article_3[$fieldName])) || isset($article) && isset($article[$fieldName])) {
+                        if ((isset($existing_record) && isset($existing_record[$fieldName])) || (isset($article) && isset($article[$fieldName]))) {
                             if ($field === 'oiltemp_inlet' && !($std >= 251 && $std <= 261)){
                                 $indicator = 1;
                             } else if($field === 'oiltemp_inlet' && (($std >= 251 && $std <= 251*$lt) ||($std >= 261*$ut && $std <= 261))){
@@ -84,9 +84,9 @@
                         }
                         // Set the style based on the indicator
                         $style = "";
-                        if ($indicator === 1) {
+                        if ($indicator == 1) {
                             $style = "style='color: red;'";//red
-                        } elseif ($indicator === 2) {
+                        } elseif ($indicator == 2) {
                             $style = "style='color: #FFBF00;'";//yellow
 
                         }

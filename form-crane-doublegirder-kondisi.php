@@ -54,21 +54,9 @@ require 'request-crane.php';
 
 
 
-    <div id="select-unit-crane" class="custom-label-sub">
-        <form name="select-unit-crane" onsubmit="handleFormSubmit(event, 'option-unit-crane')">
-            <div class="custom-label-form">
-                <label for="option-unit-crane" >Form:</label>
-                <select style="margin-left: 10px" class="selection-line" name="unit-crane" id="option-unit-crane">
-                <option value="cek_kondisi">Pengecekan Kondisi</option>
-                <option value="data_sheet">Data Sheet</option>
-            </div>
-            <div>
-                <input style="margin-top: 20px; margin-left: 10px;" type="submit" class="btn-form" value="SUBMIT">
-            </div>
-        </form>
-    </div>
-    
-    <table>
+<table>
+<?php include 'pilih-form-crane.php'; ?>
+
         <thead>
             <tr>
                 <th>Hoisting Unit A</th>
@@ -156,7 +144,7 @@ require 'request-crane.php';
                 "&nbsp;&nbsp;&nbsp;a. Rectifier", "&nbsp;&nbsp;&nbsp;b. Brake Coil", "&nbsp;&nbsp;&nbsp;c. Brake Disc",
                 "&nbsp;&nbsp;&nbsp;d. Bearings", "&nbsp;&nbsp;&nbsp;e. Fan & Cover", "3. End Carriage Frame Condition",
                 "4. Bridge Driving Wheel", "&nbsp;&nbsp;&nbsp;a. Bearings", "&nbsp;&nbsp;&nbsp;b. Wheel",
-                "4. Bridge Idle Wheel", "&nbsp;&nbsp;&nbsp;a. Bearings", "&nbsp;&nbsp;&nbsp;b. Wheel"
+                "5. Bridge Idle Wheel", "&nbsp;&nbsp;&nbsp;a. Bearings", "&nbsp;&nbsp;&nbsp;b. Wheel"
             );
 
             $structure_field = array (
@@ -352,7 +340,7 @@ require 'request-crane.php';
                 echo "<button type='button' class='clear-btn' data-field='$electrical_field[$i]'>X</button>";
                 echo "</td>";
             } else{
-            if($electrical_desc[$i] !== "3. Contactors" && $electrical_desc[$i] !== "7. Inverters"){
+            if($electrical_desc[$i] !== "3. Contactors" && $electrical_desc[$i] !== "6. Inverters" && $electrical_desc[$i] !== "9. Festoon System"){
                 echo '<td>';
                 if (isset($electrical_field[$i])) {
                     generateDropdown($electrical_field[$i]);

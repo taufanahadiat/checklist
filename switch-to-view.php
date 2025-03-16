@@ -12,10 +12,10 @@
     const currentFileName = window.location.pathname.split('/').pop();
 
     // Replace "view" with "form" in the file name
-    const newFileName = currentFileName.replace('form', 'view');
+    const newFileName = currentFileName.replace('form', 'view-all');
 
     // Construct the new URL
-    const newUrl = `${newFileName}?selectedUnit=${encodeURIComponent('<?php echo $unit; ?>')}&selectedDate=${encodeURIComponent(selectedDate)}&selectedShift=${encodeURIComponent(selectedShift)}&selectedLine=${encodeURIComponent('<?php echo $line; ?>')}`;
+    const newUrl = `${newFileName}?&selectedDate=${encodeURIComponent(selectedDate)}`;
 
     // Event listener for image container click
     document.getElementById('imageContainer').addEventListener('click', function () {

@@ -48,7 +48,6 @@ function handleFormSubmit(event, selectId) {
       'genset_wartsila_01': 'form-genset.php',
       'genset_wartsila_02': 'form-genset.php',
       'kebocoran_fuel_tank': 'form-kebocoran-fuel-tank.php',
-      'tank_genset': 'form-monitoring-tank-genset.php'
     };
 
     // Append selectedUnit to the correct URL
@@ -63,10 +62,7 @@ function handleFormSubmit(event, selectId) {
       if (params.has('selectedDate')) {
         viewUrl += '&selectedDate=' + encodeURIComponent(params.get('selectedDate'));
         location.href = viewUrl;
-      } else if (params.has('selectedMonth')) {
-        viewUrl += '&selectedMonth=' + encodeURIComponent(params.get('selectedMonth'));
-        location.href = viewUrl;
-      } else{
+      }  else{
         location.href = formUrl;
       }
     }

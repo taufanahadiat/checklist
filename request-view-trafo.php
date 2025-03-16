@@ -29,6 +29,7 @@ if ($result && mysqli_num_rows($result) > 0) {
     $isVerified = $row['verifikasi'];
 }
 
+if (isset($_GET['selectedUnit'])){
 // Function to format the value
 function formatValue($value) {
     if (is_numeric($value)) {
@@ -43,6 +44,7 @@ function formatValue($value) {
         // Otherwise, return the original value
         return $value;
     }
+}
 }
 
 // Example usage:

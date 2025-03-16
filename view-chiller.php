@@ -2,7 +2,8 @@
 include 'database.php';
 $tanggal = "" . $_GET['selectedDate'];
 $unit_trane = "" . $_GET['selectedUnit'];
-$unit_hitachi = "" . $_GET['selectedUnit2']; 
+$unit_hitachi = "" . $_GET['selectedUnit2'];
+$area = 'chiller'; 
 
 include 'request-view-chiller.php';
 ?>
@@ -22,11 +23,16 @@ include 'request-view-chiller.php';
         .parameter-setting{
             width: 30px;
         }
+
+        td {
+            width:20px; 
+            padding: 2px;
+        }
     </style>
 </head>
 
 <body>
-<?php include 'header.php'?>
+<?php include 'header.php';?>
     <main>
 <div class="legend-container">
     <!-- Legend Button -->
@@ -34,7 +40,8 @@ include 'request-view-chiller.php';
 
     <!-- Legend Table -->
     <div class="legend-table" id="legendTable">
-        <table>
+                    
+<table>
             <thead>
                 <tr>
                     <th>Collumn</th>

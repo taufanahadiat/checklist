@@ -7,6 +7,40 @@ if (isset($_SESSION['name_user'])) {
     $name_user = $_SESSION['name_user']; // Access session variable
 }
 
+//Delete collumn if fields empty
+$sql_drop = "SELECT * FROM boiler";
+$result_drop = mysqli_query($conn, $sql_drop);
+
+$pic_columns = array();
+$time_columns = array();
+
+for ($i = 0; $i <= 24; $i++) {
+    $pic_columns[] = 'pic_' . $i;
+    $time_columns[] = 'time_' . $i;
+}
+$exclude_columns = array_merge(array('tanggal', 'line'), $pic_columns, $time_columns);
+
+if (mysqli_num_rows($result_drop) > 0) {
+    while ($row = mysqli_fetch_assoc($result_drop)) {
+        $tanggal = $row['tanggal'];
+        $line = $row['line'];
+
+        $allNull = true;
+        foreach ($row as $column => $value) {
+            if (!in_array($column, $exclude_columns) && $value !== null) {
+                $allNull = false;
+                break;
+            }
+        }
+
+        if ($allNull) {
+            $deleteSql = "DELETE FROM boiler WHERE tanggal = '$tanggal' AND line = '$line'";
+            mysqli_query($conn, $deleteSql);
+        }
+    }
+}  
+
+
 $unit = $_GET['selectedUnit'];
 $line = $_GET['selectedLine']; // Get the 'line' parameter from the query string
 

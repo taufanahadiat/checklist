@@ -1,14 +1,16 @@
     <h2>AIR DRYER LINE OPP <?php echo $line; ?></h2>
     <h4>SHIFT <?php echo $shift;?></h4>
 
-        <table style="width: 70%">
+                    
+<table>
         <?php include 'pilih-unit-compressor.php'; ?>
             <thead>
             <tr>
             <th>PARAMETER</th>
             <th>Uom</th>
             <th>STANDARD</th>
-            <th>SULLAIR 22</th>
+            <th>AD. SULLAIR 22</th>
+            <th>AD. SULLAIR 35</th>
             <th>BOGE 01</th>
             <th>BOGE 02</th>
             </tr>
@@ -18,10 +20,10 @@
             <?php
                 require 'database.php';
                 include 'request-view-compressor.php';
-                $models = array("sullair22", "boge01", "boge02");
+                $models = array("sullair22", "adsullair35", "boge01", "boge02");
                 $parameters = array("Machine Status", "Dew Point Temp.", "Ref. Low Press", "Pre Filter", "After Filter", "Auto Drain Solenoid", "Vibration");
                 $uom = array("-", "°C", "Bar", "-", "-", "-", "-");
-                $standard = array("-", "2 ~ 10", "4 ~ 10", "HJ", "HJ", "B", "H ~ S");
+                $standard = array("-", "2 ~ 10", "4 ~ 20", "HJ", "HJ", "B", "H ~ S");
                 $fields = array("machine_status", "dewpoint_temp", "reflow_press", "pre_filter", "after_filter", "autodrain_solenoid", "vibration");
 
                 foreach ($parameters as $index => $parameter) {
@@ -51,11 +53,39 @@
                             echo "<button type='button' class='clear-btn' data-field='$fieldName'>X</button>";
                             echo "</td>";
                         } else if ($index === 0){
-                            echo "<td>";
-                            echo "<select class='enum_long' name='{$fieldName}'>"; 
-                            include 'enum-running-standby.php';
-                            echo "</select>";
-                            echo "</td>";
+                            if ($key === 2){
+                                echo "<td>";
+                                echo "<select class='enum_stop' name='{$fieldName}'>"; 
+                                $options = array(
+                                    'ST' => 'STOP',
+                                    'RUN' => 'RUNNING',
+                                    'SBY' => 'STANDBY',
+                                    'U/L' => 'UNLOAD',
+                                    'B/D' => 'BREAKDOWN'
+                                );
+                                
+                                foreach ($options as $value => $label) {
+                                    echo "<option value=\"$value\">$label</option>";
+                                }                                
+                                echo "</select>";
+                                echo "</td>";
+                            } else {
+                                echo "<td>";
+                                echo "<select class='enum_long' name='{$fieldName}'>"; 
+                                include 'enum-running-standby.php';
+                                echo "</select>";
+                                echo "</td>";                            
+                            }
+                        }else if ($index == 2){
+                            if ($key === 1 || $key === 2 || $key === 3){
+                                echo "<td>";
+                                echo "<input type='number' step='0.01' class='input-field psi-input' name='$fieldName'>";
+                                echo "<button type='button' class='btn convert-btn' style='padding: 2px 1px; margin-bottom: 0px; margin-top: 2px; font-size: 10px' onclick='convertToBar(this)' style='margin-left: 5px;'>Konversi PSI ke Bar</button>";
+                                echo "</td>";
+                            } else {
+                                $inputrow = "<$dataType $dataClass name='$fieldName'>$enum</$dataType>";
+                                echo "<td>$inputrow</td>";        
+                            }
                         } else {
                         // Generate input row
                         $inputrow = "<$dataType $dataClass name='$fieldName'>$enum</$dataType>";
@@ -103,5 +133,6 @@
             </tr>
             </tbody>
         </table>
+        <span class="legalDoc" style="margin-top: -25px;">H1-OCAD-25-24R0</span><br><br>
         <button type="submit" class="btn" id="save-button">SAVE</button>
         </form>

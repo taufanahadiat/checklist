@@ -3,18 +3,6 @@ $unit = $_GET['selectedUnit']; // Get the 'unit' parameter from the query string
 require 'database.php';
 require 'request-monitor-tank-genset.php';
 
-// The allowed IP address
-$allowed_ip = array('131.107.7.210', '131.107.109.42');
-// Get the user's IP address
-$user_ip = $_SERVER['REMOTE_ADDR'];
-
-// Check if the user's IP matches the allowed IP
-if ($_SESSION["type_user"] !== '2' && !in_array($user_ip, $allowed_ip)) {
-    // If not, set an error message and redirect to selection.php
-    echo "<script>alert('Anda sedang tidak terhubung dengan WiFi di area Genset. Pastikan koneksi WiFi anda tidak terputus'); window.location.href = './selection.php';</script>";
-    exit();
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -48,7 +36,8 @@ if ($_SESSION["type_user"] !== '2' && !in_array($user_ip, $allowed_ip)) {
 <?php include 'header.php'; ?>
 <main>
     <h2>MONITORING FUEL DAY TANK GENSET WARTSILA</h2>
-    <table>
+                
+<table>
         <thead>
             <tr>
                 <th rowspan="3">No</th>

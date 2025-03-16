@@ -37,20 +37,11 @@ require 'request-trafo.php';
 <body>
 <?php include 'header.php'; ?>
 <main>
-<table style="width:55%;">    
+            
+<table>    
     <h2>Pengamanan Trafo Area Office</h2>
 
-    <form name="select-form-trafo" onsubmit="handleFormSubmit(event, 'option-form-trafo')">
-        <div class="custom-label-form"> 
-        <label for="unit-trafo">Change Line:</label>
-          <div class="unitfield-form">
-            <select class="selection-genset" name="unit-trafo" id="option-form-trafo">
               <?php include 'pilih-unit-trafo.php' ?>
-            </select>
-          </div>
-          <input style="margin-top: 20px" class="btn-form" type="submit" value="SUBMIT">
-          </div>
-      </form> 
     <form method="post">
 
     <thead>
@@ -65,30 +56,25 @@ require 'request-trafo.php';
 
         <?php
                 require 'database.php';
-                include 'request-view-trafo.php';
+                include 'request-view.php';
 
                 $currentNumber = 0;
 
                 $description = array(
                     "Kunci (gembok) Pintu 1", "Kunci (gembok) Pintu 2", "Trafo 15", "Panel MVDP", 
                     "Panel LVDP", "Cap Bank", "", "Tray Cable", "Grounding", "Exhaust Fan", "Lampu-lampu", 
-                    "Stop Kontak", "", "Sapu", "Alat Pel", "Kemoceng", "Pengki", "Tempat Sampah",
-                    "Trafo Genset/Power H", "Level Oli TRG 8 (IGBT)", "Level Oli TRG 9 (IGBT)", 
-                    "Level Oli TRG 10 (IGBT)", "Level Oli TRG 11 (IGBT)", "Level Oli TR 15 (IGBT)", 
-                    "Level Oli TR 1 (IGBT)", "Level Oli TR 2 (IGBT)", "Level Oli TR 3 (IGBT)"
+                    "Stop Kontak", "", "Sapu", "Alat Pel", "Kemoceng", "Pengki", "Tempat Sampah", "", "Level Oli TR 15 (IGBT)"
                 );
 
                 $fields = array(
                     'kunci_1', 'kunci_2', 'trafo_15', 'panel_mvdp', 'panel_lvdp', 'capbank', '',
                     'tray_cable', 'grounding', 'exhaust_fan', 'lampu', 'stop_kontak', '','sapu',
-                    'alat_pel', 'kemoceng', 'pengki' ,'tempat_sampah', '', 'lvl_oli_trg_8',
-                    'lvl_oli_trg_9', 'lvl_oli_trg_10', 'lvl_oli_trg_11', 'lvl_oli_tr_15', 'lvl_oli_tr_1', 
-                    'lvl_oli_tr_2', 'lvl_oli_tr_3'
+                    'alat_pel', 'kemoceng', 'pengki' ,'tempat_sampah', '', 'lvl_oli_tr_15'
                 );
 
                 $note = array('note_1', 'note_2', 'note_3', 'note_4', 'note_5', 'note_6', '', 'note_7', 
                 'note_8', 'note_9', 'note_10', 'note_11',  '', 'note_12', 'note_13', 'note_14', 'note_15', 
-                'note_16', '', 'note_17', 'note_18', 'note_19', 'note_20', 'note_21', 'note_22', 'note_23', 'note_24'
+                'note_16', '', 'note_17'
                 );
 
 
@@ -185,35 +171,6 @@ require 'request-trafo.php';
         $(".enum").prop("selectedIndex", -1);
         $(".input-field").val('');
 
-    function handleFormSubmit(event, selectId) {
-    event.preventDefault();
-
-    var selectElement = document.getElementById(selectId);
-    var selectedUnit = selectElement.value;    
-              
-            console.log('Selected <select> ID:', selectId);
-            console.log('Selected Value:', selectedUnit);
-
-            switch (selectedUnit) {
-                case 'trafo_daily_office':
-                    if (selectId === 'option-form-trafo' && selectedUnit) {
-                        location.href = 'form-trafo-daily-office.php?selectedUnit=' + encodeURIComponent(selectedUnit);
-                    } 
-                    break;                   
-                case 'trafo_daily_coating':
-                    if (selectId === 'option-form-trafo' && selectedUnit) {
-                        location.href = 'form-trafo-daily-coating.php?selectedUnit=' + encodeURIComponent(selectedUnit);
-                    }
-                    break; 
-                case 'trafo_daily_bopet':
-                    if (selectId === 'option-form-trafo' && selectedUnit) {
-                        location.href = 'form-trafo-daily-bopet.php?selectedUnit=' + encodeURIComponent(selectedUnit);
-                    }
-                    break; 
-                default:
-                    break;
-            }
-        }
-    </script>
+   </script>
 </body>
 </html>

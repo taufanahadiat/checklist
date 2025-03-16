@@ -29,37 +29,6 @@ if ($result && mysqli_num_rows($result) > 0) {
     $isVerified = $row['verifikasi'];
 }
 
-// Function to format the value
-function formatValue($value) {
-    if (is_numeric($value)) {
-        // If the value is a float and has .00 as decimals, return it as an integer
-        if (floor($value) == $value) {
-            return number_format(intval($value));
-        } else {
-            // Return the value formatted with commas but preserving its decimal part
-            return number_format($value, 2);
-        }
-    } else {
-        // Otherwise, return the original value
-        return $value;
-    }
-}
-
-// Example usage:
-//$value = 10.00;
-//echo formatValue($value); // Output: 10
-
-//$value = 10.50;
-//echo formatValue($value); // Output: 10.5
-
-//$value = 10000.00;
-//echo formatValue($value); // Output: 10,000
-//
-//$value = 10500.75;
-//echo formatValue($value); // Output: 10,500.75
-//
-//$value = 1000000;
-//echo formatValue($value); // Output: 1,000,000
 ?>
 
 <script>
@@ -75,7 +44,8 @@ function formatValue($value) {
                     method: 'POST',
                     data: {
                         field_to_clear: fieldToClear,
-                        unit: '<?php echo $unit; ?>' // Pass the unit parameter
+                        unit: '<?php echo $unit; ?>', // Pass the unit parameter
+                        bulan: '<?php echo $bulan; ?>'
                     },
                     success: function(response) {
                         // Reload the page after clearing the field

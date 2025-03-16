@@ -15,11 +15,11 @@ $allowed_ip = '';
 if($line === '4&5'){
     $allowed_ip = '131.107.7.210';
 }else if($line === '6&7'){
-    $allowed_ip = '131.107.7.211';
+    $allowed_ip = '131.107.7.217';
 }
 
 // Check if the user's IP matches the allowed IP
-if ($_SESSION["type_user"] !== '2' && $user_ip !== $allowed_ip) {
+if ($_SESSION["id"] !== '1' && $user_ip !== $allowed_ip) {
     // If not, set an error message and redirect to selection.php
     echo "<script>alert('Anda sedang tidak terhubung dengan WiFi di area compressor Line $line. Pastikan koneksi WiFi anda tidak terputus'); window.location.href = './selection.php';</script>";
     exit();
@@ -60,6 +60,21 @@ if ($_SESSION["type_user"] !== '2' && $user_ip !== $allowed_ip) {
         $(".input-field").val('');
 
     });
+
+    function convertToBar(button) {
+        // Find the corresponding input field
+        const inputField = button.previousElementSibling;
+        
+        // Parse the PSI value and convert it to Bar
+        const psiValue = parseFloat(inputField.value);
+        if (!isNaN(psiValue)) {
+            const barValue = (psiValue / 14.504).toFixed(2); // Convert and format to 2 decimals
+            inputField.value = barValue; // Update the input field
+            alert(`Converted to ${barValue} Bar`);
+        } else {
+            alert("Please enter a valid PSI value.");
+        }
+    }
 </script>
 </body>
 </html>

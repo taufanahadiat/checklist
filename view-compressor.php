@@ -1,13 +1,16 @@
 <?php
 
 include 'database.php';
-$unit = $_GET['selectedUnit']; 
-$line = $_GET['selectedLine'];
+$line = '4&5';
+$line67 = '6&7';
+$unit = 'compressor';
+$airDryer = 'air_dryer';
+$airReceiver = 'air_receiver_tank';
+
 $tanggal = $_GET['selectedDate'];
 
-include 'request-view-compressor.php';
+include 'request-view-all-compressor.php';
 ?>
-
 
 <!DOCTYPE html>
 <html>
@@ -23,12 +26,23 @@ include 'request-view-compressor.php';
 <body>
 <?php include 'header.php'?>
 <main>
-
+<?php include 'legend-compressor.php'?>
 <?php include 'switch-to-form.php'?>
 <?php
-    if($line === '4&5'){
+        $article_1 = null;
+        $article_2 = null;
+        $article_3 = null;
+
+    if($_GET['selectedLine'] === '45_compressor'){
+        echo "<h2>COMPRESSOR LINE 4,5,8 & BOPET</h2>";
+        include 'pilih-tanggal.php';
         include 'view-compressor45.php';
-    }else if($line === '6&7'){
+        echo '<hr style="border: 1px solid #000; width: 100%; margin: 20px 0;">';
+        echo "<h2>AIR DRYER LINE 4,5,8 & BOPET</h2>";
+        include 'view-air-dryer45.php';
+    }else if($_GET['selectedLine'] === '67_compressor'){
+        echo "<h2>COMPRESSOR LINE 6&7</h2>";
+        include 'pilih-tanggal.php';
         include 'view-compressor67.php';
     }
 ?>

@@ -30,6 +30,7 @@ if ($result && mysqli_num_rows($result) > 0) {
     $isVerified = $row['verifikasi'];
 }
 
+if(!isset($_GET['selectedLineAll'])){
 // Function to format the value
 function formatValue($value) {
     if (is_numeric($value)) {
@@ -44,6 +45,7 @@ function formatValue($value) {
         // Otherwise, return the original value
         return $value;
     }
+}
 }
 
 // Example usage:
@@ -76,7 +78,8 @@ function formatValue($value) {
                     method: 'POST',
                     data: {
                         field_to_clear: fieldToClear,
-                        type: '<?php echo $unit; ?>' 
+                        unit: '<?php echo $unit; ?>', 
+                        date: '<?php echo $tanggal; ?>' 
                     },
                     success: function(response) {
                         // Reload the page after clearing the field

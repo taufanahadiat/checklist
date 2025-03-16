@@ -1,12 +1,29 @@
-    <h2>AIR RECEIVER TANK <?php echo $line; ?></h2>
-    <?php include 'pilih-tanggal.php'; ?>
-    <?php if ($article_1 === null && $article_2 === null && $article_3 === null): ?>
+<?php
+
+$article_1 = null;
+$article_2 = null;
+$article_3 = null;
+
+if (isset($article_comp45_1)) {
+    $article_1 = $article_airReceiver45_1;
+}
+
+if (isset($article_airReceiver45_2)) {
+    $article_2 = $article_airReceiver45_2;
+}
+
+if (isset($article_airReceiver45_3)) {
+    $article_3 = $article_airReceiver45_3;
+}
+?>
+
+
+<?php if ($article_1 === null && $article_2 === null && $article_3 === null): ?>
             <p>Form ini belum terisi</p>
         <?php else: ?>
-        <?php include 'legend-air-receiver-tank.php';?>
-        <?php include 'verification-form.php';?>
     
-        <table>
+                    
+<table>
             <thead>
             <tr>
             <th>PARAMETER</th>
@@ -51,13 +68,15 @@
                     foreach ($models as $key => $model) {
                         $fieldName = strtolower(str_replace(" ", "_", $model)) . "_" . $fields[$index];
                         include 'indicator-air-receiver-tank.php';
-                        $formatted_value_1 = formatValue($article_1[$fieldName]);
+                        $formatted_value_1 = isset($article_1[$fieldName]) && $article_1[$fieldName] !== null ? formatValue($article_1[$fieldName]) : '';                    
                         echo "<td $style>$formatted_value_1</td>";
-
-                        $formatted_value_2 = formatValue($article_2[$fieldName]);
+                        $article_1[$fieldName] = null;
+                        include 'indicator-air-receiver-tank.php';
+                        $formatted_value_2 = isset($article_2[$fieldName]) && $article_2[$fieldName] !== null ? formatValue($article_2[$fieldName]) : '';                    
                         echo "<td $style>$formatted_value_2</td>";
-
-                        $formatted_value_3 = formatValue($article_3[$fieldName]);
+                        $article_2[$fieldName] = null;
+                        include 'indicator-air-receiver-tank.php';
+                        $formatted_value_3 = isset($article_3[$fieldName]) && $article_3[$fieldName] !== null ? formatValue($article_3[$fieldName]) : '';                    
                         echo "<td $style>$formatted_value_3</td>";
                         }
                             echo "</tr>";
@@ -72,30 +91,43 @@
                             
                 </tr>
                 <tr>
-                    <td colspan="5" style="height:32px;" class="pic"><?php echo $article_1['pic']?>&nbsp;&nbsp;<?php echo $article_1['time']?></td>
-                    <td colspan="5" style="height:32px;" class="pic"><?php echo $article_2['pic']?>&nbsp;&nbsp;<?php echo $article_2['time']?></td>
-                    <td colspan="5" style="height:32px;" class="pic"><?php echo $article_3['pic']?>&nbsp;&nbsp;<?php echo $article_3['time']?></td>
+                <td colspan="5" style="height:32px;" class="pic">
+                    <?php echo isset($article_1['pic']) && $article_1['pic'] !== null ? $article_1['pic'] : ''; ?>
+                    <br>
+                    <?php echo isset($article_1['time']) && $article_1['time'] !== null ? $article_1['time'] : ''; ?>
+                </td>
+                <td colspan="5" style="height:32px;" class="pic">
+                    <?php echo isset($article_2['pic']) && $article_2['pic'] !== null ? $article_2['pic'] : ''; ?>
+                    <br>
+                    <?php echo isset($article_2['time']) && $article_2['time'] !== null ? $article_2['time'] : ''; ?>
+                </td>
+                <td colspan="5" style="height:32px;" class="pic">
+                    <?php echo isset($article_3['pic']) && $article_3['pic'] !== null ? $article_3['pic'] : ''; ?>
+                    <br>
+                    <?php echo isset($article_3['time']) && $article_3['time'] !== null ? $article_3['time'] : ''; ?>
+                </td>
+
                     <td colspan="21" class="blank"></td>
                 </tr>
                 <tr>
-                <th class="measure2" colspan="3">Note</th>
-                            <td colspan="5"><?php echo $article_1['note']?></td>
-                            <td colspan="5"><?php echo $article_2['note']?></td>
-                            <td colspan="5"><?php echo $article_3['note']?></td>
+                <th class="measure2" colspan="3">Notes</th>
+                <td colspan="5">
+                    <?php echo isset($article_1['note']) && $article_1['note'] !== null ? $article_1['note'] : ''; ?>
+                </td>
+                <td colspan="5">
+                    <?php echo isset($article_2['note']) && $article_2['note'] !== null ? $article_2['note'] : ''; ?>
+                </td>
+                <td colspan="5">
+                    <?php echo isset($article_3['note']) && $article_3['note'] !== null ? $article_3['note'] : ''; ?>
+                </td>
+
                             <td colspan="21" class="blank"></td>
                 </tr>
 
                 </tbody>
                 </article>
         </table>
+        <span class="legalDoc" style="margin-top: -25px; left:0;">H1-CRT-23-24R0</span><br><br>
         <?php endif; ?>
 
-    </main>
-    <script>
-        document.getElementById("exit").onclick=function (){
-            location.href = 'selection.php'
-        }
-    </script>
 
-</body>
-</html>

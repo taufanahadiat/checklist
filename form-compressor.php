@@ -14,10 +14,10 @@ $allowed_ip = '';
 if($line === '4&5'){
     $allowed_ip = '131.107.7.210';
 }else if($line === '6&7'){
-    $allowed_ip = '131.107.7.211';
+    $allowed_ip = '131.107.7.217';
 }
 // Check if the user's IP matches the allowed IP
-if ($_SESSION["type_user"] !== '2' && $user_ip !== $allowed_ip) {
+if ($_SESSION["id"] !== '1' && $user_ip !== $allowed_ip) {
     // If not, set an error message and redirect to selection.php
     echo "<script>alert('Anda sedang tidak terhubung dengan WiFi di area compressor Line $line. Pastikan koneksi WiFi anda tidak terputus'); window.location.href = './selection.php';</script>";
     exit();

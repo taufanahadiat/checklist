@@ -37,20 +37,12 @@ require 'request-trafo.php';
 <body>
 <?php include 'header.php'; ?>
 <main>
-<table style="width:55%;"> 
+            
+<table> 
     <h2>Pengamanan Trafo Area Coating</h2>
 
-    <form name="select-form-trafo" onsubmit="handleFormSubmit(event, 'option-form-trafo')">
-        <div class="custom-label-form"> 
-        <label for="unit-trafo">Change Line:</label>
-          <div class="unitfield-form">
-            <select class="selection-genset" name="unit-trafo" id="option-form-trafo">
               <?php include 'pilih-unit-trafo.php' ?>
-            </select>
-          </div>
-          <input style="margin-top: 20px" class="btn-form" type="submit" value="SUBMIT">
-          </div>
-      </form>
+
         <thead>
         <tr>
             <th style="width:3%;">No</th>
@@ -63,7 +55,7 @@ require 'request-trafo.php';
         <form method="post">
         <?php
                 require 'database.php';
-                include 'request-view-trafo.php';
+                include 'request-view.php';
 
                 $currentNumber = 0;
 
@@ -172,33 +164,6 @@ require 'request-trafo.php';
         $(".enum").prop("selectedIndex", -1);
         $(".input-field").val('');
 
-    function handleFormSubmit(event, selectId) {
-    event.preventDefault();
-
-    var selectElement = document.getElementById(selectId);
-    var selectedUnit = selectElement.value;    
-              
-            console.log('Selected <select> ID:', selectId);
-            console.log('Selected Value:', selectedUnit);
-
-            switch (selectedUnit) {
-                case 'trafo_daily_office':
-                    if (selectId === 'option-form-trafo' && selectedUnit) {
-                        location.href = 'form-trafo-daily-office.php?selectedUnit=' + encodeURIComponent(selectedUnit);
-                    } 
-                    break;                   
-                case 'trafo_daily_coating':
-                    if (selectId === 'option-form-trafo' && selectedUnit) {
-                        location.href = 'form-trafo-daily-coating.php?selectedUnit=' + encodeURIComponent(selectedUnit);
-                    } 
-                case 'trafo_daily_bopet':
-                    if (selectId === 'option-form-trafo' && selectedUnit) {
-                        location.href = 'form-trafo-daily-bopet.php?selectedUnit=' + encodeURIComponent(selectedUnit);
-                    } 
-                default:
-                    break;
-            }
-        }
-    </script>
+      </script>
 </body>
 </html>

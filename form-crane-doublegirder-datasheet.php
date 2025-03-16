@@ -54,22 +54,9 @@ require 'request-crane.php';
 
 
 
-    <div id="select-unit-crane" class="custom-label-sub">
-        <form name="select-unit-crane" onsubmit="handleFormSubmit(event, 'option-unit-crane')">
-            <div class="custom-label-form">
-                <label for="option-unit-crane" >Form:</label>
-                <select style="margin-left: 10px" class="selection-line" name="unit-crane" id="option-unit-crane">
-                <option value="data_sheet">Data Sheet</option>
-                <option value="cek_kondisi">Pengecekan Kondisi</option>
-            </div>
-            <div>
-                <input style="margin-top: 20px; margin-left: 10px;" type="submit" class="btn-form" value="SUBMIT">
-            </div>
-        </form>
-    </div>
-    
-    <table style="width:90%;">
-        <thead>
+<table>
+<?php include 'pilih-form-crane.php'; ?>        
+<thead>
             <tr>
                 <th style="width:2.5%;">No</th>
                 <th style="width:25%;" colspan="2">DESCRIPTION</th>
@@ -113,7 +100,7 @@ require 'request-crane.php';
                 "Tegangan (V)", "Arus Motor Fast (A)", "Arus Motor Slow (A)", "Brake System",
                 "Tegangan (V)", "Arus Motor Fast (A)", "Arus Motor Slow (A)", "Brake System",
                 "Tegangan (V)", "Arus Motor Fast (A)", "Arus Motor Slow (A)", "Brake System",
-                "Perika & Cleaning", "Periksa & Kencangkan", "Push Button", "Kabel"
+                "Periksa & Cleaning", "Periksa & Kencangkan", "Push Button", "Kabel"
             );
         // Keterangan fields array
         $notes = array(
@@ -157,7 +144,6 @@ require 'request-crane.php';
                     echo '<th class="parameter" rowspan="2">8</th>';
                     echo '<th class="measure2" rowspan="2">Pendant Switch</th>';
                 } 
-
             }
 
             // Add the description and corresponding fields

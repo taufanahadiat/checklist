@@ -1,11 +1,24 @@
-    <h2>AIR DRYER LINE <?php echo $line; ?></h2>
-    <?php include 'pilih-tanggal.php'; ?>
-    <?php if ($article_1 === null && $article_2 === null && $article_3 === null): ?>
+<?php
+        $article_1 = null;
+        $article_2 = null;
+        $article_3 = null;
+
+if (isset($article_comp45_1)) {
+    $article_1 = $article_airDryer45_1;
+}
+
+if (isset($article_airDryer45_2)) {
+    $article_2 = $article_airDryer45_2;
+}
+
+if (isset($article_airDryer45_3)) {
+    $article_3 = $article_airDryer45_3;
+}
+?>
+
+<?php if ($article_1 === null && $article_2 === null && $article_3 === null): ?>
             <p>Form ini belum terisi</p>
         <?php else: ?>
-        <?php include 'legend-air-dryer.php' ?>
-        <?php include 'verification-form.php'?>
-
 
         <table>
             <thead>
@@ -18,6 +31,7 @@
             <th colspan="3">AD. SULLAIR 27</th>
             <th colspan="3">AD. SULLAIR 33</th>
             <th colspan="3">AD. SULLAIR 34</th>
+            <th colspan="3">AD. SULLAIR 36</th>
             <th colspan="3">AD. AUGUST 28</th>
             <th colspan="3">AD. AUGUST 29</th>
             <th colspan="3">AD. AUGUST 30</th>
@@ -27,7 +41,7 @@
             <tr>
                 <th colspan="3">Shift</th>
                 <?php
-                $sets = 10;
+                $sets = 11;
 
                 for ($i = 0; $i < $sets; $i++) {
                     for ($j = 1; $j <= 3; $j++) {
@@ -40,10 +54,10 @@
                 <article>
                 <tbody>
                 <?php
-                $models = array("adsullair23", "adsullair24", "adsullair27", "adsullair33", "adsullair34", "adaugust28", "adaugust29", "adaugust30", "adaugust31", "adaugust32");
+                $models = array("adsullair23", "adsullair24", "adsullair27", "adsullair33", "adsullair34", "adsullair36", "adaugust28", "adaugust29", "adaugust30", "adaugust31", "adaugust32");
                 $parameters = array("Machine Status", "Dew Point Temp.", "Ref. Low Press", "Pre Filter", "After Filter", "Auto Drain Solenoid", "Vibration");
                 $uom = array("-", "°C", "Bar", "-", "-", "-", "-");
-                $standard = array("-", "2 ~ 10", "4 ~ 10", "HJ", "HJ", "B", "H ~ S");
+                $standard = array("-", "2 ~ 10", "4 ~ 20", "HJ", "HJ", "B", "H ~ S");
                 $fields = array("machine_status", "dewpoint_temp", "reflow_press", "pre_filter", "after_filter", "autodrain_solenoid", "vibration");
                 
 
@@ -57,13 +71,15 @@
 
                         $fieldName = strtolower(str_replace(" ", "_", $model)) . "_" . $fields[$index];
                         include 'indicator-air-dryer.php';
-                        $formatted_value_1 = formatValue($article_1[$fieldName]);
+                        $formatted_value_1 = isset($article_1[$fieldName]) && $article_1[$fieldName] !== null ? formatValue($article_1[$fieldName]) : '';                    
                         echo "<td $style>$formatted_value_1</td>";
-
-                        $formatted_value_2 = formatValue($article_2[$fieldName]);
+                        $article_1[$fieldName] = null;
+                        include 'indicator-air-dryer.php';
+                        $formatted_value_2 = isset($article_2[$fieldName]) && $article_2[$fieldName] !== null ? formatValue($article_2[$fieldName]) : '';                    
                         echo "<td $style>$formatted_value_2</td>";
-
-                        $formatted_value_3 = formatValue($article_3[$fieldName]);
+                        $article_2[$fieldName] = null;
+                        include 'indicator-air-dryer.php';
+                        $formatted_value_3 = isset($article_3[$fieldName]) && $article_3[$fieldName] !== null ? formatValue($article_3[$fieldName]) : '';                    
                         echo "<td $style>$formatted_value_3</td>";
                         }
                             echo "</tr>";
@@ -78,20 +94,41 @@
                             
                 </tr>
                 <tr>
-                    <td colspan="5" style="height:32px;" class="pic"><?php echo $article_1['pic']?><br><?php echo $article_1['time']?></td>
-                    <td colspan="5" style="height:32px;" class="pic"><?php echo $article_2['pic']?><br><?php echo $article_2['time']?></td>
-                    <td colspan="5" style="height:32px;" class="pic"><?php echo $article_3['pic']?><br><?php echo $article_3['time']?></td>
+                <td colspan="5" style="height:32px;" class="pic">
+                    <?php echo isset($article_1['pic']) && $article_1['pic'] !== null ? $article_1['pic'] : ''; ?>
+                    <br>
+                    <?php echo isset($article_1['time']) && $article_1['time'] !== null ? $article_1['time'] : ''; ?>
+                </td>
+                <td colspan="5" style="height:32px;" class="pic">
+                    <?php echo isset($article_2['pic']) && $article_2['pic'] !== null ? $article_2['pic'] : ''; ?>
+                    <br>
+                    <?php echo isset($article_2['time']) && $article_2['time'] !== null ? $article_2['time'] : ''; ?>
+                </td>
+                <td colspan="5" style="height:32px;" class="pic">
+                    <?php echo isset($article_3['pic']) && $article_3['pic'] !== null ? $article_3['pic'] : ''; ?>
+                    <br>
+                    <?php echo isset($article_3['time']) && $article_3['time'] !== null ? $article_3['time'] : ''; ?>
+                </td>
+
                     <td colspan="21" class="blank"></td>
                 </tr>
                 <tr>
                 <th class="measure2" colspan="3">Notes</th>
-                            <td colspan="5"><?php echo $article_1['note']?></td>
-                            <td colspan="5"><?php echo $article_2['note']?></td>
-                            <td colspan="5"><?php echo $article_3['note']?></td>
+                <td colspan="5">
+                    <?php echo isset($article_1['note']) && $article_1['note'] !== null ? $article_1['note'] : ''; ?>
+                </td>
+                <td colspan="5">
+                    <?php echo isset($article_2['note']) && $article_2['note'] !== null ? $article_2['note'] : ''; ?>
+                </td>
+                <td colspan="5">
+                    <?php echo isset($article_3['note']) && $article_3['note'] !== null ? $article_3['note'] : ''; ?>
+                </td>
+
                             <td colspan="21" class="blank"></td>
                 </tr>
 
                 </tbody>
                 </article>
         </table>
+        <span class="legalDoc" style="margin-top: -25px; float:left;">H1-CAD-22-24R0</span><br><br>
         <?php endif; ?>

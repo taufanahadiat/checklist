@@ -3,18 +3,25 @@
                         $lt = 1.01;
                         $ut = 0.99;
 
-                        if (isset($existing_record) && isset($existing_record[$fieldName])) {
-                            $std = $existing_record[$fieldName];
-                        } elseif (isset($article) && isset($article[$fieldName])) {
+                        if (isset($_GET['selectedDate'])) {
                             $std = $article[$fieldName];
+                        } else{
+                            $std = $existing_record[$fieldName];
                         }
-                        if ((isset($existing_record) && isset($existing_record[$fieldName])) || (isset($article_1) && isset($article_1[$fieldName])) || (isset($article_2) && isset($article_2[$fieldName])) || (isset($article_3) && isset($article_3[$fieldName])) || isset($article) && isset($article[$fieldName])) {
-                            if ($field === 'oiltemp_inlet' && !($std >= 241 && $std <= 251)){
-                                $indicator = 1;
-                            } else if($field === 'oiltemp_inlet' && (($std >= 241 && $std <= 241*$lt) ||($std >= 251*$ut && $std <= 251))){
-                                $indicator = 2;
-                            }                  
-
+                        if ((isset($existing_record) && isset($existing_record[$fieldName])) || (isset($article) && isset($article[$fieldName]))) {
+                            if ($line == '7'){
+                                if ($field === 'oiltemp_inlet' && !($std >= 245 && $std <= 255)){
+                                    $indicator = 1;
+                                } else if($field === 'oiltemp_inlet' && (($std >= 245 && $std <= 245*$lt) ||($std >= 255*$ut && $std <= 255))){
+                                    $indicator = 2;
+                                }                  
+                            } else{
+                                if ($field === 'oiltemp_inlet' && !($std >= 241 && $std <= 251)){
+                                    $indicator = 1;
+                                } else if($field === 'oiltemp_inlet' && (($std >= 241 && $std <= 241*$lt) ||($std >= 251*$ut && $std <= 251))){
+                                    $indicator = 2;
+                                }                      
+                            }
                             if ($field === 'oiltemp_outlet' && !($std >= 255 && $std <= 265)){
                                 $indicator = 1;
                             } else if($field === 'oiltemp_outlet' && (($std >= 255 && $std <= 255*$lt) ||($std >= 265*$ut && $std <= 265))){
@@ -84,9 +91,9 @@
                         }
                         // Set the style based on the indicator
                         $style = "";
-                        if ($indicator === 1) {
+                        if ($indicator == 1) {
                             $style = "style='color: red;'";//red
-                        } elseif ($indicator === 2) {
+                        } elseif ($indicator == 2) {
                             $style = "style='color: #FFBF00;'";//yellow
 
                         }

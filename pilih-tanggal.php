@@ -6,8 +6,10 @@ if (isset($_GET['selectedDate'])) {
 } elseif (isset($_GET['selectedMonth'])) {
     $tanggal = "" . $_GET['selectedMonth']; 
     $date = DateTime::createFromFormat('Y-m', $tanggal);
+} elseif (isset($_GET['selectedMonth2'])) {
+    $tanggal = "" . $_GET['selectedMonth2']; 
+    $date = DateTime::createFromFormat('Y-m', $tanggal);
 }
-
 $formattedDate = $date ? $date->format(isset($_GET['selectedDate']) ? 'd F Y' : 'F Y') : '';
 
 if ($date) {
@@ -19,7 +21,7 @@ if(!isset($unit)){
 }
 ?>
 
-<?php if (isset($_GET['selectedMonth'])): ?>
+<?php if (isset($_GET['selectedMonth']) || isset($_GET['selectedMonth2'])): ?>
     <h2 style="margin-top: 5px; margin-bottom: 5px; font-size: 18px; font-weight:550;">── <?php echo $formattedDate ?> ──</h2>
 <?php else: ?>
     <h2 style="margin-top: -20px; margin-bottom: 5px; font-size: 18px; font-weight:550;">── <?php echo $formattedDate ?> ──</h2>
@@ -47,7 +49,7 @@ if(!isset($unit)){
             <label for="selectedDate" style="font-size:18px">Tanggal:</label>
             <div class="unitfield-form">
                 <!-- Show the appropriate input (date or month) based on the current selection -->
-                <?php if (isset($_GET['selectedMonth'])): ?>
+                <?php if (isset($_GET['selectedMonth']) || isset($_GET['selectedMonth2'])): ?>
                     <input type="month" id="selectedMonth" class="input-container" name="selectedMonth" style="margin-top:2px; height:25px">
                 <?php else: ?>
                     <input type="date" id="selectedDate" class="input-container" name="selectedDate" style="margin-top:2px; height:25px">
@@ -64,6 +66,10 @@ if(!isset($unit)){
             }
             if (isset($_GET['selectedLine'])) {
                 echo '<input type="hidden" name="selectedLine" value="' . htmlspecialchars($_GET['selectedLine']) . '">';
+            }
+
+            if (isset($_GET['selectedLineAll'])) {
+                echo '<input type="hidden" name="selectedLineAll" value="' . htmlspecialchars($_GET['selectedLineAll']) . '">';
             }
             ?>
         </div>
@@ -100,5 +106,4 @@ if (monthInput) {
         document.querySelector("form[method='GET']").submit();
     });
 }
-
 </script>

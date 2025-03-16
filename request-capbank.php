@@ -7,6 +7,22 @@ if (isset($_SESSION['name_user'])) {
     $name_user = $_SESSION['name_user']; // Access session variable
 }
 
+// Function to format the value
+function formatValue($value) {
+    if (is_numeric($value)) {
+        // If the value is a float and has .00 as decimals, return it as an integer
+        if (floor($value) == $value) {
+            return number_format(intval($value));
+        } else {
+            // Return the value formatted with commas but preserving its decimal part
+            return number_format($value, 2);
+        }
+    } else {
+        // Otherwise, return the original value
+        return $value;
+    }
+}
+
 $unit = $_GET['selectedUnit']; // Get the 'unit' parameter from the query string
 
 date_default_timezone_set('Asia/Jakarta'); // Set timezone to Asia/Jakarta

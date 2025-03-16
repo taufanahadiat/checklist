@@ -4,6 +4,8 @@ if (session_id() == '') {
 }
 require 'database.php';
 
+
+
 // Check if $bulan is set
 if (!isset($bulan)) {
     // If $bulan is not set, get the current month, name, and days in the current month
@@ -152,16 +154,20 @@ if (isset($_POST['synchronize'])) {
                     }
                 }
             } 
-            if (!isset($totalPerDay[$currentDate])) {
-                $totalPerDay[$currentDate] = 0;
+            //for View Report when no value
+            if (!isset($existing_value)){
+                if (!isset($totalPerDay[$currentDate])) {
+                    $totalPerDay[$currentDate] = 0;
+                }
+                $check_sql = "SELECT * FROM konsumsi_gas WHERE tanggal = '$currentDate'";
+                $check_result = mysqli_query($conn, $check_sql);
+    
+                $existing_row = mysqli_fetch_assoc($check_result);
+                $existing_value = $existing_row[$lineToColumnMap[$line]]; // Get the current value of the column
+                $totalPerDay[$currentDate] += is_numeric($existing_value) ? $existing_value : 0; // Add only numeric values to total\
             }
-            $check_sql = "SELECT * FROM konsumsi_gas WHERE tanggal = '$currentDate'";
-            $check_result = mysqli_query($conn, $check_sql);
-
-            $existing_row = mysqli_fetch_assoc($check_result);
-            $existing_value = $existing_row[$lineToColumnMap[$line]]; // Get the current value of the column
-            $totalPerDay[$currentDate] += is_numeric($existing_value) ? $existing_value : 0; // Add only numeric values to total
         }
+
     }
 
     // After processing all lines, update total_pemakaian_m3, total_pemakaian_sm3, mmbtu, and selisih_sm3 for each day
@@ -189,34 +195,9 @@ if (isset($_POST['synchronize'])) {
                 // Prepare the update SQL query for data_harian_widar
                 $update_sql = "UPDATE konsumsi_gas SET data_harian_widar = '$sanitizedValue' WHERE tanggal = '$date'";
                 mysqli_query($conn, $update_sql);
-    
-                // Get the total gas usage for that date
-                if (isset($totalPerDay[$date])) {
-                    $total = $totalPerDay[$date];
-    
-                    // Calculate sm3 using the provided formula
-                    $sm3 = round($total * ((1.01325 + 2) / 1.01559) * (288.71 / (273.15 + 31)) * (1 + (0.0002 * 2)));
-    
-                    // Calculate selisih_sm3
-                    $selisih_sm3 = $sanitizedValue - $sm3;
-    
-                    // Update selisih_sm3 in the database
-                    $selisih_sql = "UPDATE konsumsi_gas SET selisih_sm3 = $selisih_sm3 WHERE tanggal = '$date'";
-                    mysqli_query($conn, $selisih_sql);
-                }
             }
         }
-    } else{
-        if (isset($totalPerDay[$currentDate])) {
-            $total = $totalPerDay[$currentDate];
-
-            // Calculate sm3 using the provided formula
-            $sm3 = round($total * ((1.01325 + 2) / 1.01559) * (288.71 / (273.15 + 31)) * (1 + (0.0002 * 2)));
-
-            // Calculate selisih_sm3
-            $selisih_sm3 = $sanitizedValue - $sm3;
-        }
-    }
+    } 
 
     if (isset($_POST['mmbtu_widar'])) {
         foreach ($_POST['mmbtu_widar'] as $date => $value) {
@@ -227,26 +208,9 @@ if (isset($_POST['synchronize'])) {
                 // Prepare the update SQL query for mmbtu_widar
                 $update_sql = "UPDATE konsumsi_gas SET mmbtu_widar = '$sanitizedValue' WHERE tanggal = '$date'";
                 mysqli_query($conn, $update_sql);
-    
-                // Get the total gas usage for that date
-                if (isset($totalPerDay[$date])) {
-                    $total = $totalPerDay[$date];
-    
-                    // Calculate sm3 using the provided formula
-                    $sm3 = round($total * ((1.01325 + 2) / 1.01559) * (288.71 / (273.15 + 31)) * (1 + (0.0002 * 2)));
-                    $mmbtu = round($sm3 / 27.4954);
-    
-                    // Calculate selisih_mmbtu
-                    $selisih_mmbtu = $sanitizedValue - $mmbtu ;
-    
-                    // Update selisih_mmbtu in the database
-                    $selisih_sql = "UPDATE konsumsi_gas SET selisih_mmbtu = $selisih_mmbtu WHERE tanggal = '$date'";
-                    mysqli_query($conn, $selisih_sql);
-                }
             }
         }
-    }
-    
+    } 
     
 
     echo "<script>alert('Synchronization successful!'); window.location.href = window.location.href;</script>";

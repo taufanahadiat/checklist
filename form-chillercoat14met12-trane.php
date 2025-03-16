@@ -9,7 +9,7 @@ $allowed_ip = array('131.107.7.212', '131.107.7.213');
 $user_ip = $_SERVER['REMOTE_ADDR'];
 
 // Check if the user's IP matches the allowed IP
-if ($_SESSION["type_user"] !== '2' && !in_array($user_ip, $allowed_ip)) {
+if ($_SESSION["id"] !== '1' && !in_array($user_ip, $allowed_ip)) {
     // If not, set an error message and redirect to selection.php
     echo "<script>alert('Anda sedang tidak terhubung dengan WiFi di area Chiller MET1~2 & Coating. Pastikan koneksi WiFi anda tidak terputus'); window.location.href = './selection.php';</script>";
     exit();
@@ -47,7 +47,8 @@ if ($_SESSION["type_user"] !== '2' && !in_array($user_ip, $allowed_ip)) {
         </form>
     </div>
     
-    <table>
+                
+<table>
         <thead>
             <tr>
                 <th rowspan="2">DESCRIPTION</th>

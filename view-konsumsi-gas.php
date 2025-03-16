@@ -4,18 +4,6 @@ $bulan = $_GET['selectedMonth'];
 require_once 'database.php';
 require 'request-konsumsi-gas.php';
 
-// The allowed IP address
-$allowed_ip = array('131.107.7.210', '131.107.109.42');
-// Get the user's IP address
-$user_ip = $_SERVER['REMOTE_ADDR'];
-
-// Check if the user's IP matches the allowed IP
-if ($_SESSION["type_user"] !== '2' && !in_array($user_ip, $allowed_ip)) {
-    // If not, set an error message and redirect to selection.php
-    echo "<script>alert('Anda sedang tidak terhubung dengan WiFi di area Genset. Pastikan koneksi WiFi anda tidak terputus'); window.location.href = './selection.php';</script>";
-    exit();
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -48,7 +36,9 @@ if ($_SESSION["type_user"] !== '2' && !in_array($user_ip, $allowed_ip)) {
 <?php include 'header.php'; ?>
 <main>
     <h2>VIEW REPORT KONSUMSI GAS<br>Bulan: <?php echo $monthName; ?></h2>
-    <table style="overflow-x: auto; display: block; width: 100%; max-height: 700px; overflow-y: auto; table-layout: auto;">
+    <button class="btn" style="float:left; margin:0;" onclick="exportTableToExcel('tableGas', 'data_report', <?php echo $daysInMonth; ?>);">Export to Excel</button>
+                
+<table id="tableGas" style="overflow-x: auto; display: block; width: 100%; max-height: 700px; overflow-y: auto; table-layout: auto;">
     <form method="post">
         <thead>
             <tr>
@@ -310,18 +300,17 @@ echo "<script>
     for ($i = 1; $i <= $daysInMonth; $i++) {
         $day = str_pad($i, 2, '0', STR_PAD_LEFT);
 
-        // Combine $tanggal (yyyy-mm) with $day to create the full yyyy-mm-dd format
         $full_date = "$bulan-$day";
 
         // Fetch the existing value from the database
-        $query = "SELECT selisih_sm3 FROM konsumsi_gas WHERE tanggal = '$full_date'";
+        $query = "SELECT * FROM konsumsi_gas WHERE tanggal = '$full_date'";
         $result = mysqli_query($conn, $query);
         $row = mysqli_fetch_assoc($result);
 
         // Display the selisih_sm3 value if it exists, otherwise display a placeholder
-        if (isset($row['selisih_sm3'])) {
-            $existingSelisihSm3 = htmlspecialchars($row['selisih_sm3']); // Sanitize output
-            echo '<td>' . $existingSelisihSm3 . '</td>';
+        if (isset($row['data_harian_widar'])) {
+            $selisihSm3 = $row['data_harian_widar'] - $row['total_pemakaian_sm3']; // Sanitize output
+            echo '<td>' . $selisihSm3 . '</td>';
         } else {
             echo '<td>-</td>'; // Display 'N/A' if no value exists
         }
@@ -358,18 +347,17 @@ echo "<script>
     for ($i = 1; $i <= $daysInMonth; $i++) {
         $day = str_pad($i, 2, '0', STR_PAD_LEFT);
 
-        // Combine $tanggal (yyyy-mm) with $day to create the full yyyy-mm-dd format
         $full_date = "$bulan-$day";
 
         // Fetch the existing value from the database
-        $query = "SELECT selisih_mmbtu FROM konsumsi_gas WHERE tanggal = '$full_date'";
+        $query = "SELECT * FROM konsumsi_gas WHERE tanggal = '$full_date'";
         $result = mysqli_query($conn, $query);
         $row = mysqli_fetch_assoc($result);
 
-        // Display the selisih_mmbtu value if it exists, otherwise display a placeholder
-        if (isset($row['selisih_mmbtu'])) {
-            $existingSelisihMMBTU = htmlspecialchars($row['selisih_mmbtu']); // Sanitize output
-            echo '<td>' . $existingSelisihMMBTU . '</td>';
+        // Display the selisih_sm3 value if it exists, otherwise display a placeholder
+        if (isset($row['mmbtu_widar'])) {
+            $selisihMMBTU = $row['mmbtu_widar'] - $row['mmbtu']; // Sanitize output
+            echo '<td>' . $selisihMMBTU . '</td>';
         } else {
             echo '<td>-</td>'; // Display 'N/A' if no value exists
         }
@@ -378,11 +366,13 @@ echo "<script>
 </tr>
             </tbody>
     </table>
+    <span class="legalDoc" style="margin-top: -20px;">H1-RKG-13-24R0</span><br>
     <button type="submit" id='sync' name="synchronize" class="btn" style="display: none;">Synchronize</button>
     <button id='editButton' onclick='enableEditMode(event)' class="btn">Edit</button>
 
     </form>
 </main>
+<script src="js/exceljs.min.js"></script>
 <script>
 document.getElementById("exit").onclick = function() {
     location.href = 'selection.php';
@@ -481,8 +471,111 @@ function goToViewBoiler(selectedLine, selectedMonth) {
             td.dataset.editable = 'false'; // Mark the cell as not editable anymore
         }
     }
+    function editCell(td, date, column) {
+    const currentValue = td.innerText;
+    const input = document.createElement('input');
+    input.type = 'number';
+    input.value = currentValue === '-' ? '' : currentValue;
+    input.classList.add('input-field');
 
+    td.innerHTML = ''; // Clear the cell
+    td.appendChild(input);
+    input.focus();
 
+    // Create the save button
+    const saveButton = document.createElement('button');
+    saveButton.innerText = 'Save';
+    saveButton.onclick = function() {
+        let newValue = parseFloat(input.value); // Convert input to a number
+
+        if (!isNaN(newValue)) {
+            newValue = (newValue + 0.1).toFixed(1); // Add 0.1 to the input value and format it to 1 decimal place
+        } else {
+            newValue = ''; // If the input value is not a number, handle it gracefully
+        }
+
+        // AJAX request to save the new value
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'update-konsumsi-gas.php', true); // URL to your PHP save script
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                // Check the response from the server
+                if (xhr.responseText.trim() === 'Success') {
+                    const integerValueToShow = Math.floor(newValue); // Convert to integer for display
+                    td.innerHTML = integerValueToShow || '-'; // Update the cell with the new value
+                } else {
+                    alert('Error saving value. Please try again.'); // Error message
+                    td.innerHTML = currentValue; // Restore the original value on error
+                }
+            } else {
+                alert('Error saving value. Please try again.'); // General error message
+                td.innerHTML = currentValue; // Restore the original value on error
+            }
+        };
+        xhr.send('date=' + encodeURIComponent(date) + '&column=' + encodeURIComponent(column) + '&value=' + encodeURIComponent(newValue));
+    };
+
+    td.appendChild(saveButton);
+}
+
+async function exportTableToExcel(tableID, filename, daysInMonth) {
+    // Determine the correct template based on daysInMonth
+    let templateFile;
+    switch (daysInMonth) {
+        case 31:
+            templateFile = "Template/konsumsiGas31.xlsx";
+            break;
+        case 30:
+            templateFile = "Template/konsumsiGas30.xlsx";
+            break;
+        case 29:
+            templateFile = "Template/konsumsiGas29.xlsx";
+            break;
+        case 28:
+            templateFile = "Template/konsumsiGas28.xlsx";
+            break;
+        default:
+            console.error("Invalid daysInMonth value!");
+            return;
+    }
+
+    // Load ExcelJS Workbook
+    const workbook = new ExcelJS.Workbook();
+    await workbook.xlsx.load(fetch(templateFile).then(res => res.arrayBuffer()));
+
+    const worksheet = workbook.getWorksheet('Sheet1');
+    if (!worksheet) {
+        console.error("Worksheet tidak ditemukan!");
+        return;
+    }
+
+    const table = document.getElementById(tableID);
+    const rows = table.querySelectorAll("tr");
+
+    let startRow = 3;
+    let startCol = 2;
+    rows.forEach((row) => {
+        const cells = row.querySelectorAll("td");
+        cells.forEach((cell, cellIndex) => {
+            let excelCell = worksheet.getCell(startRow, startCol + cellIndex);
+            excelCell.value = cell.innerText;
+        });
+
+        startRow++;
+    });
+
+    const buffer = await workbook.xlsx.writeBuffer();
+    const blob = new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+    
+    // Create download link and trigger download
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = filename + ".xlsx";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
 </script>
 </body>
 </html>

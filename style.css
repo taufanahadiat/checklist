@@ -66,6 +66,42 @@
         justify-content: flex-start; /* Align children at the start (top) */
         align-items: flex-start; /* Center items horizontally */
     }
+
+    #custom-confirm {
+        display: none;
+        position: fixed;    
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #314765;
+        padding: 20px;
+        border: 1px solid black;
+        z-index: 1000;
+        box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+        color:beige;
+        border-radius: 10px;
+    }
+
+    #custom-confirm h2 {
+        margin-top: 0;
+        color: red;
+    }
+    #custom-confirm-buttons {
+        text-align: right;
+    }
+    #custom-confirm-buttons button {
+        margin-left: 10px;
+    }
+    #overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+        z-index: 500;
+    }
     table{
         width: 100%;
         display: inline-table;
@@ -75,6 +111,14 @@
         margin-bottom: 30px;
         margin-left: auto;
         margin-right: auto;
+    }
+    #mainMenu{
+        width: 100%;
+        display: inline-table;
+        margin-left: auto;
+        margin-right: auto;
+        justify-content: center; 
+        align-items: center; 
     }
     td{
         text-align: center;
@@ -104,6 +148,17 @@
     .parameter{
         background-color: #314765;
         width: 70px;
+    }
+
+    .head-check{
+        white-space: nowrap;
+        min-width: 50px;
+    }
+
+    .parameter-check{
+        background-color: #314765;
+        width: 70px;
+        min-width: 60px;
     }
 
     .parameter-setting{
@@ -542,7 +597,7 @@
     font-weight: bold;
 }
 
-.enum , .input-field, .enum_long{
+.enum , .input-field, .enum_long, .enum_stop{
     width: 100%;
     height: 25px;
     text-align: center;
@@ -550,15 +605,17 @@
     cursor: pointer;
 }
 .input-field{
+    min-width: 50px;
     max-width: 65px;
     cursor: text;
     box-sizing: border-box;
 }
-.enum_long{
+.enum_long, .enum_stop{
     max-width: 85px;
 }
 
 .enum{
+    min-width: 50px;
     max-width: 65px; 
 }
 
@@ -602,7 +659,7 @@
     color:grey; 
     padding: 2px 5px; 
     height: 10px; 
-    word-wrap: break-word;
+    white-space: nowrap;
 }
 
 .note {
@@ -770,9 +827,27 @@
             padding-top: 5px; /* Adjust based on header height */
         }
 
+        .checker-container {
+            position: absolute;
+            padding-top: 5px; /* Adjust based on header height */
+        }
+
         /* Legend button styling */
         .legend-btn {
             top: 10px;
+            left: 20px;
+            width: 100px;
+            background-color: #314765;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 12px;
+            border-radius: 5px;
+            z-index: 1000; /* Keep the button on top */
+        }
+
+        .checker-btn {
             left: 20px;
             width: 100px;
             background-color: #314765;
@@ -806,13 +881,19 @@
         .legend-table th, .legend-table td {
             border: 1px solid black;
             padding: 3px;
-            text-align: left;
+            text-align: center;
             font-size:12px;
         }
 
         .legend-table th {
             background-color: #333;
             font-size:12px;
+        }
+
+        .legend-table tbody th {
+            background-color: #446494;
+            font-size:12px;
+            text-align: left;
         }
 
         .menu-option.active {
@@ -847,7 +928,172 @@
         td.hover-enabled:hover {
             background-color: #a1b7d2;
         }
+
+        .rectangle-box {
+            width: 75px; /* Width of the rectangle */
+            height: 30px; /* Height of the rectangle */
+            background-color: #f0f0f0; /* Background color of the rectangle */
+            border: 1px solid #ccc; /* Optional: border color */
+            display: flex;
+            margin: auto;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px; /* Optional: rounded corners for a softer look */
+        }
+
+        .rectangle-value {
+            font-size: 14px; /* Adjust font size for the value */
+            color: #000; /* Text color */
+        }
         
+        
+        .sticky-column {
+            position: sticky;
+            left: 0;
+            z-index: 2; /* Ensures the sticky columns are above other cells */
+            border-right: 3px solid black; /* Optional: Adds a visual border for the sticky columns */
+        }
+
+        /* Apply a different left offset for the second sticky column */
+        .sticky-column:nth-child(2) {
+            left: 40px; /* Adjust this based on the width of the first column */
+            z-index: 2; /* Ensure it stays above other content */
+            border-right: 3px solid black; /* Ensure the border of the second sticky column is visible */
+        }
+
+        .sticky-column-head {
+            position: sticky;
+            left: 0;
+            background-color: #333;
+            z-index: 2; /* Ensure it stays above other content */
+            border-right: 3px solid black; /* Optional: Adds a visual border for the sticky columns */
+        }
+
+        /* Apply a different left offset for the second sticky column */
+        .sticky-column-head:nth-child(2) {
+            left: 40px; /* Adjust this based on the width of the first column */
+            z-index: 2; /* Ensure it stays above other content */
+            border-right: 3px solid black; /* Ensure the border of the second sticky column is visible */
+        }
+
+        .legalDoc{
+            color: #314765;
+            font-size: 16px;
+            font-weight: 800;
+        }
+
+        .verifShowTime{
+            display:inline;
+        }
+
+        .leaderCheck{
+            width:50px;
+            white-space: nowrap;
+            text-align: left;
+        }
+
+        .leaderCheck, .monthCheck, .craneCheck {
+            cursor: pointer;
+        }
+
+                /* Scroll to Top Button */
+    #scrollToTopBtn {
+        position: fixed;
+        bottom: 20px;
+        right: 30px;
+        width: 55px;
+        height: 55px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        display: none; /* Initially hidden */
+        justify-content: center;
+        align-items: center;
+        font-size: 30px; /* Icon size */
+        z-index: 3;
+      }
+  
+      #scrollToTopBtn:hover {
+        background-color: #0056b3;
+      }
+  
+      #scrollToTopBtn i {
+        margin: 0;
+      }
+
+      .clickToPlot {
+        position: relative;
+        cursor: pointer;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      }
+      
+      .clickToPlot:hover {
+        background-color: rgba(18, 18, 18, 0.282); /* Subtle hover effect */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
+      }
+      
+      /* Tooltip styles */
+      .clickToPlot::after {
+        content: attr(data-tooltip); /* Use the 'data-tooltip' attribute for the tooltip text */
+        position: absolute;
+        top: 100%; /* Place below the element */
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: rgba(6, 6, 6, 0.73); /* Dark background for the tooltip */
+        color: #fff; /* White text */
+        padding: 5px 10px;
+        border-radius: 4px;
+        font-size: 12.5px;
+        white-space: nowrap;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+        pointer-events: none;
+      }
+      
+      .clickToPlot:hover::after {
+        z-index: 3;
+        opacity: 1; /* Show the tooltip */
+        visibility: visible;
+      }
+
+      #chart {
+        position: fixed;    
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #314765;
+        padding: 20px;
+        border: 1px solid black;
+        z-index: 1000;
+        box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+        color:beige;
+        border-radius: 10px;
+    }
+    
+    #chart-buttons {
+        text-align: right;
+    }
+    #chart-buttons button {
+        margin-left: 10px;
+    }
+    #overlay_chart {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.2);
+        z-index: 500;
+    }
+      
+        
+
+    
+
 @media (max-width: 1000px) {
     .container {
         flex-direction: column;
@@ -858,8 +1104,61 @@
     }
     h1{
         text-align: left;
-        margin-left: 20px;
+        margin-left: 10px;
     }
+
+    .img {
+        width: 200px;
+    }
+
+    #menu-form{
+        width: 270px;
+        height: 280px;
+    }
+
+    #menu-view{
+        width: 270px;
+        height: 280px;
+    }
+    
+    table{
+        overflow-x: auto; 
+        display: block; 
+        width:100%; 
+        table-layout: auto;
+    }
+
+    h3 {
+        margin-top:20px;
+    }
+
+
+    h2, h4{
+        text-align: left;
+        margin-left: 10px;
+        margin-right: 0px;
+    }
+
+    .custom-label-sub, .custom-label-form{
+        text-align: left;
+        margin-left: 10px;
+        margin-right: 0; 
+        float: left;
+    }
+
+    .verifShowTime{
+        display:block; 
+        text-align:right;
+    }
+
+    .img-container{
+        display: none;
+    }
+
+    .legend-container {
+        margin-top: 100px;
+    }
+
 }
 
 /* Adjust font size based on viewport width */

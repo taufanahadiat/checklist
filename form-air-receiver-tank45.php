@@ -1,6 +1,7 @@
     <h2>AIR RECEIVER TANK LINE OPP <?php echo $line; ?></h2>
     <h4>SHIFT <?php echo $shift;?></h4>
-        <table>
+                    
+<table>
         <?php include 'pilih-unit-compressor.php'; ?>
             <thead>
             <tr>
@@ -98,5 +99,6 @@
 
             </tbody>
         </table>
+        <span class="legalDoc" style="margin-top: -25px;">H1-CRT-23-24R0</span><br><br>
         <button type="submit" class="btn" id="save-button">SAVE</button>
     </form>
