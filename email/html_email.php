@@ -2,10 +2,10 @@
 require '../database.php'; // Include database connection
 
 $verifiers = [
-    "Guruh Juniawan"   => ["daily_areas" => ["chiller", "compressor", "genset"], "monthly_areas" => [], "email" => "guruh.juniawan@arghakarya.co.id"],
-    "Arya Bima Putra"  => ["daily_areas" => ["boiler"], "monthly_areas" => [], "email" => "arya.bima@arghakarya.co.id"],
-    "Nano Hartono"     => ["daily_areas" => ["trafo"], "monthly_areas" => ["trafo_pm", "capbank_lvdp", "panel_lvdp"], "email" => "nano.hartono@arghakarya.co.id"],
-    "Syamsul Pandiangan" => ["daily_areas" => ["boiler"], "monthly_areas" => ["crane"], "email" => "syamsul.pandi@arghakarya.co.id"],
+    "Guruh Juniawan"   => ["daily_areas" => ["chiller", "compressor", "genset"], "monthly_areas" => [], "email" => "guruh@arghakarya.co.id"],
+    "Arya Bima Putra"  => ["daily_areas" => ["boiler"], "monthly_areas" => [], "email" => "arya@arghakarya.co.id"],
+    "Nano Hartono"     => ["daily_areas" => ["trafo"], "monthly_areas" => ["trafo_pm", "capbank_lvdp", "panel_lvdp"], "email" => "nano@arghakarya.co.id"],
+    "Syamsul Pandiangan" => ["daily_areas" => ["boiler"], "monthly_areas" => ["crane"], "email" => "syamsul@arghakarya.co.id"],
     "Hermansyah"       => ["daily_areas" => ["chiller", "compressor", "genset", "trafo"], "monthly_areas" => ["trafo_pm", "capbank_lvdp", "panel_lvdp"], "email" => "hermansyah@arghakarya.co.id"],
     "Teiffur Zaman"  => ["daily_areas" => [], "monthly_areas" => ["crane"], "email" => "teiffur@arghakarya.co.id"]
 ];
@@ -307,7 +307,7 @@ if (!empty($uniqueNames) || !empty($addedAreas)) { // Only generate email if the
     $html .= '<p>Dimohon untuk segera dikonfirmasi dan dilakukan pengecekan di link berikut:<br> 
     <a href="http://131.107.251.10/checklist/" target="_blank">http://131.107.251.10/checklist/</a><br> 
     (Jika link tidak berfungsi, <i>copy</i> link di atas dan <i>paste</i> ke browser Anda)</p>';
-    $html .= "<p>Regards,<br>Arghapedia Admin <i>(ext. 1602)</i></p>";
+    $html .= "<p>Regards,<br>Arghapedia Admin <i>(ext: 1602)</i></p>";
     $html .= "<p><i style='color: blue;'>This is an automated email. Please do not reply to this email.</i></p>";
 }
 

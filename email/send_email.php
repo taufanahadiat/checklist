@@ -6,7 +6,13 @@ require '/opt/lampp/htdocs/vendor/autoload.php'; // Include PHPMailer
 
 $mail = new PHPMailer(true);
 
-include 'html_gmail_trial.php'; // Include the HTML content
+include 'html_email.php'; // Include the HTML content
+
+$ccmail = [
+//    "Fuad Hasan"   => "fuad@arghakarya.co.id",
+//    "Iwan Hermawan"    => "iwan.hermawan@arghakarya.co.id",
+    "Taufan Ahadiat"   => "taufan.ahadiat@arghakarya.co.id"
+];
 
 try {
     // SMTP Configuration

@@ -307,7 +307,7 @@ if (!empty($uniqueNames) || !empty($addedAreas)) { // Only generate email if the
     $html .= '<p>Dimohon untuk segera dikonfirmasi dan dilakukan pengecekan di link berikut:<br> 
     <a href="http://131.107.251.10/checklist/" target="_blank">http://131.107.251.10/checklist/</a><br> 
     (Jika link tidak berfungsi, <i>copy</i> link di atas dan <i>paste</i> ke browser Anda)</p>';
-    $html .= "<p>Regards,<br>Arghapedia Admin <i>(ext. 1602)</i></p>";
+    $html .= "<p>Regards,<br>Arghapedia Admin <i>(ext: 1602)</i></p>";
     $html .= "<p><i style='color: blue;'>This is an automated email. Please do not reply to this email.</i></p>";
 }
 
