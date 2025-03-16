@@ -226,7 +226,7 @@ if (!empty($uniqueNames)) { // Only generate email if there are missing records
                 if (!empty($dates)) { // Ensure the area has missing dates
                     $formattedArea = isset($checklistForms[$area]['name']) ? $checklistForms[$area]['name'] : ucfirst($area); // Get the name from $checklistForms
                     $formattedDates = formatDates($dates);
-                    $html .= "<li>Area&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;<strong>$formattedArea</strong><br>Tanggal&nbsp;:&nbsp;$formattedDates</li><br>";
+                    $html .= "<li>Area&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;<strong>$formattedArea</strong><br>Tanggal&nbsp;:&nbsp;$formattedDates</li>";
                 }
             }
 
