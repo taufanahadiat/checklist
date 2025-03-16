@@ -295,7 +295,7 @@ if (!empty($missingChecklist)) {
             if (!empty($dates) && !isset($addedAreas[$area])) {
                 $formattedArea = isset($checklistForms[$area]['name']) ? $checklistForms[$area]['name'] : ucfirst($area); // Get the name from $checklistForms
                 $formattedDates = formatDates($dates);
-                $html .= "<li>Area&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;<strong>$formattedArea</strong><br>Tanggal&nbsp;:&nbsp;$formattedDates</li><br>";
+                $html .= "<li>Area&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;<strong>$formattedArea</strong><br>Tanggal&nbsp;:&nbsp;$formattedDates</li>";
                 $addedAreas[$area] = true; // Mark this area as added
             }
         }
