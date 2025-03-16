@@ -17,13 +17,23 @@ $ccmail = [
 try {
     // SMTP Configuration
     $mail->isSMTP();
-    $mail->Host       = $_ENV['SMTP_HOST'];
+    $mail->Host       = 'mail.arghakarya.co.id'; // Your SMTP server
     $mail->SMTPAuth   = true;
-    $mail->Username   = $_ENV['SMTP_USERNAME'];
-    $mail->Password   = $_ENV['SMTP_PASSWORD'];
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-    $mail->Port       = 587;
-    //$mail->SMTPDebug  = 2; // Set to 0 for production
+    $mail->Username   = 'arghapedia@arghakarya.co.id'; // Your email
+    $mail->Password   = 'KSJSU012425'; // Replace with actual password
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // SSL encryption
+    $mail->Port       = 465; // SSL port
+    //$mail->SMTPDebug  = 2; 
+    $mail->SMTPAutoTLS = false;
+
+    // ✅ Disable SSL verification
+    $mail->SMTPOptions = array(
+        'ssl' => array(
+            'verify_peer' => false,
+            'verify_peer_name' => false,
+            'allow_self_signed' => true
+        )
+    );
 
     // Collect unique recipient emails from $recepientEmails
     $recipients = [];
