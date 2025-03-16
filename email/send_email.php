@@ -51,10 +51,8 @@ try {
 
     // Sender & Recipient
     $mail->setFrom('arghapedia@arghakarya.co.id', 'Arghapedia');
-    foreach ($recipients as $email => $infos) {
-        foreach ($infos as $info) {
-            $mail->addAddress($email, $info['name']);
-        }
+    foreach ($recipients as $email => $name) {
+        $mail->addAddress($email, $name);
     }
 
     foreach ($ccmail as $name => $email) {
