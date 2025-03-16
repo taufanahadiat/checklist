@@ -34,8 +34,8 @@ $missingRecords = [];
 
 $today = date('Y-m-d');
 $sevenDaysAgo = date('Y-m-d', strtotime('-7 days', strtotime($today)));
-$startDate = '2025-02-03';
-$startMonth = '2025-02';
+$startDate = '2025-03-03';
+$startMonth = '2025-03';
 
 // Daily Report Checker
 $sql = "SELECT area, tanggal, verifikasi_name_1, verifikasi_name_2, verifikasi_name_3, verifikasi_name_4 
@@ -71,6 +71,11 @@ foreach ($verifiers as $name => $info) {
     $dateToCheck = $sevenDaysAgo;
     while (strtotime($dateToCheck) >= strtotime($startDate)) {
         foreach ($info['daily_areas'] as $area) {
+            $dayOfWeek = date('N', strtotime($dateToCheck)); // 1 (for Monday) through 7 (for Sunday)
+            if ($area === 'trafo' && ($dayOfWeek == 6 || $dayOfWeek == 7)) {
+                // Skip Saturdays and Sundays for "trafo"
+                continue;
+            }
             if (!isset($data[$dateToCheck][$area]) || !in_array($name, $data[$dateToCheck][$area])) {
                 $missingRecords[$varName]['missing_areas'][$area][] = $dateToCheck;
                 
@@ -88,6 +93,11 @@ foreach ($verifiers as $name => $info) {
         $dateToCheck = date('Y-m-d', strtotime('+1 day', strtotime($sevenDaysAgo)));
         while (strtotime($dateToCheck) < strtotime($today)) { 
             foreach ($info['daily_areas'] as $area) {
+                $dayOfWeek = date('N', strtotime($dateToCheck)); // 1 (for Monday) through 7 (for Sunday)
+                if ($area === 'trafo' && ($dayOfWeek == 6 || $dayOfWeek == 7)) {
+                    // Skip Saturdays and Sundays for "trafo"
+                    continue;
+                }
                 if (!isset($data[$dateToCheck][$area]) || !in_array($name, $data[$dateToCheck][$area])) {
                     $missingRecords[$varName]['missing_areas'][$area][] = $dateToCheck;
                 }
